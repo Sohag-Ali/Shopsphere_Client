@@ -1,8 +1,10 @@
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
+import useUser from "../../../hooks/useUser";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
+  const [userData] = useUser();
   const handleLogout = () => {
     logoutUser()
       .then(() => {
@@ -31,9 +33,29 @@ const Navbar = () => {
         <NavLink to="/public-lessons">Public Lessons</NavLink>
       </li>
 
-      <li>
-        <NavLink to="/pricing">Pricing</NavLink>
-      </li>
+      {/* pricing for free users */}
+    {
+      user && !userData?.isPremium && (
+
+        <li>
+          <NavLink to="/pricing">
+            Pricing
+          </NavLink>
+        </li>
+      )
+    }
+
+    {/* premium badge */}
+    {
+      userData?.isPremium && (
+
+        <li>
+          <button className="btn btn-warning btn-sm">
+            Premium ⭐
+          </button>
+        </li>
+      )
+    }
 
       {user && (
         <>

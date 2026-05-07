@@ -12,6 +12,8 @@ import MyLessons from "../pages/Dashboard/MyLesson/MyLessons";
 import AddLesson from "../pages/Dashboard/AddLesson/AddLesson";
 import Favorites from "../pages/Dashboard/Favorites/Favorites";
 import Profile from "../pages/Dashboard/Profile/Profile";
+import PaymentSuccess from "../pages/Pricing/PaymentSuccess";
+import PaymentCancel from "../pages/Pricing/PaymentCancel";
 
 
 
@@ -34,8 +36,14 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
           <Pricing></Pricing>
         </PrivateRoute>
-          
-        
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess
+      },
+      {
+        path: "payment-cancel",
+        Component: PaymentCancel
       }
     ]
   },
