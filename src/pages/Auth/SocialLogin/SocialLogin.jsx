@@ -39,7 +39,7 @@ const SocialLogin = () => {
             <div className="divider">OR</div>
             
                     {/* Google Login */}
-                    <button className="btn btn-outline w-full flex items-center gap-2" onClick={handleGoogleLogin}>
+                    <button className="btn btn-outline flex items-center w-full py-4 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md  justify-center gap-3 text-white font-medium text-lg hover:bg-white/15 transition-all duration-300" onClick={handleGoogleLogin}>
                       <FcGoogle size={20} />
                       Continue with Google
                     </button>

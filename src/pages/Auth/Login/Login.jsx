@@ -1,107 +1,194 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import toast from "daisyui/components/toast";
+
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import Swal from "sweetalert2";
+import loginImg from "../../../assets/loginImage.jpeg"
 
 
 
 const Login = () => {
+
 const {register, handleSubmit, formState: {errors}} = useForm();
 const {loginUser} = useAuth();
 const location = useLocation();
 const navigate = useNavigate();
+
 const  handleLogin = (data) => {
+
   console.log(data);
   loginUser(data.email, data.password)
   .then(result => {
     const user = result.user;
     console.log(user);
-    toast.success("Login successful!");
+    Swal.fire({
+    title: "Login successful!",
+    icon: "success",
+    draggable: true
+      });
+    // toast.success("Login successful!");
     navigate(location?.state || "/"); // Redirect to the page they were trying to access or the home page
   })
   .catch(error => {
     console.error(error);
-    toast.error("Login failed. Please check your credentials and try again.");
+    Swal.fire({
+      title: "Login failed!",
+      icon: "error",
+      draggable: true
+    });
+    // toast.error("Login failed. Please check your credentials and try again.");
   });
 }
 
-         return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+        return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0F172A] via-[#312E81] to-[#7C3AED] flex items-center justify-center px-4 py-10">
 
-      <div className="card w-full max-w-md bg-base-100 shadow-2xl p-6">
-        
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Welcome Back 👋
-        </h2>
+      {/* Main Container */}
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-3xl shadow-2xl bg-white/10 backdrop-blur-lg border border-white/20">
 
-        <form className="space-y-4" onSubmit={handleSubmit(handleLogin)}>
+        {/* LEFT SIDE - LOGIN FORM */}
+        <div className="bg-white/10 backdrop-blur-xl border-r border-white/10 p-8 md:p-14 flex flex-col justify-center">
 
-          {/* Email */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              {...register("email", {required: true})}
-              placeholder="Enter your email"
-              className="input input-bordered focus:input-primary w-full"
-              required
-            />
-            {errors.email?.type === "required" && (
-              <p className="text-red-500 text-sm">Email is required</p>
-            )}
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold text-white/70">
+              Sign In To Your Journey ✨
+            </h2>
+
+            {/* <p className="text-gray-200 mt-3">
+              Continue your journey of wisdom, growth and life lessons.
+            </p> */}
           </div>
 
-          {/* Password */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type="password"
-              {...register("password", {required: true,
-                minLength: {value: 6,
-                message: "Password must be at least 6 characters"
-              }})
-              }
-              placeholder="Enter your password"
-              className="input input-bordered focus:input-primary w-full"
-              required
-            />
-            {errors.password?.type === "required" && (
-              <p className="text-red-500 text-sm">Password is required</p>
-            )}
-            {errors.password?.type === "minLength" && (
-              <p className="text-red-500 text-sm">Password must be at least 6 characters</p>
-            )}
-            <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
-                Forgot password?
-              </a>
-            </label>
+          <form className="space-y-5" onSubmit={handleSubmit(handleLogin)}>
+
+            {/* Email */}
+            <div>
+              <label className="block mb-2 font-medium text-gray-200">
+                Email
+              </label>
+
+              <input
+                type="email"
+                {...register("email", { required: true })}
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 text-white placeholder:text-gray-300 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/30 transition backdrop-blur-md"
+              />
+
+              {errors.email?.type === "required" && (
+                <p className="text-red-500 text-sm mt-1">
+                  Email is required
+                </p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block mb-2 font-medium text-gray-200">
+                Password
+              </label>
+
+              <input
+                type="password"
+                {...register("password", {
+                  required: true,
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                placeholder="Enter your password"
+                className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 text-white placeholder:text-gray-300 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/30 transition backdrop-blur-md"
+              />
+
+              {errors.password?.type === "required" && (
+                <p className="text-red-500 text-sm mt-1">
+                  Password is required
+                </p>
+              )}
+
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-500 text-sm mt-1">
+                  Password must be at least 6 characters
+                </p>
+              )}
+
+              <div className="text-right mt-2">
+                <a
+                  href="#"
+                  className="text-sm text-violet-300 hover:text-violet-200 hover:underline"
+                >
+                  Forgot password?
+                </a>
+              </div>
+            </div>
+
+            {/* Login Button */}
+            <button className="w-full py-3 rounded-xl bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#4F46E5] hover:from-[#8B5CF6] hover:via-[#7C3AED] hover:to-[#4338CA] text-white font-semibold hover:scale-[1.02] transition duration-300 shadow-lg">
+              Login
+            </button>
+          </form>
+
+          {/* Social Login */}
+          <div className="mt-6">
+            <SocialLogin />
           </div>
 
-          {/* Login Button */}
-          <button className="btn btn-primary w-full mt-2">
-            Login
-          </button>
-        </form>
+          {/* Register */}
+          <p className="text-center mt-6 text-gray-200">
+            Don’t have an account?{" "}
+            <Link
+              state={location.state}
+              to="/register"
+              className="text-violet-300 hover:text-violet-200 font-semibold hover:underline"
+            >
+              Register
+            </Link>
+          </p>
+        </div>
 
-        <SocialLogin></SocialLogin>
+        {/* RIGHT SIDE - IMAGE SECTION */}
+        <div className="hidden lg:flex relative items-center justify-center overflow-hidden">
 
-        {/* Register Link */}
-        <p className="text-center mt-4 text-sm">
-          Don’t have an account?{" "}
-          <Link
-           state={location.state}
-           to="/register" className="link link-primary font-semibold">
-            Register
-          </Link>
-        </p>
+          {/* Background Image */}
+          <img
+            src={loginImg}
+            alt="Login Visual"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          {/* Content */}
+          <div className="relative z-10 text-white px-10 text-center">
+
+            <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-6">
+              Your Journey <br /> Your Lessons
+            </h1>
+
+            <p className="text-lg text-gray-200 leading-relaxed">
+              Preserve your memories, reflections and life experiences
+              in one meaningful digital space.
+            </p>
+
+            {/* Small Badge */}
+            <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
+
+              <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-full border border-white/20">
+                📖 12K+ Lessons
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-full border border-white/20">
+                ⭐ Premium Wisdom
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
 export default Login;

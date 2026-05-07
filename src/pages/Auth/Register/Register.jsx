@@ -1,4 +1,4 @@
-import toast from "daisyui/components/toast";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -6,9 +6,12 @@ import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import registerImg from "../../../assets/loginImage.jpeg"
 
 
 const Register = () => {
+
    const [show, setShow] = useState(false);
    const {register, handleSubmit, formState: {errors}} = useForm();
    const {registerUser, updateUserProfile} = useAuth();
@@ -20,6 +23,7 @@ const Register = () => {
 
    const  handleRegister = (data) => {
     console.log(data);
+
     registerUser(data.email, data.password, data.name, data.photoUrl)
     .then(result => {
       const user = result.user;
@@ -50,116 +54,211 @@ const Register = () => {
         console.error("Error updating profile:", error);
       });
 
-      toast.success("Registration successful!");
+      //toast.success("Registration successful!");
+      Swal.fire({
+        title: "Registration successful!",
+        icon: "success",
+        draggable: true
+      });
     })
     .catch(error => {
       console.error(error);
-      toast.error("Registration failed. Please try again.");
+      Swal.fire({
+        title: "Registration failed!",
+        icon: "error",
+        draggable: true
+      });
+      
+      //toast.error("Registration failed. Please try again.");
     });
    }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+   return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0F172A] via-[#312E81] to-[#7C3AED] flex items-center justify-center px-4 py-10">
 
-      <div className="card w-full max-w-md bg-base-100 shadow-2xl p-6">
+      {/* Main Container */}
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.45)] bg-white/10 backdrop-blur-lg border border-white/10">
 
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Create Account 🚀
-        </h2>
+        {/* LEFT SIDE */}
+        <div className="bg-white/10 backdrop-blur-xl border-r border-white/10 p-8 md:p-14 flex flex-col justify-center">
 
-        <form className="space-y-4" onSubmit={handleSubmit(handleRegister)}>
+          {/* Heading */}
+          <div className="mb-8">
 
-          {/* Name */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input
-              type="text"
-              {...register("name", {required: true})}
-              placeholder="Enter your name"
-              className="input input-bordered focus:input-primary w-full"
-              required
-            />
-            {errors.name && <span className="text-red-500 text-sm mt-1">Name is required</span>}
+            <h2 className="text-4xl font-bold text-white/70 leading-tight">
+              Create Your Account ✨
+            </h2>
+
+            {/* <p className="text-gray-200 mt-4 text-lg leading-relaxed">
+              Create your account and preserve your thoughts,
+              wisdom and meaningful life experiences.
+            </p> */}
           </div>
 
-          {/* Photo URL */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Photo URL</span>
-            </label>
-            <input
-              type="text"
-              {...register("photoUrl")}
-              placeholder="Enter your photo URL"
-              className="input input-bordered focus:input-primary w-full"
-            />
-            
-          </div>
+          {/* FORM */}
+          <form
+            className="space-y-5"
+            onSubmit={handleSubmit(handleRegister)}
+          >
 
-          {/* Email */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              {...register("email", {required: true})}
-              placeholder="Enter your email"
-              className="input input-bordered focus:input-primary w-full"
-              required
-            />
-            {errors.email?.type === "required" && (
-              <p className="text-red-500 text-sm">Email is required</p>
-            )}
-          </div>
+            {/* NAME */}
+            <div>
+              <label className="block mb-2 font-medium text-gray-200">
+                Name
+              </label>
 
-          {/* Password */}
-          <div className="form-control">
-            <label className="label flex justify-between">
-              <span className="label-text">Password</span>
-              <span
-                onClick={() => setShow(!show)}
-                className="text-xs cursor-pointer link"
-              >
-                {show ? "Hide" : "Show"}
-              </span>
-            </label>
-            <input
-              type={show ? "text" : "password"}
-                {...register("password", {required: true,
-                    minLength: {value: 6, message: "Password must be at least 6 characters"},
-                    pattern: {value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/, message: "Must include uppercase & lowercase letters and a number"}
+              <input
+                type="text"
+                {...register("name", { required: true })}
+                placeholder="Enter your name"
+                className="w-full px-4 py-3 rounded-2xl bg-white/10 border border-white/15 text-gray-100 placeholder:text-gray-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 hover:bg-white/15 transition-all duration-300 backdrop-blur-md"
+              />
+
+              {errors.name && (
+                <span className="text-red-400 text-sm mt-1">
+                  Name is required
+                </span>
+              )}
+            </div>
+
+            {/* PHOTO URL */}
+            <div>
+              <label className="block mb-2 font-medium text-gray-200">
+                Photo URL
+              </label>
+
+              <input
+                type="text"
+                {...register("photoUrl")}
+                placeholder="Enter your photo URL"
+                className="w-full px-4 py-3 rounded-2xl bg-white/10 border border-white/15 text-gray-100 placeholder:text-gray-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 hover:bg-white/15 transition-all duration-300 backdrop-blur-md"
+              />
+            </div>
+
+            {/* EMAIL */}
+            <div>
+              <label className="block mb-2 font-medium text-gray-200">
+                Email
+              </label>
+
+              <input
+                type="email"
+                {...register("email", { required: true })}
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 rounded-2xl bg-white/10 border border-white/15 text-gray-100 placeholder:text-gray-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 hover:bg-white/15 transition-all duration-300 backdrop-blur-md"
+              />
+
+              {errors.email?.type === "required" && (
+                <p className="text-red-400 text-sm mt-1">
+                  Email is required
+                </p>
+              )}
+            </div>
+
+            {/* PASSWORD */}
+            <div>
+              <label className="flex justify-between mb-2 font-medium text-gray-200">
+
+                <span>Password</span>
+
+                <span
+                  onClick={() => setShow(!show)}
+                  className="text-sm cursor-pointer text-violet-300 hover:text-violet-200 transition"
+                >
+                  {show ? "Hide" : "Show"}
+                </span>
+              </label>
+
+              <input
+                type={show ? "text" : "password"}
+                {...register("password", {
+                  required: true,
+                  minLength: {
+                    value: 6,
+                    message:
+                      "Password must be at least 6 characters",
+                  },
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/,
+                    message:
+                      "Must include uppercase & lowercase letters and a number",
+                  },
                 })}
-              placeholder="Enter your password"
-              className="input input-bordered focus:input-primary w-full"
-              required
-            />
-             {errors.password && (
-              <p className="text-red-500 text-sm">
-                {errors.password.message}
-              </p>
-            )}
+                placeholder="Enter your password"
+                className="w-full px-4 py-3 rounded-2xl bg-white/10 border border-white/15 text-gray-100 placeholder:text-gray-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 hover:bg-white/15 transition-all duration-300 backdrop-blur-md"
+              />
+
+              {errors.password && (
+                <p className="text-red-400 text-sm mt-2">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* BUTTON */}
+            <button className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#4F46E5] hover:from-[#8B5CF6] hover:via-[#7C3AED] hover:to-[#4338CA] text-white font-semibold text-lg hover:scale-[1.02] hover:shadow-[0_10px_40px_rgba(124,58,237,0.45)] transition-all duration-300">
+              Create Account
+            </button>
+          </form>
+
+          {/* SOCIAL LOGIN */}
+          <div className="mt-6">
+            <SocialLogin />
           </div>
 
-          {/* Register Button */}
-          <button className="btn btn-primary w-full mt-2">
-            Register
-          </button>
-        </form>
+          {/* LOGIN LINK */}
+          <p className="text-center mt-6 text-gray-200">
+            Already have an account?{" "}
+            <Link
+              state={location.state}
+              to="/login"
+              className="text-violet-300 hover:text-violet-200 font-semibold transition"
+            >
+              Login
+            </Link>
+          </p>
+        </div>
 
-        <SocialLogin></SocialLogin>
+        {/* RIGHT SIDE */}
+        <div className="hidden lg:flex relative items-center justify-center overflow-hidden">
 
-        {/* Login Link */}
-        <p className="text-center mt-4 text-sm">
-          Already have an account?{" "}
-          <Link 
-          state={location.state}
-          to="/login" className="link link-primary font-semibold">
-            Login
-          </Link>
-        </p>
+          {/* IMAGE */}
+          <img
+            src={registerImg}
+            alt="Register Visual"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+
+          {/* OVERLAY */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          {/* CONTENT */}
+          <div className="relative z-10 text-white px-10 text-center">
+
+            <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-6">
+              Build Your <br /> Digital Wisdom
+            </h1>
+
+            <p className="text-lg text-gray-200 leading-relaxed">
+              Join a meaningful platform where your lessons,
+              reflections and personal growth stories live forever.
+            </p>
+
+            {/* BADGES */}
+            <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
+
+              <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-full border border-white/20">
+                🌱 Personal Growth
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-full border border-white/20">
+                📖 Life Reflections
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
