@@ -14,6 +14,7 @@ import Favorites from "../pages/Dashboard/Favorites/Favorites";
 import Profile from "../pages/Dashboard/Profile/Profile";
 import PaymentSuccess from "../pages/Pricing/PaymentSuccess";
 import PaymentCancel from "../pages/Pricing/PaymentCancel";
+import UpdateLesson from "../pages/Dashboard/MyLesson/UpdateLesson";
 
 
 
@@ -81,6 +82,12 @@ export const router = createBrowserRouter([
         {
           path: 'add-lesson',
           element: <AddLesson></AddLesson>
+        },
+        {
+          path: 'update-lesson/:id',
+          element: <PrivateRoute>
+            <UpdateLesson></UpdateLesson>
+          </PrivateRoute>
         },
         {
           path: 'favorites',
