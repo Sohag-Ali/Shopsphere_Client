@@ -16,6 +16,7 @@ import PaymentSuccess from "../pages/Pricing/PaymentSuccess";
 import PaymentCancel from "../pages/Pricing/PaymentCancel";
 import UpdateLesson from "../pages/Dashboard/MyLesson/UpdateLesson";
 import LessonDetails from "../pages/DetailsPage/LessonDetails";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 
 
 
@@ -79,10 +80,10 @@ export const router = createBrowserRouter([
       <DashboardLayout></DashboardLayout>
     </PrivateRoute>,
       children: [
-        // {
-        //   index: true,
-        //   element: <div>Dashboard Home</div>
-        // },
+        {
+          index: true,
+          element: <DashboardHome></DashboardHome>
+        },
         {
           path: 'my-lessons',
           element: <MyLessons></MyLessons>
