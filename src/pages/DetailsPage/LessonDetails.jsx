@@ -8,6 +8,7 @@ import SimilarLesson from "./SimilarLesson";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useUser from "../../hooks/useUser";
+import InteractionButton from "./InteractionButton";
 
 
 const LessonDetails = () => {
@@ -17,7 +18,7 @@ const LessonDetails = () => {
 
    const axiosSecure = useAxiosSecure();
 
-   const { data: lesson = {} } = useQuery({
+   const { data: lesson = {}, refetch } = useQuery({
 
       queryKey: ['lesson', id],
 
@@ -79,6 +80,7 @@ const LessonDetails = () => {
             <AuthorSection lesson={lesson} />
 
             <EngagementSection lesson={lesson} />
+            <InteractionButton lesson={lesson} refetch={refetch} />
 
             <CommentSection lesson={lesson} />
 
