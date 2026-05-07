@@ -15,6 +15,7 @@ import Profile from "../pages/Dashboard/Profile/Profile";
 import PaymentSuccess from "../pages/Pricing/PaymentSuccess";
 import PaymentCancel from "../pages/Pricing/PaymentCancel";
 import UpdateLesson from "../pages/Dashboard/MyLesson/UpdateLesson";
+import LessonDetails from "../pages/DetailsPage/LessonDetails";
 
 
 
@@ -32,6 +33,13 @@ export const router = createBrowserRouter([
         Component: PublicLessons
        
       },
+      {
+        path: "/lesson-details/:id",
+        element: <PrivateRoute>
+          <LessonDetails></LessonDetails>
+         </PrivateRoute>
+      },
+     
       {
         path: "pricing",
         element: <PrivateRoute>

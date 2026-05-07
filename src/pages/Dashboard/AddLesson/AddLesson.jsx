@@ -44,7 +44,7 @@ const AddLesson = () => {
 
             creatorEmail: user?.email,
 
-            createdAt: new Date(),
+            creatorPhoto: user?.photoURL,
          };
 
          const res = await axiosSecure.post(
