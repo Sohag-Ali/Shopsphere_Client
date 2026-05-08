@@ -1,155 +1,318 @@
 import { Link, NavLink, Outlet } from "react-router";
 import useUser from "../hooks/useUser";
+import Container from "../coponents/Container/Container";
+import { BiAddToQueue } from "react-icons/bi";
+import { GiNotebook } from "react-icons/gi";
+import { TbFileLike } from "react-icons/tb";
+import { FaUsersCog } from "react-icons/fa";
+import { FaBookMedical } from "react-icons/fa";
+import { MdReport } from "react-icons/md";
 
+const navLinkClass = ({ isActive }) =>
+      `
+      flex
+      items-center
+      gap-3
+      rounded-2xl
+      px-4
+      py-3
+      transition-all
+      duration-300
+      ${
+        isActive
+          ? "bg-[#2A3142] border-[#4B5563] text-[#0dddcc] font-medium shadow-md"
+          : "text-gray-300 font-medium hover:shadow-lg hover:shadow-purple-500/20"
+      }
+    `
+    ;
+                 
 
 const DashboardLayout = () => {
   const [userData] = useUser();
 
+  return (
+    <div className="drawer lg:drawer-open bg-[#0F172A] text-white min-h-screen">
+      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        {/* Navbar */}
+        <nav       className="navbar sticky top-0 z-50 w-full bg-[#111827]/80 backdrop-blur-xl border-b border-white/10 px-6"
+        >
+          <label
+            htmlFor="my-drawer-4"
+            aria-label="open sidebar"
+            className="btn btn-square btn-ghost"
+          >
+            {/* Sidebar toggle icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2"
+              fill="none"
+              stroke="currentColor"
+              className="my-1.5 inline-block size-4"
+            >
+              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+              <path d="M9 4v16"></path>
+              <path d="M14 10l2 2l-2 2"></path>
+            </svg>
+          </label>
+          <div className="px-4 text-xl font-bold text-white">
+            Life Spark Dashboard
+          </div>
+        </nav>
+        {/* Page content here */}
 
-    return (
-        <div className="drawer lg:drawer-open">
-  <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-  <div className="drawer-content">
-    {/* Navbar */}
-    <nav className="navbar w-full bg-base-300">
-      <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
-        {/* Sidebar toggle icon */}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
-      </label>
-      <div className="px-4">Life Spark Dashboard</div>
-    </nav>
-    {/* Page content here */}
+        <Container>
+          <Outlet></Outlet>
+        </Container>
+      </div>
 
-    <Outlet></Outlet>
-    
-  </div>
+      <div className="drawer-side is-drawer-close:overflow-visible">
+        <label
+          htmlFor="my-drawer-4"
+          aria-label="close sidebar"
+          className="drawer-overlay"
+        ></label>
+        <div
+          className=" flex min-h-full flex-col items-start bg-[#111827] border-r border-white/10 backdrop-blur-xl is-drawer-close:w-14 is-drawer-open:w-72 transition-all duration-300 is-drawer-close:w-14 is-drawer-open:w-64"
+        >
+          {/* Sidebar content here */}
+          <ul className="menu w-full grow p-4 space-y-2">
+            <li>
+              <NavLink
+                to="/"
+                className={navLinkClass}
+              >
+                {/* Home icon */}
+                {/* <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  fill="none"
+                  stroke="currentColor"
+                  className="my-1.5 inline-block size-4"
+                >
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg> */}
+                <span className="text-2xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
+          LifeLessons ✨
+        </span>
+              </NavLink>
+            </li>
 
-  <div className="drawer-side is-drawer-close:overflow-visible">
-    <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-    <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-      {/* Sidebar content here */}
-      <ul className="menu w-full grow">
-       <li>
-          <Link to='/' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-            {/* Home icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span className="is-drawer-close:hidden">Website</span>
-          </Link>
-        </li>
+            {userData?.role === "user" && (
+              <>
+                {/* List item */}
 
+                <li>
+                  <NavLink
+                    to="/dashboard/user-home"
+                    className={navLinkClass}
+                    data-tip="Homepage"
+                  >
+                    {/* Home icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="currentColor"
+                      className="my-1.5 inline-block size-4 "
+                    >
+                      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                      <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    <span className="is-drawer-close:hidden">Homepage</span>
+                  </NavLink>
+                </li>
 
-         {
-      userData?.role === "user" &&
-      (
-         <>
-        {/* List item */}
+                <li>
+                  <NavLink
+                    to="/dashboard/add-lesson"
+                    className={navLinkClass}
+                    data-tip="Add Lesson"
+                  >
+                    {/* Add Lesson icon */}
+                   
+                   <BiAddToQueue />
+                    <span className="is-drawer-close:hidden">Add Lesson</span>
+                  </NavLink>
+                </li>
 
-        <li>
-          <Link to='/dashboard/user-home' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-            {/* Home icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span className="is-drawer-close:hidden">Homepage</span>
-          </Link>
-        </li>
-        
-        <li>
-            <NavLink to="/dashboard/add-lesson" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Add Lesson">
-              {/* Add Lesson icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
-              <span className="is-drawer-close:hidden">Add Lesson</span>
-            </NavLink>
-        </li>
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to="/dashboard/my-lessons"
+                    className={navLinkClass}
+                    data-tip="My Lessons"
+                  >
+                    {/* My Lessons icon */}
+                    {/* <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="currentColor"
+                      className="my-1.5 inline-block size-4"
+                    >
+                      <path d="M12 5v14"></path>
+                      <path d="M5 12h14"></path>
+                    </svg> */}
+                    <GiNotebook />
+                    <span className="is-drawer-close:hidden">My Lessons</span>
+                  </NavLink>
+                </li>
 
-        {/* List item */}
-        <li>
-          <NavLink to="/dashboard/my-lessons" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Lessons">
-            {/* My Lessons icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
-            <span className="is-drawer-close:hidden">My Lessons</span>
-          </NavLink>
-        </li>
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to="/dashboard/favorites"
+                    className={navLinkClass}
+                    data-tip="Favorites"
+                  >
+                    {/* Favorites icon */}
+                  
+                    <TbFileLike />
+                    <span className="is-drawer-close:hidden">Favorites</span>
+                  </NavLink>
+                </li>
 
-        
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to="/dashboard/profile"
+                    className={navLinkClass}
+                    data-tip="Profile"
+                  >
+                    {/* Profile icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="currentColor"
+                      className="my-1.5 inline-block size-4"
+                    >
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span className="is-drawer-close:hidden">Profile</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
-        {/* List item */}
-        <li>
-          <NavLink to="/dashboard/favorites" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Favorites">
-            {/* Favorites icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M12 21.35l-1.75 -3.77 3.61 -3.61-1.79 -1.86 3.68 -3.68 3.68 3.68-1.79 1.86 3.61 3.61-1.75 3.77z"></path></svg>
-            <span className="is-drawer-close:hidden">Favorites</span>
-          </NavLink>
-        </li>
+            {userData?.role === "admin" && (
+              <>
+                <li>
+                  <NavLink
+                    to="/dashboard/admin-home"
+                    className={navLinkClass}
+                    data-tip="Homepage"
+                  >
+                    {/* Home icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="currentColor"
+                      className="my-1.5 inline-block size-4"
+                    >
+                      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                      <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    <span className="is-drawer-close:hidden">
+                      Homepage
+                    </span>
+                  </NavLink>
+                </li>
 
-        {/* List item */}
-         <li>
-          <NavLink to="/dashboard/profile" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Profile">
-            {/* Profile icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span className="is-drawer-close:hidden">Profile</span>
-          </NavLink>
-        </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/admin/manage-users"
+                    className={navLinkClass}
+                    data-tip="Manage Users"
+                  >
+                    {/* Home icon */}
+                    <FaUsersCog />
+                    <span className="is-drawer-close:hidden">
+                      Manage Users{" "}
+                    </span>
+                  </NavLink>
+                </li>
 
-         </>
-      )
-   }
+                <li>
+                  <NavLink
+                    to="/dashboard/admin/manage-lessons"
+                    className={navLinkClass}
+                    data-tip="Manage Lessons"
+                  >
+                    {/* Home icon */}
+                    <FaBookMedical />
+                    <span className="is-drawer-close:hidden">
+                      Manage Lessons
+                    </span>
+                  </NavLink>
+                </li>
 
-     {
-      userData?.role === "admin" &&
-      (
-         <>
-        <li>
-          <Link to='/dashboard/admin-home' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-            {/* Home icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span className="is-drawer-close:hidden">Admin Homepage</span>
-          </Link>
-        </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/admin/reported-lessons"
+                    className={navLinkClass}
+                    data-tip="Reported Lessons"
+                  >
+                    {/* Home icon */}
+                    <MdReport />
+                    <span className="is-drawer-close:hidden">
+                      Reported Lessons
+                    </span>
+                  </NavLink>
+                </li>
 
-        <li>
-          <Link to='/dashboard/admin/manage-users' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Users">
-            {/* Home icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span className="is-drawer-close:hidden">Manage Users </span>
-          </Link>
-        </li>
-
-        <li>
-          <Link to='/dashboard/admin/manage-lessons' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Lessons">
-            {/* Home icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span className="is-drawer-close:hidden">Manage Lessons</span>
-          </Link>
-        </li>
-
-
-        <li>
-          <Link to='/dashboard/admin/reported-lessons' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Reported Lessons">
-            {/* Home icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span className="is-drawer-close:hidden">Reported Lessons</span>
-          </Link>
-        </li>
-
-         <li>
-          <NavLink to="/dashboard/admin/admin-profile" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Profile">
-            {/* Profile icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span className="is-drawer-close:hidden">Profile</span>
-          </NavLink>
-        </li>
-
-
-
-         </>
-      )
-   }
-
-   
-      </ul>
+                <li>
+                  <NavLink
+                    to="/dashboard/admin/admin-profile"
+                    className={navLinkClass}
+                    data-tip="Profile"
+                  >
+                    {/* Profile icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      fill="none"
+                      stroke="currentColor"
+                      className="my-1.5 inline-block size-4"
+                    >
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span className="is-drawer-close:hidden">Profile</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-    );
+  );
 };
 
 export default DashboardLayout;

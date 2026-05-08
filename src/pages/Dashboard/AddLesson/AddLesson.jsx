@@ -71,15 +71,15 @@ const AddLesson = () => {
 
    return (
 
-      <div className="max-w-4xl mx-auto p-6">
+      <div className=" max-w-5xl mx-auto px-4 py-10">
 
-         <div className="bg-base-100 shadow-xl rounded-2xl p-8">
+         <div className="bg-[#111827] border border-white/10 backdrop-blur-xl shadow-2xl rounded-[32px] p-8 md:p-12">
 
-            <h1 className="text-4xl font-bold mb-2">
+            <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
                Add New Lesson ✨
             </h1>
 
-            <p className="text-gray-500 mb-8">
+            <p className="text-gray-400 text-lg mb-10">
                Share your life experiences and inspire others.
             </p>
 
@@ -92,7 +92,7 @@ const AddLesson = () => {
                <div>
 
                   <label className="label">
-                     <span className="label-text font-semibold">
+                     <span className="label-text text-[#EEF2FF] font-semibold text-base">
                         Lesson Title
                      </span>
                   </label>
@@ -100,7 +100,7 @@ const AddLesson = () => {
                   <input
                      type="text"
                      placeholder="Enter lesson title"
-                     className="input input-bordered w-full"
+                     className="input w-full bg-[#0B1120] border border-[#2A3142] text-[#EEF2FF] rounded-xl transition-all duration-300 focus:outline-none focus:border-[#7B61FF] focus:ring-2 focus:ring-[#7B61FF]/20 hover:border-[#4B5563] placeholder:text-gray-500"
                      {...register("title", { required: true })}
                   />
 
@@ -117,7 +117,7 @@ const AddLesson = () => {
 
                   <textarea
                      placeholder="Write your lesson story..."
-                     className="textarea textarea-bordered w-full h-40"
+                     className="textarea w-full h-44 bg-[#0B1120] border border-[#2A3142] text-[#EEF2FF] rounded-xl transition-all duration-300 focus:outline-none focus:border-[#7B61FF] focus:ring-2 focus:ring-[#7B61FF]/20 hover:border-[#4B5563] placeholder:text-gray-500"
                      {...register("description", { required: true })}
                   ></textarea>
 
@@ -133,12 +133,18 @@ const AddLesson = () => {
                   </label>
 
                   <select
-                     className="select select-bordered w-full"
+                     className="select w-full bg-[#0B1120] border border-[#2A3142] text-[#EEF2FF] rounded-xl transition-all duration-300 focus:outline-none focus:border-[#7B61FF] focus:ring-2 focus:ring-[#7B61FF]/20 hover:border-[#4B5563]"
                      {...register("category")}
                   >
 
                      <option value="Personal Growth">
                         Personal Growth
+                     </option>
+                     <option value="Personal Growth">
+                        Education
+                     </option>
+                     <option value="Personal Growth">
+                        Health
                      </option>
 
                      <option value="Career">
@@ -171,12 +177,18 @@ const AddLesson = () => {
                   </label>
 
                   <select
-                     className="select select-bordered w-full"
+                     className="select w-full bg-[#0B1120] border border-[#2A3142] text-[#EEF2FF] rounded-xl transition-all duration-300 focus:outline-none focus:border-[#7B61FF] focus:ring-2 focus:ring-[#7B61FF]/20 hover:border-[#4B5563]"
                      {...register("emotionalTone")}
                   >
 
                      <option value="Motivational">
                         Motivational
+                     </option>
+                     <option value="Motivational">
+                        Happy
+                     </option>
+                     <option value="Motivational">
+                        Inspirational
                      </option>
 
                      <option value="Sad">
@@ -207,7 +219,7 @@ const AddLesson = () => {
                   <input
                      type="text"
                      placeholder="Paste image URL"
-                     className="input input-bordered w-full"
+                     className="input w-full bg-[#0B1120] border border-[#2A3142] text-[#EEF2FF] rounded-xl transition-all duration-300 focus:outline-none focus:border-[#7B61FF] focus:ring-2 focus:ring-[#7B61FF]/20 hover:border-[#4B5563] placeholder:text-gray-500"
                      {...register("image")}
                   />
 
@@ -223,7 +235,7 @@ const AddLesson = () => {
                   </label>
 
                   <select
-                     className="select select-bordered w-full"
+                     className="select w-full bg-[#0B1120] border border-[#2A3142] text-[#EEF2FF] rounded-xl transition-all duration-300 focus:outline-none focus:border-[#7B61FF] focus:ring-2 focus:ring-[#7B61FF]/20 hover:border-[#4B5563]"
                      {...register("privacy")}
                   >
 
@@ -249,7 +261,7 @@ const AddLesson = () => {
                   </label>
 
                   <select
-                     className="select select-bordered w-full"
+                     className="select w-full bg-[#0B1120] border border-[#2A3142] text-[#EEF2FF] rounded-xl transition-all duration-300 focus:outline-none focus:border-[#7B61FF] focus:ring-2 focus:ring-[#7B61FF]/20 hover:border-[#4B5563]"
                      {...register("accessLevel")}
                      disabled={!userData?.isPremium}
                      title={
@@ -290,9 +302,9 @@ const AddLesson = () => {
                {/* submit button */}
                <button
                   type="submit"
-                  className="btn btn-primary w-full"
+                  className="btn w-full border-0 rounded-xl text-white text-lg font-bold bg-gradient-to-r from-[#5B4DFF] via-[#7B61FF] to-[#A855F7] hover:scale-[1.01] hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300"
                >
-                  Add Lesson 🚀
+                  Add Lesson 
                </button>
 
             </form>

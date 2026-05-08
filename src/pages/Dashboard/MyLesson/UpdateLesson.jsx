@@ -78,159 +78,397 @@ const UpdateLesson = () => {
       }
    };
 
-   return (
+ return (
+    <div className="max-w-5xl mx-auto px-4 py-10">
+      
+      <div
+        className=" relative overflow-hidden bg-gradient-to-br from-[#111827] to-[#0F172A] border border-white/10 shadow-2xl rounded-[32px] p-8 md:p-12 backdrop-blur-xl
+        "
+      >
 
-      <div className="max-w-4xl mx-auto p-6">
+        {/* background glow */}
+        <div className="absolute top-0 right-0 w-72 h-72 bg-purple-500/10 blur-3xl rounded-full"></div>
 
-         <div className="bg-base-100 shadow-xl rounded-2xl p-8">
+        {/* heading */}
+        <div className="relative z-10 mb-10">
 
-            <h1 className="text-4xl font-bold mb-6">
-               Update Lesson ✏️
-            </h1>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
+            Update Lesson ✏️
+          </h1>
 
-            <form
-             onSubmit={handleSubmit(onSubmit)}
-             className="space-y-6"
-            >
+          <p className="text-gray-400 text-lg">
+            Update your lesson information and keep inspiring others.
+          </p>
 
-               {/* title */}
-               <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  placeholder="Lesson Title"
-                  {...register("title")}
-               />
+        </div>
 
-               {/* description */}
-               <textarea
-                  className="textarea textarea-bordered w-full h-40"
-                  placeholder="Description"
-                  {...register("description")}
-               ></textarea>
+        {/* form */}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-7 relative z-10"
+        >
 
-               {/* category */}
-               <select
-                  className="select select-bordered w-full"
-                  {...register("category")}
-               >
+          {/* title */}
+          <div>
 
-                  <option value="Personal Growth">
-                     Personal Growth
+            <label className="block text-[#c4c6ca] font-semibold mb-3">
+              Lesson Title
+            </label>
+
+            <input
+              type="text"
+              placeholder="Enter lesson title"
+              {...register("title")}
+              className="
+                input
+                w-full
+                bg-[#0B1120]
+                border
+                border-[#2A3142]
+                text-[#EEF2FF]
+                rounded-xl
+                transition-all
+                duration-300
+                focus:outline-none
+                focus:border-[#7B61FF]
+                focus:ring-2
+                focus:ring-[#7B61FF]/20
+                hover:border-[#4B5563]
+                placeholder:text-gray-500
+              "
+            />
+
+          </div>
+
+          {/* description */}
+          <div>
+
+            <label className="block text-[#c4c6ca] font-semibold mb-3">
+              Description / Story
+            </label>
+
+            <textarea
+              placeholder="Write your lesson story..."
+              {...register("description")}
+              className="
+                textarea
+                w-full
+                h-44
+                bg-[#0B1120]
+                border
+                border-[#2A3142]
+                text-[#EEF2FF]
+                rounded-xl
+                transition-all
+                duration-300
+                focus:outline-none
+                focus:border-[#7B61FF]
+                focus:ring-2
+                focus:ring-[#7B61FF]/20
+                hover:border-[#4B5563]
+                placeholder:text-gray-500
+              "
+            ></textarea>
+
+          </div>
+
+          {/* category + emotion */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* category */}
+            <div>
+
+              <label className="block text-[#c4c6ca] font-semibold mb-3">
+                Category
+              </label>
+
+              <select
+                {...register("category")}
+                className="
+                  select
+                  w-full
+                  bg-[#0B1120]
+                  border
+                  border-[#2A3142]
+                  text-[#EEF2FF]
+                  rounded-xl
+                  transition-all
+                  duration-300
+                  focus:outline-none
+                  focus:border-[#7B61FF]
+                  focus:ring-2
+                  focus:ring-[#7B61FF]/20
+                  hover:border-[#4B5563]
+                "
+              >
+
+                <option value="Personal Growth">
+                  Personal Growth
+                </option>
+                <option value="Education">
+                  Education
+                </option>
+                <option value="Health">
+                  Health 
+                </option>
+
+                <option value="Career">
+                  Career
+                </option>
+
+                <option value="Relationships">
+                  Relationships
+                </option>
+
+                <option value="Mindset">
+                  Mindset
+                </option>
+
+              </select>
+
+            </div>
+
+            {/* emotional tone */}
+            <div>
+
+              <label className="block text-[#c4c6ca] font-semibold mb-3">
+                Emotional Tone
+              </label>
+
+              <select
+                {...register("emotionalTone")}
+                className="
+                  select
+                  w-full
+                  bg-[#0B1120]
+                  border
+                  border-[#2A3142]
+                  text-[#EEF2FF]
+                  rounded-xl
+                  transition-all
+                  duration-300
+                  focus:outline-none
+                  focus:border-[#7B61FF]
+                  focus:ring-2
+                  focus:ring-[#7B61FF]/20
+                  hover:border-[#4B5563]
+                "
+              >
+
+                <option value="Motivational">
+                  Motivational
+                </option>
+                <option value="Happy">
+                  Happy
+                </option>
+                <option value="Inspirational">
+                  Inspirational
+                </option>
+
+                <option value="Sad">
+                  Sad
+                </option>
+
+                <option value="Realization">
+                  Realization
+                </option>
+
+                <option value="Gratitude">
+                  Gratitude
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+          {/* image */}
+          <div>
+
+            <label className="block text-[#c4c6ca] font-semibold mb-3">
+              Image URL
+            </label>
+
+            <input
+              type="text"
+              placeholder="Paste image URL"
+              {...register("image")}
+              className="
+                input
+                w-full
+                bg-[#0B1120]
+                border
+                border-[#2A3142]
+                text-[#EEF2FF]
+                rounded-xl
+                transition-all
+                duration-300
+                focus:outline-none
+                focus:border-[#7B61FF]
+                focus:ring-2
+                focus:ring-[#7B61FF]/20
+                hover:border-[#4B5563]
+                placeholder:text-gray-500
+              "
+            />
+
+          </div>
+
+          {/* privacy + access */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* privacy */}
+            <div>
+
+              <label className="block text-[#c4c6ca] font-semibold mb-3">
+                Privacy
+              </label>
+
+              <select
+                {...register("privacy")}
+                className="
+                  select
+                  w-full
+                  bg-[#0B1120]
+                  border
+                  border-[#2A3142]
+                  text-[#EEF2FF]
+                  rounded-xl
+                  transition-all
+                  duration-300
+                  focus:outline-none
+                  focus:border-[#7B61FF]
+                  focus:ring-2
+                  focus:ring-[#7B61FF]/20
+                  hover:border-[#4B5563]
+                "
+              >
+
+                <option value="Public">
+                  Public
+                </option>
+
+                <option value="Private">
+                  Private
+                </option>
+
+              </select>
+
+            </div>
+
+            {/* access level */}
+            <div>
+
+              <label className="block text-[#c4c6ca] font-semibold mb-3">
+                Access Level
+              </label>
+
+              <select
+                {...register("accessLevel")}
+                disabled={!userData?.isPremium}
+                className="
+                  select
+                  w-full
+                  bg-[#0B1120]
+                  border
+                  border-[#2A3142]
+                  text-[#EEF2FF]
+                  rounded-xl
+                  transition-all
+                  duration-300
+                  focus:outline-none
+                  focus:border-[#7B61FF]
+                  focus:ring-2
+                  focus:ring-[#7B61FF]/20
+                  hover:border-[#4B5563]
+                  disabled:opacity-50
+                  disabled:cursor-not-allowed
+                "
+              >
+
+                <option value="Free">
+                  Free
+                </option>
+
+                {userData?.isPremium && (
+                  <option value="Premium">
+                    Premium
                   </option>
+                )}
 
-                  <option value="Career">
-                     Career
-                  </option>
+              </select>
 
-                  <option value="Relationships">
-                     Relationships
-                  </option>
+            </div>
 
-                  <option value="Mindset">
-                     Mindset
-                  </option>
+          </div>
 
-               </select>
+          {/* creator info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-               {/* emotional tone */}
-               <select
-                  className="select select-bordered w-full"
-                  {...register("emotionalTone")}
-               >
+            <input
+              type="text"
+              value={lesson.creatorName || ""}
+              readOnly
+              className="
+                input
+                w-full
+                bg-[#111827]
+                border
+                border-white/10
+                text-[#89c7e6]
+                rounded-xl
+              "
+            />
 
-                  <option value="Motivational">
-                     Motivational
-                  </option>
+            <input
+              type="email"
+              value={lesson.creatorEmail || ""}
+              readOnly
+              className="
+                input
+                w-full
+                bg-[#111827]
+                border
+                border-white/10
+                text-[#89c7e6]
+                rounded-xl
+              "
+            />
 
-                  <option value="Sad">
-                     Sad
-                  </option>
+          </div>
 
-                  <option value="Realization">
-                     Realization
-                  </option>
+          {/* submit */}
+          <button
+            type="submit"
+            className="
+              btn
+              w-full
+              border-0
+              rounded-xl
+              text-white
+              text-lg
+              font-bold
+              bg-gradient-to-r
+              from-[#6366F1]
+              to-[#A855F7]
+              hover:from-[#7C3AED]
+              hover:to-[#9333EA]
+              hover:shadow-2xl
+              hover:shadow-purple-500/30
+              hover:-translate-y-[1px]
+              transition-all
+              duration-300
+            "
+          >
+            Update Lesson 
+          </button>
 
-                  <option value="Gratitude">
-                     Gratitude
-                  </option>
-
-               </select>
-
-               {/* image */}
-               <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  placeholder="Image URL"
-                  {...register("image")}
-               />
-
-               {/* privacy */}
-               <select
-                  className="select select-bordered w-full"
-                  {...register("privacy")}
-               >
-
-                  <option value="Public">
-                     Public
-                  </option>
-
-                  <option value="Private">
-                     Private
-                  </option>
-
-               </select>
-
-               {/* access level */}
-               <select
-                  className="select select-bordered w-full"
-                  {...register("accessLevel")}
-                  disabled={!userData?.isPremium}
-               >
-
-                  <option value="Free">
-                     Free
-                  </option>
-
-                  {
-                     userData?.isPremium && (
-
-                        <option value="Premium">
-                           Premium
-                        </option>
-                     )
-                  }
-
-               </select>
-
-               {/* creator info readonly */}
-               <input
-                  type="text"
-                  value={lesson.creatorName || ""}
-                  readOnly
-                  className="input input-bordered w-full"
-               />
-
-               <input
-                  type="email"
-                  value={lesson.creatorEmail || ""}
-                  readOnly
-                  className="input input-bordered w-full"
-               />
-
-               {/* submit */}
-               <button
-                  type="submit"
-                  className="btn btn-primary w-full"
-               >
-                  Update Lesson 🚀
-               </button>
-
-            </form>
-
-         </div>
+        </form>
 
       </div>
-   );
+    </div>
+  );
 };
 
 export default UpdateLesson;
