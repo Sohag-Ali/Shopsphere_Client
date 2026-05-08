@@ -3,197 +3,373 @@ import { Link } from "react-router";
 import { Lock } from "lucide-react";
 import useUser from "../../hooks/useUser";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-
+import { FiArrowRight } from "react-icons/fi";
+import { useState } from "react";
 
 const PublicLessons = () => {
-     const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
+  const [category, setCategory] = useState("");
+  const [emotionalTone, setEmotionalTone] = useState("");
+  const [search, setSearch] = useState("");
+  const [userData] = useUser();
 
-   const [userData] = useUser();
+  const { data: lessons = [] } = useQuery({
+    queryKey: ["public-lessons", category, emotionalTone, search],
 
-   const { data: lessons = [] } = useQuery({
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/public-lessons?category=${category}&emotionalTone=${emotionalTone}&search=${search}`,
+      );
 
-      queryKey: ['public-lessons'],
+      return res.data;
+    },
+  });
 
-      queryFn: async() => {
+  return (
+    <div className="min-h-screen bg-[#0F172A] py-16 relative overflow-hidden">
+      {/* background blur */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500/10 blur-3xl rounded-full"></div>
 
-         const res = await axiosSecure.get(
-            '/public-lessons'
-         );
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-indigo-500/10 blur-3xl rounded-full"></div>
 
-         return res.data;
-      }
-   });
+      <div className=" ">
+        {/* heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-primary uppercase tracking-widest font-semibold">
+            Explore Lessons
+          </span>
 
-   return (
+          <h1 className="text-4xl md:text-5xl font-black text-white mt-4">
+            Public Life Lessons 🌎
+          </h1>
 
-      <div className="min-h-screen bg-base-200 p-6">
+          <p className="mt-6 text-lg text-gray-400 leading-relaxed">
+            Explore powerful real-life experiences shared by people from around
+            the world.
+          </p>
 
-         {/* heading */}
-         <div className="text-center mb-12">
+          <div className="flex flex-col md:flex-row gap-4 justify-center my-14">
+            {/* search */}
+            <input
+              type="text"
+              placeholder="Search lessons..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="
+      input
+      input-bordered
+      bg-[#111827]
+      border-white/10
+      text-white
+      w-full
+      md:w-72
+    "
+            />
 
-            <h1 className="text-5xl font-bold">
-               Public Life Lessons 🌎
-            </h1>
+            {/* category */}
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="
+      select
+      select-bordered
+      bg-[#111827]
+      border-white/10
+      text-white
+      w-full
+      md:w-60
+    "
+            >
+              <option value="">All Categories</option>
 
-            <p className="mt-4 text-gray-500">
-               Explore life experiences shared by people.
-            </p>
+              <option value="Career">Career</option>
 
-         </div>
+              <option value="Education">Education</option>
+
+              <option value="Relationship">Relationship</option>
+
+              <option value="Health">Health</option>
+            </select>
+
+            {/* emotional tone */}
+            <select
+              value={emotionalTone}
+              onChange={(e) => setEmotionalTone(e.target.value)}
+              className="
+      select
+      select-bordered
+      bg-[#111827]
+      border-white/10
+      text-white
+      w-full
+      md:w-60
+    "
+            >
+              <option value="">All Emotions</option>
+
+              <option value="Inspirational">Inspirational</option>
+
+              <option value="Motivational">Motivational</option>
+
+              <option value="Sad">Sad</option>
+
+              <option value="Happy">Happy</option>
+            </select>
+          </div>
+        </div>
 
          {/* cards */}
-         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          lessons.length === 0
+          ?
+          (
+            <div
+              className="
+                flex
+                flex-col
+                items-center
+                justify-center
+                py-24
+                rounded-[32px]
+                border
+                border-white/10
+                bg-white/5
+                backdrop-blur-xl
+                text-center
+              "
+            >
 
-            {
-               lessons.map(lesson => {
+              <div className="text-7xl mb-6">
+                😔
+              </div>
 
-                  const isPremiumLocked =
+              <h2 className="text-3xl md:text-4xl font-black text-white">
+                No Lessons Found
+              </h2>
 
-                  lesson.accessLevel === 'Premium'
-                  &&
+              <p className="text-gray-400 mt-4 max-w-md leading-8">
+                We couldn’t find any lessons matching your search or filters.
+              </p>
+
+            </div>
+          )
+          :
+          (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+              {lessons.map((lesson) => {
+
+                const isPremiumLocked =
+                  lesson.accessLevel === "Premium" &&
                   !userData?.isPremium;
 
-                  return (
+                return (
 
-                     <div
-                      key={lesson._id}
-                      className="card bg-base-100 shadow-xl relative overflow-hidden"
-                     >
+                  <div
+                    key={lesson._id}
+                    className="
+                      relative
+                      group
+                      overflow-hidden
+                      rounded-[32px]
+                      border
+                      border-white/10
+                      bg-[#111827]
+                      shadow-xl
+                      hover:-translate-y-2
+                      hover:shadow-purple-500/20
+                      hover:shadow-2xl
+                      transition-all
+                      duration-500
+                      flex
+                      flex-col
+                      h-full
+                    "
+                  >
 
-                        {/* premium overlay */}
-                        {
-                           isPremiumLocked && (
+                    {/* premium overlay */}
+                    {isPremiumLocked && (
 
-                              <div className="absolute inset-0 backdrop-blur-md bg-black/30 z-20 flex flex-col items-center justify-center text-white">
+                      <div className="absolute inset-0 backdrop-blur-md bg-black/50 z-20 flex flex-col items-center justify-center text-white">
+                        
+                        <div className="w-16 h-16 rounded-full bg-warning/20 flex items-center justify-center border border-warning/30">
 
-                                 <Lock size={40} />
-
-                                 <h2 className="font-bold text-xl mt-3">
-                                    Premium Lesson
-                                 </h2>
-
-                                 <p className="text-sm mt-1">
-                                    Upgrade to view
-                                 </p>
-
-                                 <Link
-                                  to="/pricing"
-                                  className="btn btn-warning btn-sm mt-4"
-                                 >
-                                    Upgrade ⭐
-                                 </Link>
-
-                              </div>
-                           )
-                        }
-
-                        {/* image */}
-                        <figure>
-
-                           <img
-                              src={lesson.image}
-                              alt=""
-                              className="h-56 w-full object-cover"
-                           />
-
-                        </figure>
-
-                        {/* body */}
-                        <div className="card-body">
-
-                           {/* title */}
-                           <h2 className="card-title">
-                              {lesson.title}
-                           </h2>
-
-                           {/* description */}
-                           <p>
-                              {
-                                 lesson.description.slice(0, 100)
-                              }
-                              ...
-                           </p>
-
-                           {/* category + tone */}
-                           <div className="flex gap-2 flex-wrap mt-2">
-
-                              <div className="badge badge-primary">
-                                 {lesson.category}
-                              </div>
-
-                              <div className="badge badge-secondary">
-                                 {lesson.emotionalTone}
-                              </div>
-
-                           </div>
-
-                           {/* creator */}
-                           <div className="flex items-center gap-3 mt-4">
-
-                              <img
-                                 src={lesson.creatorPhoto}
-                                 alt=""
-                                 className="w-10 h-10 rounded-full"
-                              />
-
-                              <div>
-
-                                 <h3 className="font-semibold">
-                                    {lesson.creatorName}
-                                 </h3>
-
-                                 <p className="text-xs text-gray-500">
-                                    {
-                                       new Date(
-                                          lesson.createdAt
-                                       ).toLocaleDateString()
-                                    }
-                                 </p>
-
-                              </div>
-
-                           </div>
-
-                           {/* access level */}
-                           <div className="mt-3">
-
-                              <div className={`badge ${
-                                 lesson.accessLevel === 'Premium'
-                                 ?
-                                 'badge-warning'
-                                 :
-                                 'badge-success'
-                              }`}>
-
-                                 {lesson.accessLevel}
-
-                              </div>
-
-                           </div>
-
-                           {/* details button */}
-                           <div className="card-actions justify-end mt-4">
-
-                              <Link
-                               to={`/lesson-details/${lesson._id}`}
-                               className="btn btn-primary btn-sm"
-                              >
-                                 See Details
-                              </Link>
-
-                           </div>
+                          <Lock size={32} className="text-warning" />
 
                         </div>
 
-                     </div>
-                  );
-               })
-            }
+                        <h2 className="font-bold text-2xl mt-5">
+                          Premium Lesson
+                        </h2>
 
-         </div>
+                        <p className="text-sm mt-2 text-gray-300">
+                          Upgrade your plan to unlock this lesson
+                        </p>
+
+                        <Link
+                          to="/pricing"
+                          className="
+                            mt-5
+                            px-6
+                            py-3
+                            rounded-full
+                            bg-gradient-to-r
+                            from-warning
+                            to-orange-500
+                            text-black
+                            font-semibold
+                            hover:scale-105
+                            transition
+                          "
+                        >
+                          Upgrade Now ⭐
+                        </Link>
+
+                      </div>
+                    )}
+
+                    {/* image */}
+                    <div className="relative h-60 overflow-hidden">
+
+                      <img
+                        src={lesson.image}
+                        alt={lesson.title}
+                        className="
+                          w-full
+                          h-full
+                          object-cover
+                          group-hover:scale-110
+                          transition
+                          duration-700
+                        "
+                      />
+
+                      {/* overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                    </div>
+
+                    {/* body */}
+                    <div className="p-7 flex flex-col flex-grow">
+
+                      {/* title */}
+                      <h2 className="text-2xl font-bold text-white line-clamp-2 min-h-[64px]">
+                        {lesson.title}
+                      </h2>
+
+                      {/* description */}
+                      <p className="text-gray-400 leading-8 mt-5 line-clamp-3 min-h-[96px]">
+                        {lesson.description}
+                      </p>
+
+                      {/* badges */}
+                      <div className="flex gap-3 flex-wrap mt-6">
+
+                        <div className="badge badge-primary badge-lg px-4 py-3 text-white">
+                          {lesson.category}
+                        </div>
+
+                        <div className="badge badge-secondary badge-lg px-4 py-3 text-white">
+                          {lesson.emotionalTone}
+                        </div>
+
+                      </div>
+
+                      {/* creator */}
+                      <div className="flex items-center gap-4 mt-8">
+
+                        <img
+                          src={lesson.creatorPhoto}
+                          alt={lesson.creatorName}
+                          className="
+                            w-12
+                            h-12
+                            rounded-full
+                            object-cover
+                            border
+                            border-primary/40
+                          "
+                        />
+
+                        <div>
+
+                          <h3 className="font-semibold text-white">
+                            {lesson.creatorName}
+                          </h3>
+
+                          <p className="text-sm text-gray-400">
+                            {new Date(
+                              lesson.createdAt
+                            ).toLocaleDateString()}
+                          </p>
+
+                        </div>
+
+                      </div>
+
+                      {/* access level */}
+                      <div className="mt-5">
+
+                        <div
+                          className={`
+                            badge
+                            badge-lg
+                            px-4
+                            py-3
+                            text-white
+                            ${
+                              lesson.accessLevel === "Premium"
+                                ? "badge-warning"
+                                : "badge-success"
+                            }
+                          `}
+                        >
+                          {lesson.accessLevel}
+                        </div>
+
+                      </div>
+
+                      {/* button */}
+                      <div className="mt-auto pt-8">
+
+                        <Link
+                          to={`/lesson-details/${lesson._id}`}
+                          className="
+                            group/btn
+                            btn
+                            border-0
+                            bg-gradient-to-r
+                            from-indigo-500
+                            to-purple-600
+                            hover:from-purple-600
+                            hover:to-indigo-500
+                            text-white
+                            w-full
+                            rounded-full
+                          "
+                        >
+
+                          See Details
+
+                          <FiArrowRight className="group-hover/btn:translate-x-1 transition duration-300" />
+
+                        </Link>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                );
+              })}
+
+            </div>
+          )
+        }
 
       </div>
-   );
+    </div>
+  );
 };
 
 export default PublicLessons;
