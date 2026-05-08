@@ -1,10 +1,14 @@
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import useUser from "../../../hooks/useUser";
+import { HiUser } from "react-icons/hi2";
+import { CgLogOut } from "react-icons/cg";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const [userData] = useUser();
+
+  // Handle Logout
   const handleLogout = () => {
     logoutUser()
       .then(() => {
@@ -18,53 +22,89 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `pb-1 border-b-2  font-medium transition-all duration-300 ${
+              isActive
+                ? "text-violet-400 border-violet-400"
+                : "text-gray-200 border-transparent hover:text-violet-300 hover:border-violet-300"
+            }`
+          }
+        >
+          Home
+        </NavLink>
       </li>
-
-      {/* <li>
-        <NavLink to="/item3">Add Lesson</NavLink>
-      </li>
-
       <li>
-        <NavLink to="/item4">My Lessons</NavLink>
-      </li> */}
-
-      <li>
-        <NavLink to="/public-lessons">Public Lessons</NavLink>
+        <NavLink
+          to="/public-lessons"
+          className={({ isActive }) =>
+            `pb-1 border-b-2  font-medium transition-all duration-300 ${
+              isActive
+                ? "text-violet-400 border-violet-400"
+                : "text-gray-200 border-transparent hover:text-violet-300 hover:border-violet-300"
+            }`
+          }
+        >
+          Public Lessons
+        </NavLink>
       </li>
 
       {/* pricing for free users */}
-    {
-      user && !userData?.isPremium && (
-
+      {user && !userData?.isPremium && (
         <li>
-          <NavLink to="/pricing">
+          <NavLink
+            to="/pricing"
+            className={({ isActive }) =>
+              `pb-1 border-b-2  font-medium transition-all duration-300 ${
+                isActive
+                  ? "text-violet-400 border-violet-400"
+                  : "text-gray-200 border-transparent hover:text-violet-300 hover:border-violet-300"
+              }`
+            }
+          >
             Pricing
           </NavLink>
         </li>
-      )
-    }
+      )}
 
-    {/* premium badge */}
-    {
-      userData?.isPremium && (
-
+      {/* premium badge */}
+      {userData?.isPremium && (
         <li>
-          <button className="btn btn-warning btn-sm">
-            Premium ⭐
-          </button>
+          <button className="btn btn-warning btn-sm ">Premium ⭐</button>
         </li>
-      )
-    }
+      )}
 
       {user && (
         <>
           <li>
-            <NavLink to="/dashboard/add-lesson">Add Lesson</NavLink>
+            <NavLink
+              to="/dashboard/add-lesson"
+              className={({ isActive }) =>
+                `pb-1 border-b-2  font-medium transition-all duration-300 ${
+                  isActive
+                    ? "text-violet-400 border-violet-400"
+                    : "text-gray-200 border-transparent hover:text-violet-300 hover:border-violet-300"
+                }`
+              }
+            >
+              Add Lesson
+            </NavLink>
           </li>
 
           <li>
-            <NavLink to="/dashboard/my-lessons">My Lessons</NavLink>
+            <NavLink
+              to="/dashboard/my-lessons"
+              className={({ isActive }) =>
+                `pb-1 border-b-2  font-medium transition-all duration-300 ${
+                  isActive
+                    ? "text-violet-400 border-violet-400"
+                    : "text-gray-200 border-transparent hover:text-violet-300 hover:border-violet-300"
+                }`
+              }
+            >
+              My Lessons
+            </NavLink>
           </li>
         </>
       )}
@@ -72,7 +112,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar sticky top-0 z-50 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] px-4 md:px-8">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -99,10 +139,14 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link className="text-2xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
+          LifeLessons ✨
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul className="menu menu-horizontal items-center gap-5 px-1">
+          {links}
+        </ul>
       </div>
       <div className="navbar-end">
         {/* IF USER LOGGED IN */}
@@ -114,7 +158,7 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full">
+              <div className="w-10 rounded-full ring-2 ring-violet-400/40 hover:ring-violet-400 transition">
                 <img
                   src={
                     user?.photoURL
@@ -130,23 +174,38 @@ const Navbar = () => {
             {/* Dropdown */}
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-4 z-[999] p-3 shadow-[0_20px_60px_rgba(0,0,0,0.35)] bg-[#1E1B4B]/90 backdrop-blur-xl border border-white/10 rounded-2xl w-60 text-white"
             >
-              <li className="font-semibold px-2 py-1">
-                {user.displayName || "User"}
+              <li className="mb-2 border-b border-white/10 pb-3">
+                <div className="flex flex-col">
+                  <span className="font-semibold text-[16px] text-violet-300">
+                    {user.displayName || "User"}
+                  </span>
+                </div>
               </li>
 
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link
+                  to={
+                    userData?.role === "admin"
+                      ? "/dashboard/admin/admin-profile"
+                      : "/dashboard/profile"
+                  }
+                  className="hover:bg-white/10 rounded-xl transition-all duration-300"
+                >
+                  <HiUser /> Profile
+                </Link>
               </li>
 
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard"
+                 className="hover:bg-white/10 rounded-xl transition-all duration-300"
+                 >📊 Dashboard</Link>
               </li>
 
-              <li>
-                <button onClick={handleLogout} className="text-red-500">
-                  Logout
+              <li className="mt-2 border-t border-white/10 pt-2">
+                <button onClick={handleLogout} className="text-red-400 hover:bg-red-500/10 rounded-xl transition-all duration-300">
+                  <CgLogOut /> Logout
                 </button>
               </li>
             </ul>
@@ -154,10 +213,16 @@ const Navbar = () => {
         ) : (
           /* IF NOT LOGGED IN */
           <div className="flex gap-2">
-            <Link to="/login" className="btn btn-outline">
+            <Link
+              to="/login"
+              className="btn btn-outline px-5 py-2 rounded-xl border border-white/20 bg-white/5 text-white hover:bg-white/10 transition backdrop-blur-md"
+            >
               Login
             </Link>
-            <Link to="/register" className="btn btn-primary">
+            <Link
+              to="/register"
+              className="btn btn-primary px-5 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#4F46E5] text-white hover:scale-[1.03] transition-all duration-300 shadow-[0_10px_30px_rgba(124,58,237,0.35)]"
+            >
               Signup
             </Link>
           </div>
