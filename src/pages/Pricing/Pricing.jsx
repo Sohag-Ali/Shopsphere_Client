@@ -1,4 +1,4 @@
-import { CheckCircle, Crown, XCircle } from "lucide-react";
+import { CheckCircle, Crown,  XCircle } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -27,186 +27,357 @@ const Pricing = () => {
     };
 
 
-    return (
-        <div className="min-h-screen bg-base-200 py-16 px-4">
+   return (
+    <div className="min-h-screen bg-[#0F172A]  py-20 px-4 relative overflow-hidden">
+      
+      {/* background blur */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500/10 blur-3xl rounded-full"></div>
 
-             {/* heading */}
-         <div className="text-center mb-12">
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-indigo-500/10 blur-3xl rounded-full"></div>
 
-            <h1 className="text-5xl font-bold">
-               Upgrade Your Plan 🚀
-            </h1>
+      <div className="bg-[#0F172A]">
+        
+        {/* heading */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
 
-            <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
-               Unlock premium features and take your learning
-               experience to the next level with LifeSpark Premium.
-            </p>
+          <span className="text-primary uppercase tracking-[4px] font-semibold">
+            Pricing Plans
+          </span>
 
-         </div>
+          <h1 className="text-4xl md:text-6xl font-black text-white mt-5 leading-tight">
+            Upgrade Your Learning Experience 
+          </h1>
 
+          <p className="mt-6 text-lg text-gray-400 leading-8">
+            Unlock premium features, create unlimited lessons,
+            and enjoy a more powerful LifeSpark experience.
+          </p>
 
-             {/* pricing cards */}
-         <div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+        </div>
 
-            {/* free plan */}
-            <div className="card bg-base-100 shadow-xl border">
+        {/* pricing cards */}
+        <div className="grid lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
 
-               <div className="card-body">
+          {/* FREE PLAN */}
+          <div
+            className="
+              relative
+              overflow-hidden
+              rounded-[32px]
+              border
+              border-white/10
+              bg-white/5
+              backdrop-blur-xl
+              p-10
+              hover:-translate-y-2
+              hover:border-primary/30
+              hover:shadow-purple-500/20
+              hover:shadow-2xl
+              transition-all
+              duration-500
+            "
+          >
 
-                  <h2 className="text-3xl font-bold">
-                     Free Plan
+            {/* glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
+
+            <div className="relative z-10">
+
+              <div className="flex items-center gap-3">
+
+                <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center">
+
+                  <Crown className="text-white" />
+
+                </div>
+
+                <div>
+
+                  <h2 className="text-3xl font-black text-white">
+                    Free Plan
                   </h2>
 
-                  <p className="text-gray-500">
-                     Perfect for beginners
+                  <p className="text-gray-400 mt-1">
+                    Perfect for beginners
                   </p>
 
-                  <h1 className="text-5xl font-bold mt-4">
-                     ৳0
-                  </h1>
+                </div>
 
-                  <div className="divider"></div>
+              </div>
 
-                  <div className="space-y-4">
+              {/* price */}
+              <div className="mt-10">
 
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Access Public Lessons</span>
-                     </div>
+                <h1 className="text-6xl font-black text-white">
+                  ৳0
+                </h1>
 
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Create Limited Lessons</span>
-                     </div>
+                <p className="text-gray-400 mt-2">
+                  Forever free access
+                </p>
 
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Basic Dashboard Access</span>
-                     </div>
+              </div>
 
-                     <div className="flex items-center gap-3">
-                        <XCircle className="text-red-500" />
-                        <span>Premium Lesson Creation</span>
-                     </div>
+              {/* divider */}
+              <div className="h-[1px] bg-white/10 my-10"></div>
 
-                     <div className="flex items-center gap-3">
-                        <XCircle className="text-red-500" />
-                        <span>Priority Lesson Listing</span>
-                     </div>
+              {/* features */}
+              <div className="space-y-5">
 
-                     <div className="flex items-center gap-3">
-                        <XCircle className="text-red-500" />
-                        <span>Ad-Free Experience</span>
-                     </div>
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-300">
+                    Access Public Lessons
+                  </span>
+                </div>
 
-                     <div className="flex items-center gap-3">
-                        <XCircle className="text-red-500" />
-                        <span>Premium Badge</span>
-                     </div>
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-300">
+                    Create Limited Lessons
+                  </span>
+                </div>
 
-                  </div>
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-300">
+                    Basic Dashboard Access
+                  </span>
+                </div>
 
-               </div>
+                <div className="flex items-center gap-4">
+                  <XCircle className="text-red-400" />
+                  <span className="text-gray-500">
+                    Premium Lesson Creation
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <XCircle className="text-red-400" />
+                  <span className="text-gray-500">
+                    Priority Lesson Listing
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <XCircle className="text-red-400" />
+                  <span className="text-gray-500">
+                    Ad-Free Experience
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <XCircle className="text-red-400" />
+                  <span className="text-gray-500">
+                    Premium Badge
+                  </span>
+                </div>
+
+              </div>
+
+              {/* button */}
+              <button
+                className="
+                  btn
+                  w-full
+                  mt-12
+                  rounded-full
+                  border
+                  border-white/10
+                  bg-white/5
+                  hover:bg-white/10
+                  text-white
+                "
+              >
+                Current Plan
+              </button>
 
             </div>
+          </div>
 
-            {/* premium plan */}
-            <div className="card bg-base-100 shadow-2xl border-2 border-primary relative">
+          {/* PREMIUM PLAN */}
+          <div
+            className="
+              relative
+              overflow-hidden
+              rounded-[32px]
+              border
+              border-primary/30
+              bg-gradient-to-br
+              from-indigo-500/10
+              to-purple-600/10
+              backdrop-blur-xl
+              p-10
+              hover:-translate-y-2
+              hover:shadow-purple-500/30
+              hover:shadow-2xl
+              transition-all
+              duration-500
+            "
+          >
 
-               {/* badge */}
-               <div className="absolute -top-4 right-4 badge badge-primary badge-lg p-4">
-                  Most Popular
-               </div>
-
-               <div className="card-body">
-
-                  <div className="flex items-center gap-2">
-
-                     <Crown className="text-yellow-500" />
-
-                     <h2 className="text-3xl font-bold">
-                        Premium Plan
-                     </h2>
-
-                  </div>
-
-                  <p className="text-gray-500">
-                     Lifetime premium access
-                  </p>
-
-                  <h1 className="text-5xl font-bold mt-4">
-                     ৳1500
-                  </h1>
-
-                  <p className="text-sm text-gray-400">
-                     One-time payment
-                  </p>
-
-                  <div className="divider"></div>
-
-                  <div className="space-y-4">
-
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Unlimited Lesson Creation</span>
-                     </div>
-
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Create Premium Lessons</span>
-                     </div>
-
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Priority Lesson Listing</span>
-                     </div>
-
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Ad-Free Experience</span>
-                     </div>
-
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Premium Badge</span>
-                     </div>
-
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Premium Dashboard Features</span>
-                     </div>
-
-                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
-                        <span>Lifetime Access</span>
-                     </div>
-
-                  </div>
-
-                  {/* payment button */}
-                  <button
-                     onClick={handleUpgrade}
-                     className="btn btn-primary mt-8"
-                  >
-                     Upgrade to Premium ⭐
-                  </button>
-
-               </div>
-
-            </div>
-
-         </div>
-
-         
-{/* 
-      <button
-              onClick={handleUpgrade}
-              className="btn btn-primary mt-8"
+            {/* popular badge */}
+            <div
+              className="
+                absolute
+                top-6
+                right-6
+                px-5
+                py-2
+                rounded-full
+                bg-gradient-to-r
+                from-indigo-500
+                to-purple-600
+                text-white
+                text-sm
+                font-semibold
+                shadow-lg
+              "
             >
-              Upgrade to Premium ⭐
-            </button> */}
+              Most Popular ✨
+            </div>
 
+            {/* glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-purple-500/5"></div>
+
+            <div className="relative z-10">
+
+              {/* title */}
+              <div className="flex items-center gap-4">
+
+                <div
+                  className="
+                    w-14
+                    h-14
+                    rounded-2xl
+                    bg-gradient-to-br
+                    from-yellow-400
+                    to-orange-500
+                    flex
+                    items-center
+                    justify-center
+                    shadow-lg
+                  "
+                >
+
+                  <Crown className="text-black" />
+
+                </div>
+
+                <div>
+
+                  <h2 className="text-3xl font-black text-white">
+                    Premium Plan
+                  </h2>
+
+                  <p className="text-gray-300 mt-1">
+                    Lifetime premium access
+                  </p>
+
+                </div>
+
+              </div>
+
+              {/* price */}
+              <div className="mt-10">
+
+                <h1 className="text-6xl font-black text-white">
+                  ৳1500
+                </h1>
+
+                <p className="text-primary mt-2">
+                  One-time payment only
+                </p>
+
+              </div>
+
+              {/* divider */}
+              <div className="h-[1px] bg-white/10 my-10"></div>
+
+              {/* features */}
+              <div className="space-y-5">
+
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-200">
+                    Unlimited Lesson Creation
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-200">
+                    Create Premium Lessons
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-200">
+                    Priority Lesson Listing
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-200">
+                    Ad-Free Experience
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-200">
+                    Premium Badge
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-200">
+                    Premium Dashboard Features
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <CheckCircle className="text-green-400" />
+                  <span className="text-gray-200">
+                    Lifetime Access
+                  </span>
+                </div>
+
+              </div>
+
+              {/* button */}
+              <button
+                onClick={handleUpgrade}
+                className="
+                  btn
+                  border-0
+                  bg-gradient-to-r
+                  from-indigo-500
+                  to-purple-600
+                  hover:from-purple-600
+                  hover:to-indigo-500
+                  text-white
+                  w-full
+                  rounded-full
+                  mt-12
+                  text-lg
+                  shadow-xl
+                  shadow-purple-500/20
+                "
+              >
+                Upgrade to Premium ⭐
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 };
+
 export default Pricing;

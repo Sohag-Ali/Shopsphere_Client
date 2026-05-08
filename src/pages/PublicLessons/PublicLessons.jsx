@@ -83,10 +83,13 @@ const PublicLessons = () => {
               <option value="">All Categories</option>
 
               <option value="Career">Career</option>
+              <option value="Personal Growth">Personal Growth</option>
 
               <option value="Education">Education</option>
 
               <option value="Relationship">Relationship</option>
+              <option value="Mindset">Mindset</option>
+              <option value="Mistakes Learned">Mistakes Learned</option>
 
               <option value="Health">Health</option>
             </select>
@@ -112,7 +115,8 @@ const PublicLessons = () => {
               <option value="Motivational">Motivational</option>
 
               <option value="Sad">Sad</option>
-
+              <option value="Realization">Realization</option>
+              <option value="Gratitude">Gratitude</option>
               <option value="Happy">Happy</option>
             </select>
           </div>
