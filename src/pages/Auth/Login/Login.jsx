@@ -26,6 +26,17 @@ const Login = () => {
 
   const user = result.user;
 
+   // firebase token
+  const token =
+  await user.getIdToken();
+
+  localStorage.setItem(
+
+     'access-token',
+
+     token
+  );
+
   console.log(user);
 
   // check banned user

@@ -19,6 +19,17 @@ const SocialLogin = () => {
 
   const user = result.user;
 
+  // firebase token
+  const token =
+  await user.getIdToken();
+
+  localStorage.setItem(
+
+     'access-token',
+
+     token
+  );
+
   // check banned user
   const checkUser =
   await axiosSecure.get(

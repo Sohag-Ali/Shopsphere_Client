@@ -27,8 +27,18 @@ const Register = () => {
     console.log(data);
 
     registerUser(data.email, data.password, data.name, data.photoUrl)
-      .then((result) => {
+      .then(async(result) => {
         const user = result.user;
+        // firebase token
+const token =
+await user.getIdToken();
+
+localStorage.setItem(
+
+   'access-token',
+
+   token
+);
         console.log(user);
 
         // Update user profile with name and photo URL

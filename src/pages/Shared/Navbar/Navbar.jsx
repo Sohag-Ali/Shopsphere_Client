@@ -22,6 +22,12 @@ const Navbar = () => {
   const handleLogout = () => {
     logoutUser()
       .then(() => {
+        // remove token
+      localStorage.removeItem(
+
+         'access-token'
+      );
+
         console.log("User logged out successfully");
       })
       .catch((error) => {

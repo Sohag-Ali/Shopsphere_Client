@@ -8,19 +8,13 @@ import Swal from "sweetalert2";
 import { Bookmark, BookOpen, Crown, Flag, Sparkles, Users } from "lucide-react";
 import { Link } from "react-router";
 
-
-
 const AdminProfile = () => {
-   const { user,updateUserProfile } = useAuth();
+  const { user, updateUserProfile } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-   const axiosSecure = useAxiosSecure();
-
-
-
-const handleUpdateName = async() => {
-
-   const result = await Swal.fire({
-
+  //User Name Update Button Handle and Api
+  const handleUpdateName = async () => {
+    const result = await Swal.fire({
       title: "Update Name",
 
       input: "text",
@@ -29,51 +23,38 @@ const handleUpdateName = async() => {
 
       showCancelButton: true,
 
-      confirmButtonText: "Update"
-   });
+      confirmButtonText: "Update",
+    });
 
-   if(result.isConfirmed){
-
+    if (result.isConfirmed) {
       const newName = result.value;
 
       try {
+        // firebase update
+        await updateUserProfile(newName, user?.photoURL);
 
-         // firebase update
-         await updateUserProfile(
-            newName,
-            user?.photoURL
-         );
+        // mongodb update
+        await axiosSecure.patch(
+          `/users/profile/${user.email}`,
 
-         // mongodb update
-         await axiosSecure.patch(
+          {
+            name: newName,
+            photoURL: user?.photoURL,
+          },
+        );
 
-            `/users/profile/${user.email}`,
+        toast.success("Name updated successfully");
+      } catch (error) {
+        console.log(error);
 
-            {
-               name: newName,
-               photoURL: user?.photoURL
-            }
-         );
-
-         toast.success(
-            "Name updated successfully"
-         );
-
-      } catch(error){
-
-         console.log(error);
-
-         toast.error(
-            "Failed to update name"
-         );
+        toast.error("Failed to update name");
       }
-   }
-};
+    }
+  };
 
-const handleUpdatePhoto = async() => {
-
-   const result = await Swal.fire({
-
+  //Photo Update Api Clled And Button Handle
+  const handleUpdatePhoto = async () => {
+    const result = await Swal.fire({
       title: "Update Photo URL",
 
       input: "text",
@@ -82,168 +63,92 @@ const handleUpdatePhoto = async() => {
 
       showCancelButton: true,
 
-      confirmButtonText: "Update"
-   });
+      confirmButtonText: "Update",
+    });
 
-   if(result.isConfirmed){
-
+    if (result.isConfirmed) {
       const newPhoto = result.value;
 
       try {
+        // firebase update
+        await updateUserProfile(user?.displayName, newPhoto);
 
-         // firebase update
-         await updateUserProfile(
-            user?.displayName,
-            newPhoto
-         );
+        // mongodb update
+        await axiosSecure.patch(
+          `/users/profile/${user.email}`,
 
-         // mongodb update
-         await axiosSecure.patch(
+          {
+            name: user?.displayName,
+            photoURL: newPhoto,
+          },
+        );
 
-            `/users/profile/${user.email}`,
+        toast.success("Photo updated successfully");
+      } catch (error) {
+        console.log(error);
 
-            {
-               name: user?.displayName,
-               photoURL: newPhoto
-            }
-         );
-
-         toast.success(
-            "Photo updated successfully"
-         );
-
-      } catch(error){
-
-         console.log(error);
-
-         toast.error(
-            "Failed to update photo"
-         );
+        toast.error("Failed to update photo");
       }
-   }
-};
+    }
+  };
 
-   // admin stats
-  //  const { data: stats = {} } = useQuery({
+  // Admin Lesson Show Api
+  const { data: publicLessons = [] } = useQuery({
+    queryKey: ["public-lessons", user?.email],
 
-  //     queryKey: ['admin-stats-summary'],
+    enabled: !!user?.email,
 
-  //     queryFn: async() => {
-
-  //        const res =
-  //        await axiosSecure.get(
-  //           '/admin-stats'
-  //        );
-
-  //        return res.data;
-  //     }
-  //  });
-
-   const { data: publicLessons = [] } = useQuery({
-
-      queryKey: ['public-lessons', user?.email],
-
-      enabled: !!user?.email,
-
-      queryFn: async() => {
-
-         const res = await axiosSecure.get(
-            `/public-lessons/${user.email}`
-         );
-
-         return res.data;
-      }
-   });
-
-   const { data: activity = {} } = useQuery({
-
-   queryKey: [
-      'admin-activity',
-      user?.email
-   ],
-
-   enabled: !!user?.email,
-
-   queryFn: async() => {
-
-      const res =
-      await axiosSecure.get(
-
-         `/admin-activity/${user.email}`,
-         {
-      data: {
-         adminEmail: user.email
-      }
-   }
-      );
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/public-lessons/${user.email}`);
 
       return res.data;
-   }
-});
+    },
+  });
 
-const {
+  // Admin actitity Query Api
+  const { data: activity = {} } = useQuery({
+    queryKey: ["admin-activity", user?.email],
 
-   data: summary = {}
+    enabled: !!user?.email,
 
-} = useQuery({
-
-   queryKey: [
-
-      'user-summary',
-
-      user?.email
-   ],
-
-   enabled: !!user?.email,
-
-   queryFn: async() => {
-
-      const res =
-      await axiosSecure.get(
-
-         `/user-summary/${user.email}`
-      );
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/admin-activity/${user.email}`, {
+        data: {
+          adminEmail: user.email,
+        },
+      });
 
       return res.data;
-   }
-});
+    },
+  });
 
-    return (
+  //User Summery Api called Query
+  const { data: summary = {} } = useQuery({
+    queryKey: ["user-summary", user?.email],
 
+    enabled: !!user?.email,
+
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/user-summary/${user.email}`);
+
+      return res.data;
+    },
+  });
+
+  return (
     <div className="px-4 md:px-8 py-10">
-
-      {/* profile card */}
-      <div
-        className="
-          relative
-          overflow-hidden
-          bg-gradient-to-br
-          from-[#111827]
-          to-[#0F172A]
-          border
-          border-white/10
-          rounded-[32px]
-          shadow-2xl
-          p-8 md:p-10
-        "
-      >
-
+      {/* profile card for Admin User */}
+      <div className=" relative overflow-hidden bg-gradient-to-br from-[#111827] to-[#0F172A] border border-white/10 rounded-[32px] shadow-2xl p-8 md:p-10">
         {/* glow */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-purple-500/10 blur-3xl rounded-full"></div>
 
         <div className="relative z-10 flex flex-col xl:flex-row gap-10 xl:items-center">
-
-          {/* image */}
+          {/* image Admin User*/}
           <div className="relative w-fit mx-auto xl:mx-0">
-
             <div className="absolute inset-0 rounded-full bg-primary blur-2xl opacity-30"></div>
 
             <img
-              src={
-                user?.photoURL
-                ||
-                "https://i.ibb.co/4pDNDk1/avatar.png"
-              }
+              src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"}
               className="
                 relative
                 w-44
@@ -258,42 +163,23 @@ const {
 
             {/* badge */}
             <div className="absolute -bottom-3 left-1/2 -translate-x-1/2">
-
               <div
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
-                  px-5
-                  py-3
-                  rounded-2xl
-                  bg-amber-500/10
-                  text-amber-200
-                  border
-                  border-amber-500/20
-                  font-semibold
-                  backdrop-blur-xl
+                className=" inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-amber-500/10 text-amber-200 border border-amber-500/20 font-semibold backdrop-blur-xl
                 "
               >
-
                 <Crown size={18} />
-
                 Admin
-
               </div>
-
             </div>
-
           </div>
 
-          {/* info */}
+          {/* info Admin User Show in Profile page  */}
           <div className="flex-1 text-center xl:text-left">
-
-            <h1 className="text-4xl md:text-5xl font-black text-white">
+            <h1 className="text-4xl md:text-5xl font-semibold bg-gradient-to-r from-fuchsia-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
               {user?.displayName}
             </h1>
 
-            <p className="text-gray-400 text-lg mt-4">
+            <p className="bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent text-lg mt-4">
               {user?.email}
             </p>
 
@@ -305,7 +191,6 @@ const {
 
             {/* buttons */}
             <div className="flex flex-wrap gap-4 mt-8 justify-center xl:justify-start">
-
               {/* update name */}
               <button
                 onClick={handleUpdateName}
@@ -324,9 +209,7 @@ const {
                   duration-300
                 "
               >
-
                 Update Name
-
               </button>
 
               {/* update photo */}
@@ -347,65 +230,55 @@ const {
                   duration-300
                 "
               >
-
                 Update Photo
-
               </button>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
 
       {/* personal summary */}
-<div className="mt-16">
+      <div className="mt-16">
+        {/* heading */}
+        <div className="flex items-center gap-4 mb-10">
+          <div className=" w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+            <Sparkles className="text-primary" />
+          </div>
 
-  <div className="flex items-center gap-4 mb-10">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-black text-white">
+              <span className="bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent ">
+                Personal Activity
+              </span>{" "}
+              📈
+            </h2>
 
-    <div
-      className="
-        w-14
-        h-14
-        rounded-2xl
-        bg-primary/10
-        border
-        border-primary/20
-        flex
-        items-center
-        justify-center
-      "
-    >
+            <p className="text-gray-400 mt-2">
+              Your platform contribution summary
+            </p>
+          </div>
+        </div>
 
-      <Sparkles className="text-primary" />
+        {/* cards for summary show in Admin Profile page */}
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+          {/* total lessons */}
+          <div className=" bg-gradient-to-br from-[#111827] to-[#0F172A] border border-white/10 rounded-[30px] p-8 shadow-2xl">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">Total Lessons</p>
 
-    </div>
+                <h2 className="text-5xl font-black text-indigo-300 mt-5">
+                  {summary.totalLessons || 0}
+                </h2>
+              </div>
 
-    <div>
+              <BookOpen size={45} className="text-indigo-300" />
+            </div>
+          </div>
 
-      <h2 className="text-3xl md:text-4xl font-black text-white">
-
-        Personal Activity 📈
-
-      </h2>
-
-      <p className="text-gray-400 mt-2">
-
-        Your platform contribution summary
-
-      </p>
-
-    </div>
-
-  </div>
-
-  <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
-
-    {/* total lessons */}
-    <div
-      className="
+          {/* public lessons */}
+          <div
+            className="
         bg-gradient-to-br
         from-[#111827]
         to-[#0F172A]
@@ -415,38 +288,23 @@ const {
         p-8
         shadow-2xl
       "
-    >
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">Public Lessons</p>
 
-      <div className="flex justify-between items-center">
+                <h2 className="text-5xl font-black text-emerald-300 mt-5">
+                  {summary.publicLessons || 0}
+                </h2>
+              </div>
 
-        <div>
+              <Users size={45} className="text-emerald-300" />
+            </div>
+          </div>
 
-          <p className="text-gray-400">
-
-            Total Lessons
-
-          </p>
-
-          <h2 className="text-5xl font-black text-indigo-300 mt-5">
-
-            {summary.totalLessons || 0}
-
-          </h2>
-
-        </div>
-
-        <BookOpen
-          size={45}
-          className="text-indigo-300"
-        />
-
-      </div>
-
-    </div>
-
-    {/* public lessons */}
-    <div
-      className="
+          {/* saved */}
+          <div
+            className="
         bg-gradient-to-br
         from-[#111827]
         to-[#0F172A]
@@ -456,38 +314,23 @@ const {
         p-8
         shadow-2xl
       "
-    >
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">Saved Lessons</p>
 
-      <div className="flex justify-between items-center">
+                <h2 className="text-5xl font-black text-amber-300 mt-5">
+                  {summary.totalSaved || 0}
+                </h2>
+              </div>
 
-        <div>
+              <Bookmark size={45} className="text-amber-300" />
+            </div>
+          </div>
 
-          <p className="text-gray-400">
-
-            Public Lessons
-
-          </p>
-
-          <h2 className="text-5xl font-black text-emerald-300 mt-5">
-
-            {summary.publicLessons || 0}
-
-          </h2>
-
-        </div>
-
-        <Users
-          size={45}
-          className="text-emerald-300"
-        />
-
-      </div>
-
-    </div>
-
-    {/* saved */}
-    <div
-      className="
+          {/* reports */}
+          <div
+            className="
         bg-gradient-to-br
         from-[#111827]
         to-[#0F172A]
@@ -497,89 +340,32 @@ const {
         p-8
         shadow-2xl
       "
-    >
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">Reports Submitted</p>
 
-      <div className="flex justify-between items-center">
+                <h2 className="text-5xl font-black text-rose-300 mt-5">
+                  {summary.totalReports || 0}
+                </h2>
+              </div>
 
-        <div>
-
-          <p className="text-gray-400">
-
-            Saved Lessons
-
-          </p>
-
-          <h2 className="text-5xl font-black text-amber-300 mt-5">
-
-            {summary.totalSaved || 0}
-
-          </h2>
-
+              <Flag size={45} className="text-rose-300" />
+            </div>
+          </div>
         </div>
-
-        <Bookmark
-          size={45}
-          className="text-amber-300"
-        />
-
       </div>
-
-    </div>
-
-    {/* reports */}
-    <div
-      className="
-        bg-gradient-to-br
-        from-[#111827]
-        to-[#0F172A]
-        border
-        border-white/10
-        rounded-[30px]
-        p-8
-        shadow-2xl
-      "
-    >
-
-      <div className="flex justify-between items-center">
-
-        <div>
-
-          <p className="text-gray-400">
-
-            Reports Submitted
-
-          </p>
-
-          <h2 className="text-5xl font-black text-rose-300 mt-5">
-
-            {summary.totalReports || 0}
-
-          </h2>
-
-        </div>
-
-        <Flag
-          size={45}
-          className="text-rose-300"
-        />
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
 
       {/* quick actions */}
       <div className="mt-16">
-
         <h2 className="text-3xl md:text-4xl font-black text-white mb-10">
-          Quick Admin Actions ⚡
+          <span className="bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent ">
+            Quick Admin Actions
+          </span>{" "}
+          ⚡
         </h2>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-8">
-
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 grid-wrap gap-8">
           {/* total */}
           <div
             className="
@@ -594,18 +380,14 @@ const {
               shadow-2xl
             "
           >
-
             <h2 className="text-5xl font-black text-primary">
               {activity.totalActions || 0}
             </h2>
 
-            <p className="text-gray-400 mt-4">
-              Total Actions
-            </p>
-
+            <p className="text-gray-400 mt-4">Total Actions</p>
           </div>
 
-          {/* deleted */}
+          {/* deleted lessons */}
           <div
             className="
               bg-gradient-to-br
@@ -619,44 +401,27 @@ const {
               shadow-2xl
             "
           >
-
             <h2 className="text-5xl font-black text-rose-300">
               {activity.deletedLessons || 0}
             </h2>
 
-            <p className="text-gray-400 mt-4">
-              Deleted Lessons
-            </p>
-
-          </div>
-
-          {/* featured */}
-          <div
-            className="
-              bg-gradient-to-br
-              from-[#111827]
-              to-[#0F172A]
-              border
-              border-white/10
-              rounded-[30px]
-              p-8
-              text-center
-              shadow-2xl
-            "
-          >
-
-            <h2 className="text-5xl font-black text-purple-300">
-              {activity.featuredLessons || 0}
-            </h2>
-
-            <p className="text-gray-400 mt-4">
-              Featured Lessons
-            </p>
-
+            <p className="text-gray-400 mt-4">Deleted Lessons</p>
           </div>
 
           {/* reviewed */}
           <div
+            className=" bg-gradient-to-br from-[#111827] to-[#0F172A] border border-white/10 rounded-[30px] p-8 text-center shadow-2xl
+            "
+          >
+            <h2 className="text-5xl font-black text-purple-300">
+              {activity.reviewedLessons || 0}
+            </h2>
+
+            <p className="text-gray-400 mt-4">Reviewed Lessons</p>
+          </div>
+
+          {/* deleted users */}
+          <div
             className="
               bg-gradient-to-br
               from-[#111827]
@@ -669,15 +434,53 @@ const {
               shadow-2xl
             "
           >
-
-            <h2 className="text-5xl font-black text-emerald-300">
-              {activity.reviewedLessons || 0}
+            <h2 className="text-5xl font-black text-red-500">
+              {activity.deletedUsers || 0}
             </h2>
 
-            <p className="text-gray-400 mt-4">
-              Reviewed Lessons
-            </p>
+            <p className="text-gray-400 mt-4">Deleted Users</p>
+          </div>
 
+          {/* banned users */}
+          <div
+            className="
+    bg-gradient-to-br
+    from-[#111827]
+    to-[#0F172A]
+    border
+    border-white/10
+    rounded-[30px]
+    p-8
+    text-center
+    shadow-2xl
+  "
+          >
+            <h2 className="text-5xl font-black text-pink-600">
+              {activity.bannedUsers || 0}
+            </h2>
+
+            <p className="text-gray-400 mt-4">Banned Users</p>
+          </div>
+
+          {/* Unban User */}
+          <div
+            className="
+    bg-gradient-to-br
+    from-[#111827]
+    to-[#0F172A]
+    border
+    border-white/10
+    rounded-[30px]
+    p-8
+    text-center
+    shadow-2xl
+  "
+          >
+            <h2 className="text-5xl font-black text-emerald-300">
+              {activity.unbannedUsers || 0}
+            </h2>
+
+            <p className="text-gray-400 mt-4">Unbanned Users</p>
           </div>
 
           {/* ignored */}
@@ -694,44 +497,56 @@ const {
               shadow-2xl
             "
           >
-
             <h2 className="text-5xl font-black text-cyan-300">
               {activity.ignoredReports || 0}
             </h2>
 
-            <p className="text-gray-400 mt-4">
-              Ignored Reports
-            </p>
-
+            <p className="text-gray-400 mt-4">Ignored Reports</p>
           </div>
 
-        </div>
+          {/* Admin user */}
+          <div
+            className="
+    bg-gradient-to-br
+    from-[#111827]
+    to-[#0F172A]
+    border
+    border-white/10
+    rounded-[30px]
+    p-8
+    text-center
+    shadow-2xl
+  "
+          >
+            <h2 className="text-5xl font-black text-amber-300">
+              {activity.madeAdmins || 0}
+            </h2>
 
+            <p className="text-gray-400 mt-4">Made Admins</p>
+          </div>
+        </div>
       </div>
 
       {/* public lessons */}
       <div className="mt-16">
-
         {/* heading */}
         <div className="mb-10">
-
           <h2 className="text-4xl  text-white">
-             <span className="bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent font-bold">My Public Lessons</span> 📚
+            <span className="bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent font-bold">
+              My Public Lessons
+            </span>{" "}
+            📚
           </h2>
 
           <p className="text-gray-400 mt-3 text-lg">
             Lessons you shared with the community
           </p>
-
         </div>
 
         {/* no lessons */}
-        {
-          (!publicLessons || publicLessons === 0)
-          ?
-          (
-            <div
-              className="
+        {!publicLessons || publicLessons === 0 ? (
+          <div
+            className="
                 bg-gradient-to-br
                 from-[#111827]
                 to-[#0F172A]
@@ -742,10 +557,9 @@ const {
                 p-16
                 text-center
               "
-            >
-
-              <div
-                className="
+          >
+            <div
+              className="
                   w-24
                   h-24
                   rounded-full
@@ -758,35 +572,24 @@ const {
                   mx-auto
                   mb-8
                 "
-              >
-
-                <BookOpen
-                  size={40}
-                  className="text-primary"
-                />
-
-              </div>
-
-              <h2 className="text-4xl font-black text-white">
-                No Public Lessons Yet
-              </h2>
-
-              <p className="text-gray-400 mt-4 text-lg">
-                Start sharing your life experiences with others.
-              </p>
-
+            >
+              <BookOpen size={40} className="text-primary" />
             </div>
-          )
-          :
-          (
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
 
-              {
-                publicLessons.map((lesson) => (
+            <h2 className="text-4xl font-black text-white">
+              No Public Lessons Yet
+            </h2>
 
-                  <div
-                    key={lesson._id}
-                    className="
+            <p className="text-gray-400 mt-4 text-lg">
+              Start sharing your life experiences with others.
+            </p>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {publicLessons.map((lesson) => (
+              <div
+                key={lesson._id}
+                className="
                       group
                       relative
                       overflow-hidden
@@ -802,15 +605,13 @@ const {
                       transition-all
                       duration-300
                     "
-                  >
-
-                    {/* image */}
-                    <div className="relative overflow-hidden">
-
-                      <img
-                        src={lesson.image}
-                        alt=""
-                        className="
+              >
+                {/* image */}
+                <div className="relative overflow-hidden">
+                  <img
+                    src={lesson.image}
+                    alt=""
+                    className="
                           h-56
                           w-full
                           object-cover
@@ -818,16 +619,15 @@ const {
                           duration-500
                           group-hover:scale-105
                         "
-                      />
+                  />
 
-                      {/* overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] to-transparent"></div>
+                  {/* overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] to-transparent"></div>
 
-                      {/* category */}
-                      <div className="absolute top-5 left-5">
-
-                        <span
-                          className="
+                  {/* category */}
+                  <div className="absolute top-5 left-5">
+                    <span
+                      className="
                             px-4
                             py-2
                             rounded-full
@@ -839,42 +639,32 @@ const {
                             font-semibold
                             backdrop-blur-xl
                           "
-                        >
-                          {lesson.category}
-                        </span>
-
-                      </div>
-                      {/* lesson length */}
-                  <div className=" absolute top-4 right-4 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white text-sm font-semibold shadow-lg">
-
-  {
-    Math.ceil(
-      lesson.description?.split(" ").length / 200
-    )
-  }
-  {" "}min read
-
+                    >
+                      {lesson.category}
+                    </span>
                   </div>
+                  {/* lesson length */}
+                  <div className=" absolute top-4 right-4 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white text-sm font-semibold shadow-lg">
+                    {Math.ceil(lesson.description?.split(" ").length / 200)} min
+                    read
+                  </div>
+                </div>
 
-                    </div>
+                {/* content */}
+                <div className="p-7">
+                  <h2 className="text-2xl font-bold bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent  line-clamp-2">
+                    {lesson.title}
+                  </h2>
 
-                    {/* content */}
-                    <div className="p-7">
+                  <p className="text-gray-400 mt-4 leading-7 line-clamp-3">
+                    {lesson.description}
+                  </p>
 
-                      <h2 className="text-2xl font-bold bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent  line-clamp-2">
-                        {lesson.title}
-                      </h2>
-
-                      <p className="text-gray-400 mt-4 leading-7 line-clamp-3">
-                        {lesson.description}
-                      </p>
-
-                      {/* bottom */}
-                      <div className="mt-8 flex items-center justify-between">
-
-                        {/* emotional tone */}
-                        <span
-                          className="
+                  {/* bottom */}
+                  <div className="mt-8 flex items-center justify-between">
+                    {/* emotional tone */}
+                    <span
+                      className="
                             px-4
                             py-2
                             rounded-full
@@ -885,14 +675,14 @@ const {
                             text-xs
                             font-semibold
                           "
-                        >
-                          {lesson.emotionalTone}
-                        </span>
+                    >
+                      {lesson.emotionalTone}
+                    </span>
 
-                        {/* details */}
-                        <Link
-                          to={`/lesson-details/${lesson._id}`}
-                          className="
+                    {/* details */}
+                    <Link
+                      to={`/lesson-details/${lesson._id}`}
+                      className="
                             px-5
                             py-3
                             rounded-2xl
@@ -907,24 +697,16 @@ const {
                             transition-all
                             duration-300
                           "
-                        >
-                          Details
-                        </Link>
-
-                      </div>
-
-                    </div>
-
+                    >
+                      Details
+                    </Link>
                   </div>
-                ))
-              }
-
-            </div>
-          )
-        }
-
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-
     </div>
   );
 };
