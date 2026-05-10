@@ -1,4 +1,4 @@
-import {  NavLink, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import useUser from "../hooks/useUser";
 import Container from "../coponents/Container/Container";
 import { BiAddToQueue } from "react-icons/bi";
@@ -7,9 +7,11 @@ import { TbFileLike } from "react-icons/tb";
 import { FaUsersCog } from "react-icons/fa";
 import { FaBookMedical } from "react-icons/fa";
 import { MdReport } from "react-icons/md";
+import LoadingDash from "../coponents/LoadingPage/LoadingDash";
+import { Suspense } from "react";
 
 const navLinkClass = ({ isActive }) =>
-      `
+  `
       flex
       items-center
       gap-3
@@ -23,10 +25,7 @@ const navLinkClass = ({ isActive }) =>
           ? "bg-[#2A3142] border-[#4B5563] text-[#0dddcc] font-medium shadow-md"
           : "text-gray-300 font-medium hover:shadow-lg hover:shadow-purple-500/20"
       }
-    `
-    ;
-                 
-
+    `;
 const DashboardLayout = () => {
   const [userData] = useUser();
 
@@ -35,8 +34,7 @@ const DashboardLayout = () => {
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav       className="navbar sticky top-0 z-50 w-full bg-[#111827]/80 backdrop-blur-xl border-b border-white/10 px-6"
-        >
+        <nav className="navbar sticky top-0 z-50 w-full bg-[#111827]/80 backdrop-blur-xl border-b border-white/10 px-6">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -65,7 +63,9 @@ const DashboardLayout = () => {
         {/* Page content here */}
 
         <Container>
-          <Outlet></Outlet>
+          <Suspense fallback={<LoadingDash></LoadingDash>}>
+            <Outlet />
+          </Suspense>
         </Container>
       </div>
 
@@ -75,16 +75,11 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div
-          className=" flex min-h-full flex-col items-start bg-[#111827] border-r border-white/10 backdrop-blur-xl is-drawer-close:w-14 is-drawer-open:w-72 transition-all duration-300 is-drawer-close:w-14 is-drawer-open:w-64"
-        >
+        <div className=" flex min-h-full flex-col items-start bg-[#111827] border-r border-white/10 backdrop-blur-xl is-drawer-close:w-14 is-drawer-open:w-72 transition-all duration-300 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full grow p-4 space-y-2">
             <li>
-              <NavLink
-                to="/"
-                className={navLinkClass}
-              >
+              <NavLink to="/" className={navLinkClass}>
                 {/* Home icon */}
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +95,8 @@ const DashboardLayout = () => {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg> */}
                 <span className="text-2xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
-          LifeLessons ✨
-        </span>
+                  LifeLessons ✨
+                </span>
               </NavLink>
             </li>
 
@@ -140,8 +135,8 @@ const DashboardLayout = () => {
                     data-tip="Add Lesson"
                   >
                     {/* Add Lesson icon */}
-                   
-                   <BiAddToQueue />
+
+                    <BiAddToQueue />
                     <span className="is-drawer-close:hidden">Add Lesson</span>
                   </NavLink>
                 </li>
@@ -180,7 +175,7 @@ const DashboardLayout = () => {
                     data-tip="Favorites"
                   >
                     {/* Favorites icon */}
-                  
+
                     <TbFileLike />
                     <span className="is-drawer-close:hidden">Favorites</span>
                   </NavLink>
@@ -235,9 +230,7 @@ const DashboardLayout = () => {
                       <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
                       <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                     </svg>
-                    <span className="is-drawer-close:hidden">
-                      Homepage
-                    </span>
+                    <span className="is-drawer-close:hidden">Homepage</span>
                   </NavLink>
                 </li>
 

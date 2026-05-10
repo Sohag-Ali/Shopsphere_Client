@@ -5,3 +5,10 @@
 .swiper-wrapper {
   transition-timing-function: linear !important;
 }
+
+#nprogress .bar {
+
+  background: #8B5CF6 !important;
+
+  height: 4px !important;
+}

@@ -89,8 +89,8 @@ const AdminHome = () => {
 
           <div>
 
-            <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-fuchsia-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-              Admin Dashboard 👑
+            <h1 className="text-4xl md:text-5xl font-black ">
+              <span className="bg-gradient-to-r from-fuchsia-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent">Admin Dashboard</span> 👑
             </h1>
 
             <p className="text-gray-400 text-lg mt-3">

@@ -26,8 +26,8 @@ import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import CommentSection from "../pages/DetailsPage/CommentSection";
 import BannedPage from "../coponents/BannedPage/BannedPage";
 import AdminRoute from "./AdminRoute";
-
-
+import NotFound from "../coponents/error/NotFound";
+import Unauthorized from "../coponents/error/Unauthorized";
 
 export const router = createBrowserRouter([
   {
@@ -36,45 +36,50 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home
+        Component: Home,
       },
       {
         path: "public-lessons",
-        Component: PublicLessons
-       
+        Component: PublicLessons,
       },
       {
         path: "/lesson-details/:id",
-        element: <PrivateRoute>
-          <LessonDetails></LessonDetails>
-         </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <LessonDetails></LessonDetails>
+          </PrivateRoute>
+        ),
       },
-     
+
       {
         path: "pricing",
-        element: <PrivateRoute>
-          <Pricing></Pricing>
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <Pricing></Pricing>
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment-success",
-        Component: PaymentSuccess
+        Component: PaymentSuccess,
       },
       {
         path: "payment-cancel",
-        Component: PaymentCancel
+        Component: PaymentCancel,
       },
       {
         path: "/comment-section/:id",
-        element: <PrivateRoute>
-          <CommentSection></CommentSection>
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <CommentSection></CommentSection>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/banned",
-        Component: BannedPage
-      }
-    ]
+        Component: BannedPage,
+      },
+    ],
   },
 
   {
@@ -83,85 +88,110 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        Component: Login
-
+        Component: Login,
       },
       {
         path: "register",
-        Component: Register
-      }
-    ]
+        Component: Register,
+      },
+    ],
   },
 
   {
-    path: 'dashboard',
-    element: <PrivateRoute>
-      <DashboardLayout></DashboardLayout>
-    </PrivateRoute>,
-      children: [
-        {
-          index: true,
-          element: <DashboardRedirect></DashboardRedirect>
-        },
-        {
-          path: 'user-home',
-          element: <DashboardHome></DashboardHome>
-        },
-        {
-          path: 'my-lessons',
-          element: <MyLessons></MyLessons>
-        },
-        {
-          path: 'add-lesson',
-          element: <PrivateRoute>
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardRedirect></DashboardRedirect>,
+      },
+      {
+        path: "user-home",
+        element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "my-lessons",
+        element: <MyLessons></MyLessons>,
+      },
+      {
+        path: "add-lesson",
+        element: (
+          <PrivateRoute>
             <AddLesson></AddLesson>
           </PrivateRoute>
-        },
-        {
-          path: 'update-lesson/:id',
-          element: <PrivateRoute>
+        ),
+      },
+      {
+        path: "update-lesson/:id",
+        element: (
+          <PrivateRoute>
             <UpdateLesson></UpdateLesson>
           </PrivateRoute>
-        },
-        {
-          path: 'favorites',
-          element: <Favorites></Favorites>
-        },
-         {
-          path: 'admin-home',
-          element: <AdminRoute>
+        ),
+      },
+      {
+        path: "favorites",
+        element: <Favorites></Favorites>,
+      },
+      {
+        path: "admin-home",
+        element: (
+          <AdminRoute>
             <AdminHome></AdminHome>
           </AdminRoute>
-        },
-        {
-          path:'admin/manage-users',
-          element: <AdminRoute>
+        ),
+      },
+      {
+        path: "admin/manage-users",
+        element: (
+          <AdminRoute>
             <ManageUsers></ManageUsers>
           </AdminRoute>
-        },
-        {
-          path:'admin/manage-lessons',
-          element: <AdminRoute>
+        ),
+      },
+      {
+        path: "admin/manage-lessons",
+        element: (
+          <AdminRoute>
             <ManageLessons></ManageLessons>
           </AdminRoute>
-        },
-         {
-          path:'admin/reported-lessons',
-          element: <AdminRoute>
+        ),
+      },
+      {
+        path: "admin/reported-lessons",
+        element: (
+          <AdminRoute>
             <ReportedLessons></ReportedLessons>
           </AdminRoute>
-        },
-        {
-          path: 'profile',
-          element: <Profile></Profile>
-        },
-        {
-          path: 'admin/admin-profile',
-          element: <AdminRoute>
+        ),
+      },
+      
+      {
+        path: "profile",
+        element: <Profile></Profile>,
+      },
+      {
+        path: "admin/admin-profile",
+        element: (
+          <AdminRoute>
             <AdminProfile></AdminProfile>
           </AdminRoute>
-        }
-      ]
-  }
+        ),
+      },
+    ],
+  },
 
+  {
+    path: "*",
+
+    element: <NotFound></NotFound>,
+  },
+  {
+        path: "unauthorized",
+        element: <Unauthorized></Unauthorized>
+      },
 ]);
