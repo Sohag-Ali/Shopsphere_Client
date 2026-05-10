@@ -25,6 +25,7 @@ import ReportedLessons from "../pages/Dashboard/Admin/ReportedLessons/ReportedLe
 import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import CommentSection from "../pages/DetailsPage/CommentSection";
 import BannedPage from "../coponents/BannedPage/BannedPage";
+import AdminRoute from "./AdminRoute";
 
 
 
@@ -128,19 +129,27 @@ export const router = createBrowserRouter([
         },
          {
           path: 'admin-home',
-          element: <AdminHome></AdminHome>
+          element: <AdminRoute>
+            <AdminHome></AdminHome>
+          </AdminRoute>
         },
         {
           path:'admin/manage-users',
-          element: <ManageUsers></ManageUsers>
+          element: <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
         },
         {
           path:'admin/manage-lessons',
-          element: <ManageLessons></ManageLessons>
+          element: <AdminRoute>
+            <ManageLessons></ManageLessons>
+          </AdminRoute>
         },
          {
           path:'admin/reported-lessons',
-          element: <ReportedLessons></ReportedLessons>
+          element: <AdminRoute>
+            <ReportedLessons></ReportedLessons>
+          </AdminRoute>
         },
         {
           path: 'profile',
@@ -148,7 +157,9 @@ export const router = createBrowserRouter([
         },
         {
           path: 'admin/admin-profile',
-          element: <AdminProfile></AdminProfile>
+          element: <AdminRoute>
+            <AdminProfile></AdminProfile>
+          </AdminRoute>
         }
       ]
   }
