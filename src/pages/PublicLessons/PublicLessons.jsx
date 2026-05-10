@@ -6,6 +6,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import useTitle from "../../hooks/useTitle";
 
 const PublicLessons = () => {
   const axiosSecure = useAxiosSecure();
@@ -27,6 +28,7 @@ const PublicLessons = () => {
   });
 
   return (
+    useTitle("Public Lessons"),
     <div className="min-h-screen bg-[#0F172A] py-16 relative overflow-hidden">
       {/* background blur */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500/10 blur-3xl rounded-full"></div>

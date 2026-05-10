@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import { BookOpenCheck } from "lucide-react";
+import useTitle from "../../../hooks/useTitle";
 
 const MyLessons = () => {
   const { user } = useAuth();
@@ -148,6 +149,8 @@ const MyLessons = () => {
   }
 
   return (
+    useTitle("My Lessons"),
+    
     <div className="p-6">
       {/* heading */}
       <div className="mb-8">

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { Bookmark, BookOpen, Crown, Flag, Sparkles, Users } from "lucide-react";
 import { Link } from "react-router";
+import useTitle from "../../../../hooks/useTitle";
 
 const AdminProfile = () => {
   const { user, updateUserProfile } = useAuth();
@@ -136,6 +137,7 @@ const AdminProfile = () => {
   });
 
   return (
+    useTitle("Admin Profile"),
     <div className="px-4 md:px-8 py-10">
       {/* profile card for Admin User */}
       <div className=" relative overflow-hidden bg-gradient-to-br from-[#111827] to-[#0F172A] border border-white/10 rounded-[32px] shadow-2xl p-8 md:p-10">

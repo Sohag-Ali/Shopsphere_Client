@@ -1,6 +1,7 @@
 import { CheckCircle, Crown,  XCircle } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useTitle from "../../hooks/useTitle";
 
 
 const Pricing = () => {
@@ -28,6 +29,7 @@ const Pricing = () => {
 
 
    return (
+    useTitle("Pricing"),
     <div className="min-h-screen bg-[#0F172A]  py-20 px-4 relative overflow-hidden">
       
       {/* background blur */}

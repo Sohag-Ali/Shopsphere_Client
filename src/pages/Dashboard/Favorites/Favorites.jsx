@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router";
 import { Heart, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
+import useTitle from "../../../hooks/useTitle";
 
 
 const Favorites = () => {
@@ -116,6 +117,7 @@ const Favorites = () => {
    };
 
    return (
+    useTitle("My Favorites"),
     <div className="px-4 md:px-8 py-10">
 
       {/* heading */}

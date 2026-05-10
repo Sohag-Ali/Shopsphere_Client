@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useUser from "../../../hooks/useUser";
 import { Link } from "react-router";
 import { Bookmark, BookOpen, Crown, Flag, Sparkles } from "lucide-react";
+import useTitle from "../../../hooks/useTitle";
 
 
 const Profile = () => {
@@ -55,6 +56,7 @@ const Profile = () => {
    });
 
    return (
+    useTitle("My Profile"),
     <div className="px-4 md:px-8 py-10">
 
       {/* profile card */}

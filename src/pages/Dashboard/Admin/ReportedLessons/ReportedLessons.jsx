@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { AlertTriangle, Eye, ShieldAlert, Trash2, XCircle } from "lucide-react";
+import useTitle from "../../../../hooks/useTitle";
 
 
 const ReportedLessons = () => {
@@ -100,6 +101,7 @@ const ReportedLessons = () => {
    };
 
    return (
+      useTitle("Reported Lessons"),
 
       <div className="px-4 md:px-8 py-10">
 

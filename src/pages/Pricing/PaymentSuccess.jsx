@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect } from "react";
 import {  useQueryClient } from "@tanstack/react-query";
+import useTitle from "../../hooks/useTitle";
 
 
 const PaymentSuccess = () => {
@@ -34,6 +35,7 @@ const PaymentSuccess = () => {
   }, [user, axiosSecure, queryClient]);
 
     return (
+      useTitle("Payment Successful"),
       <div className="min-h-screen bg-linear-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center px-4 py-8 overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

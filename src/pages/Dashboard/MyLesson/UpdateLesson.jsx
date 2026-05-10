@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 
 import Swal from "sweetalert2";
+import useTitle from "../../../hooks/useTitle";
 
 
 const UpdateLesson = () => {
@@ -96,6 +97,7 @@ const UpdateLesson = () => {
    };
 
  return (
+  useTitle("Update Lesson"),
     <div className="max-w-5xl mx-auto px-4 py-10">
       
       <div

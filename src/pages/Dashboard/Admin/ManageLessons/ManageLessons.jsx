@@ -7,6 +7,7 @@ import { AiOutlineFileProtect } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { MdOutlineShield } from "react-icons/md";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useTitle from "../../../../hooks/useTitle";
 
 const ManageLessons = () => {
   const axiosSecure = useAxiosSecure();
@@ -102,6 +103,7 @@ const ManageLessons = () => {
   };
 
   return (
+    useTitle("Manage Lessons"),
     <div className="px-4 md:px-8 py-10">
       {/* heading */}
       <div className="mb-14">

@@ -1,7 +1,9 @@
+import useTitle from "../../hooks/useTitle";
 
 
 const PaymentCancel = () => {
   return (
+    useTitle("Payment Cancelled"),
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full">
         {/* Animated Icon Container */}

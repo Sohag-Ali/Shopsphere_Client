@@ -7,6 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useUser from "../../hooks/useUser";
 import { useEffect } from "react";
+import useTitle from "../../hooks/useTitle";
 
 
 const LessonDetails = () => {
@@ -47,6 +48,7 @@ const LessonDetails = () => {
     !userData?.isPremium;
 
     return (
+        useTitle(lesson.title || "Lesson Details"),
         <div className="relative">
 
             {/* PREMIUM OVERLAY */}

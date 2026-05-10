@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { Activity, BookOpen, Flag, Sparkles, TrendingUp, Users } from "lucide-react";
 import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import useTitle from "../../../../hooks/useTitle";
 
 
 const AdminHome = () => {
@@ -58,6 +59,7 @@ const AdminHome = () => {
    ];
 
   return (
+    useTitle("Admin Dashboard"),
 
     <div className="px-4 md:px-8 py-10">
 

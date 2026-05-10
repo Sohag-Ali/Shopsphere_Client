@@ -1,3 +1,4 @@
+import useTitle from "../../hooks/useTitle";
 import FeaturedLessons from "./FeaturedLessons/FeaturedLessons";
 import MostSavedLessons from "./MostSavedLessons/MostSavedLessons";
 import TopContributors from "./TopContributors/TopContributors";
@@ -6,6 +7,7 @@ import WhyLearning from "./WhyLearning/WhyLearning";
 
 const Home = () => {
     return (
+      useTitle("Home"),
         <main className="bg-base-100 overflow-x-hidden">
 
       {/* Hero */}

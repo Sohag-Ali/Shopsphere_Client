@@ -15,6 +15,7 @@ import { PiUsersThreeFill } from "react-icons/pi";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { FaUsersSlash } from "react-icons/fa";
 import { useState } from "react";
+import useTitle from "../../../../hooks/useTitle";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -204,6 +205,7 @@ const ManageUsers = () => {
   };
 
   return (
+    useTitle("Manage Users"),
     <div className="px-4 md:px-8 py-10">
       {/* heading */}
       <div className="mb-14">

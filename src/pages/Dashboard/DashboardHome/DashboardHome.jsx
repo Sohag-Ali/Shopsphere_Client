@@ -17,6 +17,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import useTitle from "../../../hooks/useTitle";
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -65,6 +66,7 @@ const DashboardHome = () => {
   ];
 
   return (
+    useTitle("Dashboard Overview"),
     <div className="px-4 md:px-8 py-10">
       {/* heading */}
       <div className="mb-12">

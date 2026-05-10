@@ -5,6 +5,7 @@ import useUser from "../../../hooks/useUser";
 import { toast } from "react-toastify";
 
 import Swal from "sweetalert2";
+import useTitle from "../../../hooks/useTitle";
 
 const AddLesson = () => {
   const { user } = useAuth();
@@ -80,6 +81,7 @@ const AddLesson = () => {
   };
 
   return (
+    useTitle("Add New Lesson"),
     <div className=" max-w-5xl mx-auto px-4 py-10">
       <div className="bg-[#111827] border border-white/10 backdrop-blur-xl shadow-2xl rounded-[32px] p-8 md:p-12">
         <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-fuchsia-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3">
