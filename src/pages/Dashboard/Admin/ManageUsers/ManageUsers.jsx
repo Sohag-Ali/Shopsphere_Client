@@ -16,10 +16,12 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { FaUsersSlash } from "react-icons/fa";
 import { useState } from "react";
 import useTitle from "../../../../hooks/useTitle";
+//import { useQueryClient } from "@tanstack/react-query";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [searchText, setSearchText] = useState("");
+  // const queryClient = useQueryClient();
 
   // fetch users
   const { data: users = [], refetch } = useQuery({
@@ -69,6 +71,15 @@ const ManageUsers = () => {
       const res = await axiosSecure.patch(`/users/admin/${id}`);
 
       if (res.data.modifiedCount) {
+        // await queryClient.invalidateQueries({
+        //   queryKey: ["admin"],
+        // });
+
+        // await queryClient.invalidateQueries({
+        //   queryKey: ["users"],
+        // });
+
+        await refetch();
         Swal.fire({
           title: "👑 Admin Access Granted",
 
@@ -87,7 +98,8 @@ const ManageUsers = () => {
           showConfirmButton: false,
         });
 
-        refetch();
+        await refetch();
+        
       }
     } catch (error) {
       console.log(error);
@@ -206,35 +218,36 @@ const ManageUsers = () => {
 
   return (
     useTitle("Manage Users"),
-    <div className="px-4 md:px-8 py-10">
-      {/* heading */}
-      <div className="mb-14">
-        <div className="flex items-center gap-5">
-          <div className=" w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-            <Sparkles size={30} className="text-primary" />
-          </div>
+    (
+      <div className="px-4 md:px-8 py-10">
+        {/* heading */}
+        <div className="mb-14">
+          <div className="flex items-center gap-5">
+            <div className=" w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <Sparkles size={30} className="text-primary" />
+            </div>
 
-          <div>
-            <h1 className="text-4xl md:text-5xl font-black text-white">
-              <span className="bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent">
-                {" "}
-                Manage Users
-              </span>{" "}
-              👥
-            </h1>
+            <div>
+              <h1 className="text-4xl md:text-5xl font-black text-white">
+                <span className="bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent">
+                  {" "}
+                  Manage Users
+                </span>{" "}
+                👥
+              </h1>
 
-            <p className="text-gray-400 text-lg mt-3">
-              Manage all registered users
-            </p>
+              <p className="text-gray-400 text-lg mt-3">
+                Manage all registered users
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* stats */}
-      <div className="grid md:grid-cols-4 gap-8 mb-12">
-        {/* total users */}
-        <div
-          className="
+        {/* stats */}
+        <div className="grid md:grid-cols-4 gap-8 mb-12">
+          {/* total users */}
+          <div
+            className="
             bg-gradient-to-br
             from-[#111827]
             to-[#0F172A]
@@ -247,16 +260,16 @@ const ManageUsers = () => {
             items-center
             justify-between
           "
-        >
-          <div>
-            <h2 className="text-5xl font-black text-indigo-300">
-              {users.length}
-            </h2>
+          >
+            <div>
+              <h2 className="text-5xl font-black text-indigo-300">
+                {users.length}
+              </h2>
 
-            <p className="text-gray-400 mt-4">Total Users</p>
-          </div>
-          <div
-            className="
+              <p className="text-gray-400 mt-4">Total Users</p>
+            </div>
+            <div
+              className="
                 w-20
                 h-20
                 rounded-3xl
@@ -267,14 +280,14 @@ const ManageUsers = () => {
                 items-center
                 justify-center
               "
-          >
-            <PiUsersThreeFill size={40} className="text-indigo-300" />
+            >
+              <PiUsersThreeFill size={40} className="text-indigo-300" />
+            </div>
           </div>
-        </div>
 
-        {/* admins */}
-        <div
-          className="
+          {/* admins */}
+          <div
+            className="
             bg-gradient-to-br
             from-[#111827]
             to-[#0F172A]
@@ -287,17 +300,17 @@ const ManageUsers = () => {
             items-center
             justify-between
           "
-        >
-          <div>
-            <h2 className="text-5xl font-black text-amber-300">
-              {users.filter((user) => user.role === "admin").length}
-            </h2>
+          >
+            <div>
+              <h2 className="text-5xl font-black text-amber-300">
+                {users.filter((user) => user.role === "admin").length}
+              </h2>
 
-            <p className="text-gray-400 mt-4">Total Admins</p>
-          </div>
+              <p className="text-gray-400 mt-4">Total Admins</p>
+            </div>
 
-          <div
-            className="
+            <div
+              className="
                 w-20
                 h-20
                 rounded-3xl
@@ -308,14 +321,14 @@ const ManageUsers = () => {
                 items-center
                 justify-center
               "
-          >
-            <MdAdminPanelSettings size={40} className="text-amber-300" />
+            >
+              <MdAdminPanelSettings size={40} className="text-amber-300" />
+            </div>
           </div>
-        </div>
 
-        {/* creators */}
-        <div
-          className="
+          {/* creators */}
+          <div
+            className="
             bg-gradient-to-br
             from-[#111827]
             to-[#0F172A]
@@ -328,17 +341,17 @@ const ManageUsers = () => {
             items-center
             justify-between
           "
-        >
-          <div>
-            <h2 className="text-5xl font-black text-emerald-300">
-              {users.filter((user) => user.totalLessons > 0).length}
-            </h2>
+          >
+            <div>
+              <h2 className="text-5xl font-black text-emerald-300">
+                {users.filter((user) => user.totalLessons > 0).length}
+              </h2>
 
-            <p className="text-gray-400 mt-4">Lessons Creators</p>
-          </div>
+              <p className="text-gray-400 mt-4">Lessons Creators</p>
+            </div>
 
-          <div
-            className="
+            <div
+              className="
                 w-20
                 h-20
                 rounded-3xl
@@ -349,14 +362,14 @@ const ManageUsers = () => {
                 items-center
                 justify-center
               "
-          >
-            <BookOpen size={40} className="text-emerald-300" />
+            >
+              <BookOpen size={40} className="text-emerald-300" />
+            </div>
           </div>
-        </div>
 
-        {/* banned users */}
-        <div
-          className="
+          {/* banned users */}
+          <div
+            className="
     bg-gradient-to-br
     from-[#111827]
     to-[#0F172A]
@@ -369,17 +382,17 @@ const ManageUsers = () => {
     items-center
     justify-between
   "
-        >
-          <div>
-            <h2 className="text-5xl font-black text-rose-300">
-              {users.filter((user) => user.isBanned).length}
-            </h2>
+          >
+            <div>
+              <h2 className="text-5xl font-black text-rose-300">
+                {users.filter((user) => user.isBanned).length}
+              </h2>
 
-            <p className="text-gray-400 mt-4">Banned Users</p>
-          </div>
+              <p className="text-gray-400 mt-4">Banned Users</p>
+            </div>
 
-          <div
-            className="
+            <div
+              className="
       w-20
       h-20
       rounded-3xl
@@ -390,15 +403,15 @@ const ManageUsers = () => {
       items-center
       justify-center
     "
-          >
-            <FaUsersSlash size={40} className="text-rose-300" />
+            >
+              <FaUsersSlash size={40} className="text-rose-300" />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* search */}
-      <div
-        className="
+        {/* search */}
+        <div
+          className="
     mb-8
     flex
     flex-col
@@ -407,49 +420,50 @@ const ManageUsers = () => {
     md:justify-between
     gap-5
   "
-      >
-        {/* left */}
-        <div>
-          <h2
-            className="
+        >
+          {/* left */}
+          <div>
+            <h2
+              className="
         text-2xl
         font-black
         bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent 
       "
-          >
-            Users Directory
-          </h2>
+            >
+              Users Directory{" "}
+              <span className="text-gray-400">{filteredUsers.length}</span>
+            </h2>
 
-          <p className="text-gray-400 mt-2">Search users by name or email</p>
-        </div>
+            <p className="text-gray-400 mt-2">Search users by name or email</p>
+          </div>
 
-        {/* search input */}
-        <div className="relative w-full md:w-[400px]">
-          <Search
-            size={20}
-            className="
+          {/* search input */}
+          <div className="relative w-full md:w-[400px]">
+            <Search
+              size={20}
+              className="
         absolute
         left-5
         top-1/2
         -translate-y-1/2
         text-gray-400
       "
-          />
+            />
 
-          <input
-            type="text"
-            placeholder="Search users..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            className=" w-full pl-14 pr-5 py-4 rounded-2xl bg-[#111827] border border-white/10 text-white placeholder:text-gray-500 outline-none focus:border-indigo-500/40 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-300
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              className=" w-full pl-14 pr-5 py-4 rounded-2xl bg-[#111827] border border-white/10 text-white placeholder:text-gray-500 outline-none focus:border-indigo-500/40 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-300
       "
-          />
+            />
+          </div>
         </div>
-      </div>
 
-      {/* table */}
-      <div
-        className="
+        {/* table */}
+        <div
+          className="
           overflow-x-auto
           bg-gradient-to-br
           from-[#111827]
@@ -459,91 +473,92 @@ const ManageUsers = () => {
           rounded-[32px]
           shadow-2xl
         "
-      >
-        <table className="table text-white">
-          <thead>
-            <tr className="border-b border-white/10 text-gray-300">
-              <th className="py-6">#</th>
+        >
+          <table className="table text-white">
+            <thead>
+              <tr className="border-b border-white/10 text-gray-300">
+                <th className="py-6">#</th>
 
-              <th>User</th>
+                <th>User</th>
 
-              <th>Role</th>
+                <th>Role</th>
 
-              <th>Lessons</th>
+                <th>Lessons</th>
 
-              <th>Status</th>
+                <th>Status</th>
 
-              <th>Actions</th>
-            </tr>
-          </thead>
+                <th>Actions</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {filteredUsers.length === 0 ? (
-              <tr>
-                <td
-                  colSpan="6"
-                  className="
+            <tbody>
+              {filteredUsers.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan="6"
+                    className="
           text-center
           py-20
         "
-                >
-                  <div className="flex flex-col items-center">
-                    {/* icon */}
-                    <Users size={70} className="text-indigo-400" />
+                  >
+                    <div className="flex flex-col items-center">
+                      {/* icon */}
+                      <Users size={70} className="text-indigo-400" />
 
-                    {/* title */}
-                    <h2
-                      className="
+                      {/* title */}
+                      <h2
+                        className="
               mt-8
               text-4xl
               font-black
               text-white
             "
-                    >
-                      No Users Found
-                    </h2>
+                      >
+                        No Users Found
+                      </h2>
 
-                    {/* description */}
-                    <p
-                      className="
+                      {/* description */}
+                      <p
+                        className="
               text-gray-400
               mt-4
               max-w-md
               leading-8
             "
-                    >
-                      No matching users available 
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            ) : (
-              filteredUsers.map((user, index) => (
-                <tr
-                  key={user._id}
-                  className="
+                      >
+                        No matching users available
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                filteredUsers.map((user, index) => (
+                  <tr
+                    key={user._id}
+                    className="
                     border-b
                     border-white/5
                     hover:bg-white/[0.03]
                     transition-all
                     duration-300
                   "
-                >
-                  {/* serial */}
-                  <td className="font-semibold text-gray-400">{index + 1}</td>
+                  >
+                    {/* serial */}
+                    <td className="font-semibold text-gray-400">{index + 1}</td>
 
-                  {/* user */}
-                  <td className="py-5">
-                    <div className="flex items-center gap-5">
-                      {/* image */}
-                      <div className="relative">
-                        <div className="absolute inset-0 rounded-full bg-primary blur-lg opacity-20"></div>
+                    {/* user */}
+                    <td className="py-5">
+                      <div className="flex items-center gap-5">
+                        {/* image */}
+                        <div className="relative">
+                          <div className="absolute inset-0 rounded-full bg-primary blur-lg opacity-20"></div>
 
-                        <img
-                          src={
-                            user.photo || "https://i.ibb.co/4pDNDk1/avatar.png"
-                          }
-                          className="
+                          <img
+                            src={
+                              user.photo ||
+                              "https://i.ibb.co/4pDNDk1/avatar.png"
+                            }
+                            className="
                             relative
                             w-16
                             h-16
@@ -552,27 +567,27 @@ const ManageUsers = () => {
                             border
                             border-white/10
                           "
-                        />
+                          />
+                        </div>
+
+                        {/* content */}
+                        <div>
+                          <h2 className="font-bold text-lg bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent ">
+                            {user.name}
+                          </h2>
+
+                          <p className="text-sm text-cyan-400 mt-1">
+                            {user.email}
+                          </p>
+                        </div>
                       </div>
+                    </td>
 
-                      {/* content */}
-                      <div>
-                        <h2 className="font-bold text-lg bg-gradient-to-r from-[#D8B4FE] via-[#A78BFA] to-[#818CF8] bg-clip-text text-transparent ">
-                          {user.name}
-                        </h2>
-
-                        <p className="text-sm text-cyan-400 mt-1">
-                          {user.email}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-
-                  {/* role */}
-                  <td>
-                    {user.role === "admin" ? (
-                      <span
-                        className="
+                    {/* role */}
+                    <td>
+                      {user.role === "admin" ? (
+                        <span
+                          className="
                             inline-flex
                             items-center
                             gap-2
@@ -586,13 +601,13 @@ const ManageUsers = () => {
                             text-xs
                             font-semibold
                           "
-                      >
-                        <Crown size={14} />
-                        Admin
-                      </span>
-                    ) : (
-                      <span
-                        className="
+                        >
+                          <Crown size={14} />
+                          Admin
+                        </span>
+                      ) : (
+                        <span
+                          className="
                             inline-flex
                             items-center
                             gap-2
@@ -606,17 +621,17 @@ const ManageUsers = () => {
                             text-xs
                             font-semibold
                           "
-                      >
-                        <Users size={14} />
-                        User
-                      </span>
-                    )}
-                  </td>
+                        >
+                          <Users size={14} />
+                          User
+                        </span>
+                      )}
+                    </td>
 
-                  {/* lessons */}
-                  <td>
-                    <div
-                      className="
+                    {/* lessons */}
+                    <td>
+                      <div
+                        className="
                         inline-flex
                         items-center
                         gap-2
@@ -630,16 +645,16 @@ const ManageUsers = () => {
                         text-sm
                         font-semibold
                       "
-                    >
-                      {user.totalLessons}
-                    </div>
-                  </td>
+                      >
+                        {user.totalLessons}
+                      </div>
+                    </td>
 
-                  {/* status */}
-                  <td>
-                    {user.isBanned ? (
-                      <span
-                        className="
+                    {/* status */}
+                    <td>
+                      {user.isBanned ? (
+                        <span
+                          className="
           inline-flex
           items-center
           gap-2
@@ -653,12 +668,12 @@ const ManageUsers = () => {
           text-xs
           font-semibold
         "
-                      >
-                        Banned
-                      </span>
-                    ) : (
-                      <span
-                        className="
+                        >
+                          Banned
+                        </span>
+                      ) : (
+                        <span
+                          className="
           inline-flex
           items-center
           gap-2
@@ -672,20 +687,20 @@ const ManageUsers = () => {
           text-xs
           font-semibold
         "
-                      >
-                        Active
-                      </span>
-                    )}
-                  </td>
+                        >
+                          Active
+                        </span>
+                      )}
+                    </td>
 
-                  {/* actions */}
-                  <td>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      {/* make admin */}
-                      {user.role !== "admin" && (
-                        <button
-                          onClick={() => handleMakeAdmin(user._id)}
-                          className="
+                    {/* actions */}
+                    <td>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {/* make admin */}
+                        {user.role !== "admin" && (
+                          <button
+                            onClick={() => handleMakeAdmin(user._id)}
+                            className="
                               px-5
                               py-3
                               rounded-2xl
@@ -702,16 +717,16 @@ const ManageUsers = () => {
                               transition-all
                               duration-300
                             "
-                        >
-                          <Shield size={18} />
-                          Make Admin
-                        </button>
-                      )}
+                          >
+                            <Shield size={18} />
+                            Make Admin
+                          </button>
+                        )}
 
-                      {/* BAN / UNBAN */}
-                      <button
-                        onClick={() => handleBanToggle(user)}
-                        className={`
+                        {/* BAN / UNBAN */}
+                        <button
+                          onClick={() => handleBanToggle(user)}
+                          className={`
         px-5
         py-3
         rounded-2xl
@@ -741,16 +756,16 @@ const ManageUsers = () => {
           `
         }
       `}
-                      >
-                        {user.isBanned ? "Unban" : "Ban"}
+                        >
+                          {user.isBanned ? "Unban" : "Ban"}
 
-                        {user.isBanned ? "" : <FaBan size={18} />}
-                      </button>
+                          {user.isBanned ? "" : <FaBan size={18} />}
+                        </button>
 
-                      {/* delete */}
-                      <button
-                        onClick={() => handleDelete(user._id)}
-                        className="
+                        {/* delete */}
+                        <button
+                          onClick={() => handleDelete(user._id)}
+                          className="
                           w-12
                           h-12
                           rounded-2xl
@@ -766,18 +781,19 @@ const ManageUsers = () => {
                           transition-all
                           duration-300
                         "
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 
