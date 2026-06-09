@@ -4,18 +4,16 @@ import Home from "../pages/Home/Home";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
-import PublicLessons from "../pages/PublicLessons/PublicLessons";
-import Pricing from "../pages/Pricing/pricing";
+
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyLessons from "../pages/Dashboard/MyLesson/MyLessons";
 import AddLesson from "../pages/Dashboard/AddLesson/AddLesson";
 import Favorites from "../pages/Dashboard/Favorites/Favorites";
 import Profile from "../pages/Dashboard/Profile/Profile";
-import PaymentSuccess from "../pages/Pricing/PaymentSuccess";
-import PaymentCancel from "../pages/Pricing/PaymentCancel";
+
 import UpdateLesson from "../pages/Dashboard/MyLesson/UpdateLesson";
-import LessonDetails from "../pages/DetailsPage/LessonDetails";
+
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import DashboardRedirect from "../pages/Dashboard/DashboardRedirect/DashboardRedirect";
 import AdminHome from "../pages/Dashboard/Admin/AdminHome/AdminHome";
@@ -23,11 +21,13 @@ import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageLessons from "../pages/Dashboard/Admin/ManageLessons/ManageLessons";
 import ReportedLessons from "../pages/Dashboard/Admin/ReportedLessons/ReportedLessons";
 import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
-import CommentSection from "../pages/DetailsPage/CommentSection";
+// import CommentSection from "../pages/DetailsPage/CommentSection";
 import BannedPage from "../coponents/BannedPage/BannedPage";
 import AdminRoute from "./AdminRoute";
 import NotFound from "../coponents/error/NotFound";
 import Unauthorized from "../coponents/error/Unauthorized";
+import ProductDetails from "../pages/DetailsPage/ProductDetails";
+import Shop from "../pages/Shop/Shop";
 
 export const router = createBrowserRouter([
   {
@@ -39,42 +39,14 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "public-lessons",
-        Component: PublicLessons,
+        path: "/shop",
+        Component: Shop,
       },
       {
-        path: "/lesson-details/:id",
-        element: (
-          <PrivateRoute>
-            <LessonDetails></LessonDetails>
-          </PrivateRoute>
-        ),
+        path: "/product/:id",
+        element:<ProductDetails></ProductDetails>
       },
-
-      {
-        path: "pricing",
-        element: (
-          <PrivateRoute>
-            <Pricing></Pricing>
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "payment-success",
-        Component: PaymentSuccess,
-      },
-      {
-        path: "payment-cancel",
-        Component: PaymentCancel,
-      },
-      {
-        path: "/comment-section/:id",
-        element: (
-          <PrivateRoute>
-            <CommentSection></CommentSection>
-          </PrivateRoute>
-        ),
-      },
+      
       {
         path: "/banned",
         Component: BannedPage,

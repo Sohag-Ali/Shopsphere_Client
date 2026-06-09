@@ -1,4 +1,8 @@
 const ReviewCard = ({ review }) => {
+    if (!review) {
+    return null;
+  }
+
   const {
     customerName,
     customerImage,

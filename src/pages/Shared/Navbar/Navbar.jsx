@@ -3,7 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useUser from "../../../hooks/useUser";
 import { HiUser } from "react-icons/hi2";
 import { CgLogOut } from "react-icons/cg";
-import logoimg from "../../../assets/logof.png";
+// import logoimg from "../../../assets/logof.png";
 
 const navLinkClass = ({ isActive }) =>
   `
@@ -102,11 +102,11 @@ const Navbar = () => {
           </ul>
         </div>
         <Link className="flex items-center text-lg md:text-2xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
-          <img
+          {/* <img
             className="hidden md:block h-10 w-auto md:h-14 object-contain"
             src={logoimg}
             alt="Logo"
-          />
+          /> */}
           <span>ShopSphere</span>
         </Link>
       </div>
