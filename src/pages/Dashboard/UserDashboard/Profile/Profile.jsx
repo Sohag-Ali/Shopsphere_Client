@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useUser from "../../../hooks/useUser";
+import useAuth from "../../../../hooks/useAuth";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useUser from "../../../../hooks/useUser";
 import { Link } from "react-router";
 import { Bookmark, BookOpen, Crown, Flag, Sparkles } from "lucide-react";
-import useTitle from "../../../hooks/useTitle";
+import useTitle from "../../../../hooks/useTitle";
 
 
 const Profile = () => {

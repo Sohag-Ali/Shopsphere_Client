@@ -1,12 +1,7 @@
 import { NavLink, Outlet } from "react-router";
 import useUser from "../hooks/useUser";
 import Container from "../coponents/Container/Container";
-import { BiAddToQueue } from "react-icons/bi";
-import { GiNotebook } from "react-icons/gi";
-import { TbFileLike } from "react-icons/tb";
-import { FaUsersCog } from "react-icons/fa";
-import { FaBookMedical } from "react-icons/fa";
-import { MdReport } from "react-icons/md";
+
 import LoadingDash from "../coponents/LoadingPage/LoadingDash";
 import { Suspense } from "react";
 import logoimg from "../assets/logof.png";
@@ -126,65 +121,45 @@ const DashboardLayout = () => {
 
                 <li className="mt-15 md:mt-0">
                   <NavLink
-                    to="/dashboard/user-home"
+                    to="/dashboard/overview"
                     className={navLinkClass}
                     data-tip="Homepage"
                   >
-                    {/* Home icon */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      fill="none"
-                      stroke="currentColor"
-                      className="my-1.5 inline-block size-4 "
-                    >
-                      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                      <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    </svg>
-                    <span className="is-drawer-close:hidden">Homepage</span>
+                    <span className="is-drawer-close:hidden">📊 Overview</span>
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink
-                    to="/dashboard/add-lesson"
+                    to="/dashboard/my-orders"
                     className={navLinkClass}
-                    data-tip="Add Lesson"
+                    data-tip="my orders"
                   >
                     {/* Add Lesson icon */}
-
-                    <BiAddToQueue />
-                    <span className="is-drawer-close:hidden">Add Lesson</span>
+                    <span className="is-drawer-close:hidden">📦 My Orders</span>
                   </NavLink>
                 </li>
 
                 {/* List item */}
                 <li>
                   <NavLink
-                    to="/dashboard/my-lessons"
+                    to="/dashboard/wishlist"
                     className={navLinkClass}
                     data-tip="My Lessons"
                   >
-                    {/* My Lessons icon */}
-                    <GiNotebook />
-                    <span className="is-drawer-close:hidden">My Lessons</span>
+                    
+                    <span className="is-drawer-close:hidden">❤️ Wishlist</span>
                   </NavLink>
                 </li>
 
                 {/* favorite */}
                 <li>
                   <NavLink
-                    to="/dashboard/favorites"
+                    to="/dashboard/my-reviews"
                     className={navLinkClass}
                     data-tip="Favorites"
                   >
-                    {/* Favorites icon */}
-
-                    <TbFileLike />
-                    <span className="is-drawer-close:hidden">Favorites</span>
+                    <span className="is-drawer-close:hidden">⭐ My Reviews</span>
                   </NavLink>
                 </li>
 
@@ -195,21 +170,16 @@ const DashboardLayout = () => {
                     className={navLinkClass}
                     data-tip="Profile"
                   >
-                    {/* Profile icon */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      fill="none"
-                      stroke="currentColor"
-                      className="my-1.5 inline-block size-4"
-                    >
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span className="is-drawer-close:hidden">Profile</span>
+                    <span className="is-drawer-close:hidden">👤 Profile</span>
+                  </NavLink>
+                </li>
+                 <li>
+                  <NavLink
+                    to="/dashboard/settings"
+                    className={navLinkClass}
+                    data-tip="Favorites"
+                  >
+                    <span className="is-drawer-close:hidden">⚙️ Settings</span>
                   </NavLink>
                 </li>
               </>
@@ -219,25 +189,11 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <NavLink
-                    to="/dashboard/admin-home"
+                    to="/dashboard/admin-overview"
                     className={navLinkClass}
                     data-tip="Homepage"
                   >
-                    {/* Home icon */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      fill="none"
-                      stroke="currentColor"
-                      className="my-1.5 inline-block size-4"
-                    >
-                      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                      <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    </svg>
-                    <span className="is-drawer-close:hidden">Homepage</span>
+                    <span className="is-drawer-close:hidden">Admin Overview</span>
                   </NavLink>
                 </li>
 
@@ -247,103 +203,68 @@ const DashboardLayout = () => {
                     className={navLinkClass}
                     data-tip="Manage Users"
                   >
-                    {/* Home icon */}
-                    <FaUsersCog />
+                  
                     <span className="is-drawer-close:hidden">
-                      Manage Users{" "}
+                      👥 Manage Users
                     </span>
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink
-                    to="/dashboard/admin/manage-lessons"
+                    to="/dashboard/admin/manage-products"
                     className={navLinkClass}
                     data-tip="Manage Lessons"
                   >
-                    {/* Home icon */}
-                    <FaBookMedical />
+                   
                     <span className="is-drawer-close:hidden">
-                      Manage Lessons
+                      🛍 Manage Products
                     </span>
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink
-                    to="/dashboard/admin/reported-lessons"
+                    to="/dashboard/admin/manage-categories"
                     className={navLinkClass}
                     data-tip="Reported Lessons"
                   >
-                    {/* Home icon */}
-                    <MdReport />
+                    
                     <span className="is-drawer-close:hidden">
-                      Reported Lessons
+                      📂 Manage Categories
                     </span>
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink
-                    to="/dashboard/add-lesson"
+                    to="/dashboard/admin/manage-orders"
                     className={navLinkClass}
                     data-tip="Add Lesson"
                   >
-                    {/* Add Lesson icon */}
-
-                    <BiAddToQueue />
-                    <span className="is-drawer-close:hidden">Add Lesson</span>
+                    <span className="is-drawer-close:hidden">📦 Manage Orders</span>
                   </NavLink>
                 </li>
 
                 {/* List item */}
                 <li>
                   <NavLink
-                    to="/dashboard/my-lessons"
+                    to="/dashboard/admin/manage-reviews"
                     className={navLinkClass}
                     data-tip="My Lessons"
                   >
-                    {/* My Lessons icon */}
-                    <GiNotebook />
-                    <span className="is-drawer-close:hidden">My Lessons</span>
-                  </NavLink>
-                </li>
-
-                {/* favorite */}
-                <li>
-                  <NavLink
-                    to="/dashboard/favorites"
-                    className={navLinkClass}
-                    data-tip="Favorites"
-                  >
-                    {/* Favorites icon */}
-
-                    <TbFileLike />
-                    <span className="is-drawer-close:hidden">Favorites</span>
+                  
+                    <span className="is-drawer-close:hidden">⭐ Manage Reviews</span>
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink
-                    to="/dashboard/admin/admin-profile"
+                    to="/dashboard/admin/profile"
                     className={navLinkClass}
                     data-tip="Profile"
                   >
-                    {/* Profile icon */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      fill="none"
-                      stroke="currentColor"
-                      className="my-1.5 inline-block size-4"
-                    >
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span className="is-drawer-close:hidden">Profile</span>
+                    <span className="is-drawer-close:hidden">👤 Admin Profile</span>
                   </NavLink>
                 </li>
               </>

@@ -23,7 +23,7 @@ const DashboardRedirect = () => {
 
    // user
    return (
-      <Navigate to="/dashboard/user-home" />
+      <Navigate to="/dashboard/overview" />
    );
 };
 

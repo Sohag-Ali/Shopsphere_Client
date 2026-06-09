@@ -7,16 +7,15 @@ import Register from "../pages/Auth/Register/Register";
 
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
-import MyLessons from "../pages/Dashboard/MyLesson/MyLessons";
-import AddLesson from "../pages/Dashboard/AddLesson/AddLesson";
-import Favorites from "../pages/Dashboard/Favorites/Favorites";
-import Profile from "../pages/Dashboard/Profile/Profile";
 
-import UpdateLesson from "../pages/Dashboard/MyLesson/UpdateLesson";
 
-import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+
+import Profile from "../pages/Dashboard/UserDashboard/Profile/Profile";
+
+
+
 import DashboardRedirect from "../pages/Dashboard/DashboardRedirect/DashboardRedirect";
-import AdminHome from "../pages/Dashboard/Admin/AdminHome/AdminHome";
+
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageLessons from "../pages/Dashboard/Admin/ManageLessons/ManageLessons";
 import ReportedLessons from "../pages/Dashboard/Admin/ReportedLessons/ReportedLessons";
@@ -28,6 +27,11 @@ import NotFound from "../coponents/error/NotFound";
 import Unauthorized from "../coponents/error/Unauthorized";
 import ProductDetails from "../pages/DetailsPage/ProductDetails";
 import Shop from "../pages/Shop/Shop";
+import MyOrders from "../pages/Dashboard/UserDashboard/MyOrders/MyOrders";
+import Overview from "../pages/Dashboard/UserDashboard/Overview/Overview";
+import Wishlist from "../pages/Dashboard/UserDashboard/Wishlist/Wishlist";
+import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews/MyReviews";
+import AdminOverview from "../pages/Dashboard/Admin/AdminOverview/AdminOverview";
 
 export const router = createBrowserRouter([
   {
@@ -82,38 +86,28 @@ export const router = createBrowserRouter([
         element: <DashboardRedirect></DashboardRedirect>,
       },
       {
-        path: "user-home",
-        element: <DashboardHome></DashboardHome>,
+        path: "/dashboard/overview",
+        element: <Overview></Overview>
       },
       {
-        path: "my-lessons",
-        element: <MyLessons></MyLessons>,
+        path: "/dashboard/my-orders",
+        element: <MyOrders></MyOrders>,
       },
       {
-        path: "add-lesson",
-        element: (
-          <PrivateRoute>
-            <AddLesson></AddLesson>
-          </PrivateRoute>
-        ),
+        path: "/dashboard/wishlist",
+        element: <Wishlist></Wishlist>,
       },
       {
-        path: "update-lesson/:id",
-        element: (
-          <PrivateRoute>
-            <UpdateLesson></UpdateLesson>
-          </PrivateRoute>
-        ),
+        path: "/dashboard/my-reviews",
+        element: <MyReviews></MyReviews>,
       },
+      
+      
       {
-        path: "favorites",
-        element: <Favorites></Favorites>,
-      },
-      {
-        path: "admin-home",
+        path: "/dashboard/admin-overview",
         element: (
           <AdminRoute>
-            <AdminHome></AdminHome>
+            <AdminOverview></AdminOverview>
           </AdminRoute>
         ),
       },

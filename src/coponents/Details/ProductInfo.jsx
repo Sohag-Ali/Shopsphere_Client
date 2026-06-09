@@ -1,4 +1,49 @@
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 const ProductInfo = ({ product }) => {
+
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+  const handleWishlist = () => {
+
+  const wishlistData = {
+
+    userEmail:
+      user.email,
+
+    productId:
+      product._id,
+
+    title:
+      product.title,
+
+    image:
+      product.images[0],
+
+    price:
+      product.price,
+
+    rating:
+      product.rating,
+
+    location:
+      product.location,
+
+  };
+
+  axiosSecure
+    .post(
+      "/wishlist",
+      wishlistData
+    )
+    .then((res) => {
+
+      console.log(res.data);
+
+    });
+
+};
 
   return (
     <div>
@@ -50,6 +95,16 @@ const ProductInfo = ({ product }) => {
       <button className="btn btn-primary mt-6">
         Buy Now
       </button>
+
+      <button
+  onClick={handleWishlist}
+  className="
+    btn
+    btn-outline
+  "
+>
+  ❤️ Wishlist
+</button>
 
     </div>
   );
