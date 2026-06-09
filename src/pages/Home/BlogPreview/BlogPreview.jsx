@@ -1,0 +1,51 @@
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import BlogCard from "../../../coponents/Card/BlogCard";
+
+const BlogPreview = () => {
+
+  const axiosSecure = useAxiosSecure();
+
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+
+    axiosSecure
+      .get("/blogs")
+      .then((res) => {
+        setBlogs(res.data);
+      });
+
+  }, [axiosSecure]);
+
+  return (
+    <section className="max-w-7xl mx-auto py-20 px-4">
+
+      <div className="text-center mb-12">
+
+        <h2 className="text-4xl font-bold">
+          Latest Blogs
+        </h2>
+
+        <p className="mt-3 text-gray-500">
+          Shopping tips, fashion trends and tech updates
+        </p>
+
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        {blogs.map((blog) => (
+          <BlogCard
+            key={blog._id}
+            blog={blog}
+          />
+        ))}
+
+      </div>
+
+    </section>
+  );
+};
+
+export default BlogPreview;
