@@ -6,15 +6,13 @@ import { CgLogOut } from "react-icons/cg";
 import logoimg from "../../../assets/logof.png";
 
 const navLinkClass = ({ isActive }) =>
-      `
+  `
       pb-1 border-b-2 transition-all duration-300 ${
-              isActive
-                ? "bg-gradient-to-r from-fuchsia-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent font-extrabold "
-                : "text-gray-200 font-semibold border-transparent hover:text-violet-300 hover:border-violet-300"
+        isActive
+          ? "bg-gradient-to-r from-fuchsia-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent font-extrabold "
+          : "text-gray-200 font-semibold border-transparent hover:text-violet-300 hover:border-violet-300"
       }
-    `
-    ;
-
+    `;
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const [userData] = useUser();
@@ -24,10 +22,7 @@ const Navbar = () => {
     logoutUser()
       .then(() => {
         // remove token
-      localStorage.removeItem(
-
-         'access-token'
-      );
+        localStorage.removeItem("access-token");
 
         console.log("User logged out successfully");
       })
@@ -39,60 +34,41 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink
-          to="/"
-          className={navLinkClass}
-        >
+        <NavLink to="/" className={navLinkClass}>
           Home
         </NavLink>
       </li>
+
       <li>
-        <NavLink
-          to="/public-lessons"
-          className={navLinkClass}
-        >
-          Public Lessons
+        <NavLink to="/shop" className={navLinkClass}>
+          Shop
         </NavLink>
       </li>
 
-      {/* pricing for free users */}
-      {user && !userData?.isPremium && (
-        <li>
-          <NavLink
-            to="/pricing"
-            className={navLinkClass}
-          >
-            Pricing
-          </NavLink>
-        </li>
-      )}
-      {/* premium badge */}
-      {userData?.isPremium && (
-        <li>
-          <button className="btn btn-warning btn-sm ">Premium ⭐</button>
-        </li>
-      )}
+      <li>
+        <NavLink to="/categories" className={navLinkClass}>
+          Categories
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink to="/blog" className={navLinkClass}>
+          Blog
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink to="/contact" className={navLinkClass}>
+          Contact
+        </NavLink>
+      </li>
 
       {user && (
-        <>
-          <li>
-            <NavLink
-              to="/dashboard/add-lesson"
-              className={navLinkClass}
-            >
-              Add Lesson
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/dashboard/my-lessons"
-              className={navLinkClass}
-            >
-              My Lessons
-            </NavLink>
-          </li>
-        </>
+        <li>
+          <NavLink to="/dashboard" className={navLinkClass}>
+            Dashboard
+          </NavLink>
+        </li>
       )}
     </>
   );
@@ -126,8 +102,12 @@ const Navbar = () => {
           </ul>
         </div>
         <Link className="flex items-center text-lg md:text-2xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
-          <img  className="hidden md:block h-10 w-auto md:h-14 object-contain" src={logoimg} alt="Logo" />
-          <span className="">LifeLessons ✨</span>
+          <img
+            className="hidden md:block h-10 w-auto md:h-14 object-contain"
+            src={logoimg}
+            alt="Logo"
+          />
+          <span>ShopSphere</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -180,18 +160,39 @@ const Navbar = () => {
                   }
                   className="hover:bg-white/10 rounded-xl transition-all duration-300"
                 >
-                  <HiUser /> Profile
+                  <HiUser /> My Profile
                 </Link>
               </li>
 
               <li>
-                <Link to="/dashboard"
-                 className="hover:bg-white/10 rounded-xl transition-all duration-300"
-                 >📊 Dashboard</Link>
+                <Link to="/dashboard/my-orders" className="rounded-xl">
+                  📦 My Orders
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/dashboard/wishlist" className="rounded-xl">
+                  ❤️ Wishlist
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/dashboard/settings" className="rounded-xl">
+                  ⚙️ Settings
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/dashboard" className="rounded-xl">
+                  📊 Dashboard
+                </Link>
               </li>
 
               <li className="mt-2 border-t border-white/10 pt-2">
-                <button onClick={handleLogout} className="text-red-400 hover:bg-red-500/10 rounded-xl transition-all duration-300">
+                <button
+                  onClick={handleLogout}
+                  className="text-red-400 hover:bg-red-500/10 rounded-xl transition-all duration-300"
+                >
                   <CgLogOut /> Logout
                 </button>
               </li>

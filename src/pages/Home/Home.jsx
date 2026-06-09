@@ -1,5 +1,6 @@
 import useTitle from "../../hooks/useTitle";
-import FeaturedLessons from "./FeaturedLessons/FeaturedLessons";
+import Categories from "./Categories/Categories";
+import FeaturedProducts from "./FeaturedProducts/FeaturedProducts";
 import MostSavedLessons from "./MostSavedLessons/MostSavedLessons";
 import TopContributors from "./TopContributors/TopContributors";
 import WhyLearning from "./WhyLearning/WhyLearning";
@@ -17,7 +18,11 @@ const Home = () => {
 
       {/* Featured Lessons */}
       <section className=" bg-[#0F172A]   md:px-6 lg:px-8">
-        <FeaturedLessons></FeaturedLessons>
+        <FeaturedProducts></FeaturedProducts>
+      </section>
+
+      <section className=" bg-[#0F172A]   md:px-6 lg:px-8">
+        <Categories></Categories>
       </section>
 
       {/* Why Learning */}
