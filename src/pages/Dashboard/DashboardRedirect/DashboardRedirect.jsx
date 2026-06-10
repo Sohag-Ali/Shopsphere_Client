@@ -17,7 +17,7 @@ const DashboardRedirect = () => {
    if(userData?.role === "admin"){
 
       return (
-         <Navigate to="/dashboard/admin-home" />
+         <Navigate to="/dashboard/admin-overview" />
       );
    }
 

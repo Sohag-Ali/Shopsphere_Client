@@ -17,8 +17,7 @@ import Profile from "../pages/Dashboard/UserDashboard/Profile/Profile";
 import DashboardRedirect from "../pages/Dashboard/DashboardRedirect/DashboardRedirect";
 
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
-import ManageLessons from "../pages/Dashboard/Admin/ManageLessons/ManageLessons";
-import ReportedLessons from "../pages/Dashboard/Admin/ReportedLessons/ReportedLessons";
+
 import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
 // import CommentSection from "../pages/DetailsPage/CommentSection";
 import BannedPage from "../coponents/BannedPage/BannedPage";
@@ -32,6 +31,11 @@ import Overview from "../pages/Dashboard/UserDashboard/Overview/Overview";
 import Wishlist from "../pages/Dashboard/UserDashboard/Wishlist/Wishlist";
 import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews/MyReviews";
 import AdminOverview from "../pages/Dashboard/Admin/AdminOverview/AdminOverview";
+import AddProduct from "../pages/Dashboard/Admin/AddProduct/AddProduct";
+import ManageProducts from "../pages/Dashboard/Admin/ManageProducts/ManageProducts";
+import ManageReviews from "../pages/Dashboard/Admin/ManageReviews/ManageReviews";
+import ManageOrders from "../pages/Dashboard/Admin/ManageOrders/ManageOrders";
+import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
 
 export const router = createBrowserRouter([
   {
@@ -112,7 +116,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "admin/manage-users",
+        path: "/dashboard/admin/manage-users",
         element: (
           <AdminRoute>
             <ManageUsers></ManageUsers>
@@ -120,28 +124,52 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "admin/manage-lessons",
+        path: "/dashboard/admin/add-product",
         element: (
           <AdminRoute>
-            <ManageLessons></ManageLessons>
+            <AddProduct></AddProduct>
           </AdminRoute>
         ),
       },
       {
-        path: "admin/reported-lessons",
+        path: "/dashboard/admin/manage-products",
         element: (
           <AdminRoute>
-            <ReportedLessons></ReportedLessons>
+            <ManageProducts></ManageProducts>
           </AdminRoute>
         ),
       },
-      
+      {
+        path: "/dashboard/admin/manage-reviews",
+        element: (
+          <AdminRoute>
+            <ManageReviews></ManageReviews>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin/manage-orders",
+        element: (
+          <AdminRoute>
+            <ManageOrders></ManageOrders>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin/manage-categories",
+        element: (
+          <AdminRoute>
+            <ManageCategories></ManageCategories>
+          </AdminRoute>
+        ),
+      },
+
       {
         path: "profile",
         element: <Profile></Profile>,
       },
       {
-        path: "admin/admin-profile",
+        path: "/dashboard/admin/profile",
         element: (
           <AdminRoute>
             <AdminProfile></AdminProfile>

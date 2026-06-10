@@ -193,7 +193,7 @@ const DashboardLayout = () => {
                     className={navLinkClass}
                     data-tip="Homepage"
                   >
-                    <span className="is-drawer-close:hidden">Admin Overview</span>
+                    <span className="is-drawer-close:hidden">📊 Admin Overview</span>
                   </NavLink>
                 </li>
 
@@ -206,6 +206,19 @@ const DashboardLayout = () => {
                   
                     <span className="is-drawer-close:hidden">
                       👥 Manage Users
+                    </span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/admin/add-product"
+                    className={navLinkClass}
+                    data-tip="Manage Users"
+                  >
+                  
+                    <span className="is-drawer-close:hidden">
+                      ➕ Add Product
                     </span>
                   </NavLink>
                 </li>
