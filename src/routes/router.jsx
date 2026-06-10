@@ -36,6 +36,7 @@ import ManageProducts from "../pages/Dashboard/Admin/ManageProducts/ManageProduc
 import ManageReviews from "../pages/Dashboard/Admin/ManageReviews/ManageReviews";
 import ManageOrders from "../pages/Dashboard/Admin/ManageOrders/ManageOrders";
 import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
+import UpdateProduct from "../pages/Dashboard/Admin/ManageProducts/UpdateProduct";
 
 export const router = createBrowserRouter([
   {
@@ -139,6 +140,15 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      {
+        path: "/dashboard/update-product/:id",
+        element: (
+          <AdminRoute>
+            <UpdateProduct></UpdateProduct>
+          </AdminRoute>
+        ),
+      },
+      
       {
         path: "/dashboard/admin/manage-reviews",
         element: (
