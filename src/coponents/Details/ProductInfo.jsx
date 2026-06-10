@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useState } from "react";
@@ -6,27 +5,23 @@ import { useState } from "react";
 const ProductInfo = ({ product }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const navigate = useNavigate();
+
   const [quantity, setQuantity] = useState(1);
 
- const handleWishlist = () => {
+  const handleWishlist = () => {
+    if (!user) return;
 
-  if (!user) return;
+    const wishlistData = {
+      userEmail: user.email,
+      productId: product._id,
+      title: product.title,
+      image: product.images[0],
+      price: product.price,
+      rating: product.rating,
+      location: product.location,
+    };
 
-  const wishlistData = {
-    userEmail: user.email,
-    productId: product._id,
-    title: product.title,
-    image: product.images[0],
-    price: product.price,
-    rating: product.rating,
-    location: product.location,
-  };
-
-  axiosSecure
-    .post("/wishlist", wishlistData)
-    .then((res) => {
-
+    axiosSecure.post("/wishlist", wishlistData).then((res) => {
       if (res.data.insertedId) {
         alert("Added To Wishlist");
       }
@@ -34,9 +29,8 @@ const ProductInfo = ({ product }) => {
       if (res.data.inserted === false) {
         alert("Already Added");
       }
-
     });
-};
+  };
 
   const handleAddToCart = () => {
     const cartData = {
@@ -45,7 +39,7 @@ const ProductInfo = ({ product }) => {
       title: product.title,
       image: product.images[0],
       price: product.discountPrice || product.price,
-      quantity: 1,
+      quantity: quantity,
     };
 
     axiosSecure.post("/cart", cartData).then((res) => {
@@ -53,9 +47,45 @@ const ProductInfo = ({ product }) => {
     });
   };
 
-  const handleBuyNow = () => {
-    navigate("/checkout");
-  };
+ const handleBuyNow = async () => {
+
+  try {
+
+    const paymentData = {
+
+      email: user.email,
+
+      productId: product._id,
+
+      productTitle: product.title,
+
+      productImage: product.images[0],
+
+      price:
+        product.discountPrice ||
+        product.price,
+
+      quantity: quantity,
+
+    };
+
+    const res =
+      await axiosSecure.post(
+        "/create-checkout-session",
+        paymentData
+      );
+
+    window.location.replace(
+      res.data.url
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
 
   return (
     <div className="space-y-5">

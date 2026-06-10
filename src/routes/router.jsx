@@ -39,6 +39,9 @@ import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCa
 import UpdateProduct from "../pages/Dashboard/Admin/ManageProducts/UpdateProduct";
 import Categories from "../pages/Categories/Categories";
 import Cart from "../pages/Cart/Cart";
+import PaymentSuccess from "../coponents/Payment/PaymentSucces";
+import PaymentCancel from "../coponents/Payment/PaymentCancel";
+
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +67,14 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element:<Cart></Cart>
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancel",
+        Component: PaymentCancel,
       },
       
       {
