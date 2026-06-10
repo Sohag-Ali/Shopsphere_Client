@@ -1,111 +1,194 @@
+import { useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useState } from "react";
 
 const ProductInfo = ({ product }) => {
-
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const handleWishlist = () => {
+  const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1);
+
+ const handleWishlist = () => {
+
+  if (!user) return;
 
   const wishlistData = {
-
-    userEmail:
-      user.email,
-
-    productId:
-      product._id,
-
-    title:
-      product.title,
-
-    image:
-      product.images[0],
-
-    price:
-      product.price,
-
-    rating:
-      product.rating,
-
-    location:
-      product.location,
-
+    userEmail: user.email,
+    productId: product._id,
+    title: product.title,
+    image: product.images[0],
+    price: product.price,
+    rating: product.rating,
+    location: product.location,
   };
 
   axiosSecure
-    .post(
-      "/wishlist",
-      wishlistData
-    )
+    .post("/wishlist", wishlistData)
     .then((res) => {
 
-      console.log(res.data);
+      if (res.data.insertedId) {
+        alert("Added To Wishlist");
+      }
+
+      if (res.data.inserted === false) {
+        alert("Already Added");
+      }
 
     });
-
 };
 
+  const handleAddToCart = () => {
+    const cartData = {
+      userEmail: user.email,
+      productId: product._id,
+      title: product.title,
+      image: product.images[0],
+      price: product.discountPrice || product.price,
+      quantity: 1,
+    };
+
+    axiosSecure.post("/cart", cartData).then((res) => {
+      console.log(res.data);
+    });
+  };
+
+  const handleBuyNow = () => {
+    navigate("/checkout");
+  };
+
   return (
-    <div>
+    <div className="space-y-5">
+      {/* Title */}
 
-      <h1 className="text-4xl font-bold">
-        {product.title}
-      </h1>
+      <h1 className="text-4xl font-bold">{product.title}</h1>
 
-      <p className="mt-3">
-        ⭐ {product.rating}
-      </p>
+      {/* Rating */}
 
-      <p className="mt-2">
-        Brand: {product.brand}
-      </p>
+      <div className="flex items-center gap-2">
+        <span className="text-lg">⭐ {product.rating}</span>
 
-      <p>
-        Category: {product.category}
-      </p>
-
-      <p>
-        📍 {product.location}
-      </p>
-
-      <div className="mt-5">
-
-        {product.discountPrice ? (
-          <>
-            <span className="line-through">
-              ৳{product.price}
-            </span>
-
-            <span className="text-red-500 text-2xl ml-3">
-              ৳{product.discountPrice}
-            </span>
-          </>
-        ) : (
-          <span className="text-2xl">
-            ৳{product.price}
-          </span>
-        )}
-
+        <span className="text-gray-500">Product Rating</span>
       </div>
 
-      <p className="mt-5">
-        {product.shortDescription}
+      {/* Brand */}
+
+      <p className="text-lg">
+        <span className="font-semibold">Brand:</span> {product.brand}
       </p>
 
-      <button className="btn btn-primary mt-6">
-        Buy Now
-      </button>
+      {/* Category */}
 
-      <button
-  onClick={handleWishlist}
-  className="
-    btn
-    btn-outline
-  "
->
-  ❤️ Wishlist
-</button>
+      <p className="text-lg">
+        <span className="font-semibold">Category:</span> {product.category}
+      </p>
 
+      {/* Location */}
+
+      <p className="text-lg">📍 {product.location}</p>
+
+      {/* Price */}
+
+      <div className="py-4 border-y">
+        {product.discountPrice ? (
+          <div className="flex items-center gap-3">
+            <span className="text-gray-400 line-through text-xl">
+              ৳ {product.price}
+            </span>
+
+            <span className="text-3xl font-bold text-error">
+              ৳ {product.discountPrice}
+            </span>
+          </div>
+        ) : (
+          <span className="text-3xl font-bold text-[#C9B59C]">
+            ৳ {product.price}
+          </span>
+        )}
+      </div>
+
+      {/* Stock Status */}
+
+      <div className="mt-4">
+        {product.stock > 0 ? (
+          <p className="text-green-600 font-semibold">
+            ✅ In Stock ({product.stock} available)
+          </p>
+        ) : (
+          <p className="text-red-500 font-semibold">❌ Product Not Available</p>
+        )}
+      </div>
+
+      {/* Quantity */}
+
+      {product.stock > 0 && (
+        <div className="mt-5">
+          <h3 className="font-semibold mb-3">Quantity</h3>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
+              className="btn btn-sm"
+            >
+              -
+            </button>
+
+            <span className="text-xl font-bold">{quantity}</span>
+
+            <button
+              onClick={() =>
+                setQuantity(quantity < product.stock ? quantity + 1 : quantity)
+              }
+              className="btn btn-sm"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Description */}
+
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Short Description</h3>
+
+        <p className="text-gray-600 leading-relaxed">
+          {product.shortDescription}
+        </p>
+      </div>
+
+      {/* Buttons */}
+
+      <div className="space-y-3 mt-6">
+        <button
+          disabled={product.stock === 0}
+          onClick={handleAddToCart}
+          className="
+      btn
+      w-full
+      bg-[#C9B59C]
+      hover:bg-[#B79D7F]
+      text-white
+      border-none
+    "
+        >
+          🛒 Add To Cart
+        </button>
+
+        <div className="grid grid-cols-2 gap-3">
+          <button onClick={handleWishlist} className="btn btn-outline">
+            ❤️ Wishlist
+          </button>
+
+          <button
+            disabled={product.stock === 0}
+            onClick={handleBuyNow}
+            className="btn btn-primary"
+          >
+            ⚡ Buy Now
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

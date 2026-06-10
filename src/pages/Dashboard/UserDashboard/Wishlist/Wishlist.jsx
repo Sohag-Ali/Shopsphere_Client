@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import ProductCard from "../../../../coponents/Card/ProductCard ";
+import WishlistCard from "../../../../coponents/Card/WishlistCard";
 
 
 
@@ -89,11 +89,11 @@ const Wishlist = () => {
                 wishlist.map(
                   (product) => (
 
-                    <ProductCard
+                    <WishlistCard
                       key={
                         product._id
                       }
-                      product={
+                      item={
                         product
                       }
                     />

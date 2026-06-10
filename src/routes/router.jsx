@@ -37,6 +37,8 @@ import ManageReviews from "../pages/Dashboard/Admin/ManageReviews/ManageReviews"
 import ManageOrders from "../pages/Dashboard/Admin/ManageOrders/ManageOrders";
 import ManageCategories from "../pages/Dashboard/Admin/ManageCategories/ManageCategories";
 import UpdateProduct from "../pages/Dashboard/Admin/ManageProducts/UpdateProduct";
+import Categories from "../pages/Categories/Categories";
+import Cart from "../pages/Cart/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ export const router = createBrowserRouter([
       {
         path: "/product/:id",
         element:<ProductDetails></ProductDetails>
+      },
+      {
+        path: "/categories",
+        element:<Categories></Categories>
+      },
+      {
+        path: "/cart",
+        element:<Cart></Cart>
       },
       
       {

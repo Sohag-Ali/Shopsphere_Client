@@ -1,4 +1,5 @@
-import ReviewCard from "../Card/ReviewCard";
+
+import ProductReviews from "./ProductReviews";
 
 
 const ProductTabs = ({ product }) => {
@@ -53,9 +54,10 @@ const ProductTabs = ({ product }) => {
 
         <div className="tab-content p-6">
 
-          <ReviewCard
-            productId={product._id}
-          />
+         
+          <ProductReviews
+          productId={product._id}
+          productTitle={product.title}/>
 
         </div>
 

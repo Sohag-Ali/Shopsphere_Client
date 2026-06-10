@@ -13,6 +13,7 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
 
+
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("");

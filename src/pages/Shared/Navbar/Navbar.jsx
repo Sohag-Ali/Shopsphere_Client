@@ -3,7 +3,12 @@ import useAuth from "../../../hooks/useAuth";
 import useUser from "../../../hooks/useUser";
 import { HiUser } from "react-icons/hi2";
 import { CgLogOut } from "react-icons/cg";
+import { FaShoppingCart } from "react-icons/fa";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 // import logoimg from "../../../assets/logof.png";
+
+
 
 const navLinkClass = ({ isActive }) =>
   `
@@ -13,9 +18,26 @@ const navLinkClass = ({ isActive }) =>
           : "text-gray-200 font-semibold border-transparent hover:text-violet-300 hover:border-violet-300"
       }
     `;
+
+    
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const [userData] = useUser();
+
+  const axiosSecure = useAxiosSecure();
+
+const { data: cartItems = [] } = useQuery({
+  queryKey: ["cart", user?.email],
+  enabled: !!user?.email,
+
+  queryFn: async () => {
+    const res = await axiosSecure.get(
+      `/cart/${user.email}`
+    );
+
+    return res.data;
+  },
+});
 
   // Handle Logout
   const handleLogout = () => {
@@ -117,6 +139,40 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {/* IF USER LOGGED IN */}
+
+        {user && (
+          <Link
+            to="/cart"
+            className="
+        btn
+        btn-ghost
+        btn-circle
+        mr-2
+        relative
+      "
+          >
+            <FaShoppingCart className="text-xl" />
+
+            <span
+              className="
+          absolute
+          -top-1
+          -right-1
+          bg-red-500
+          text-white
+          text-xs
+          rounded-full
+          h-5
+          w-5
+          flex
+          items-center
+          justify-center
+        "
+            >
+                {cartItems.length}
+            </span>
+          </Link>
+        )}
         {user ? (
           <div className="dropdown dropdown-end">
             {/* Avatar */}
