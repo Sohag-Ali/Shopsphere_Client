@@ -3,12 +3,16 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import ShopHeader from "./ShopHeader";
 import ShopSidebar from "./ShopSidebar";
 import ProductCard from "../../coponents/Card/ProductCard ";
+import { useSearchParams } from "react-router";
 
 
 
 const Shop = () => {
 
   const axiosSecure = useAxiosSecure();
+  const [searchParams] = useSearchParams();
+
+const deal = searchParams.get("deal") || "";
 
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
@@ -27,7 +31,7 @@ const Shop = () => {
 
     axiosSecure
       .get(
-        `/products?search=${search}&category=${category}&sort=${sort}&page=${page}&limit=${limit}`
+        `/products?search=${search}&category=${category}&sort=${sort}&deal=${deal}&page=${page}&limit=${limit}`
       )
       .then((res) => {
 
@@ -47,6 +51,7 @@ const Shop = () => {
     search,
     category,
     sort,
+    deal,
     page
   ]);
 
@@ -167,13 +172,13 @@ const Shop = () => {
          <div className="mb-6">
 
   <h2 className="text-lg font-semibold text-base-content">
-
-    {loading
-      ? "Loading Products..."
-      : `Showing ${count} Products`
-    }
-
-  </h2>
+  {loading
+    ? "Loading Products..."
+    : deal === "true"
+    ? `Showing ${count} Deal Products`
+    : `Showing ${count} Products`
+  }
+</h2>
 
 </div>
 
@@ -225,6 +230,7 @@ const Shop = () => {
         <ProductCard
           key={product._id}
           product={product}
+           showDiscount={true}
         />
 
       ))

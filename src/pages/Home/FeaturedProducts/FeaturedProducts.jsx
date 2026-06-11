@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
   }, []);
 
   return (
-    <section className="max-w-7xl mx-auto py-20 px-4">
+    <section className="max-w-7xl mx-auto py-10 px-4">
 
       <div className="text-center mb-12">
 

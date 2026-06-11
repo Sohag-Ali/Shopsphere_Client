@@ -1,6 +1,6 @@
 const Newsletter = () => {
   return (
-    <section className="max-w-4xl mx-auto py-20 px-4">
+    <section className="max-w-4xl mx-auto py-10 px-4">
 
       <div className="bg-base-200 rounded-2xl p-10 text-center">
 

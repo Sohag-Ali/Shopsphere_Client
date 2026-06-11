@@ -13,6 +13,7 @@ const Categories = () => {
 
   const [selectedCategory, setSelectedCategory] =
     useState("All");
+    
 
   const [search, setSearch] =
     useState("");
