@@ -18,8 +18,8 @@ const navLinkClass = ({ isActive }) =>
       duration-300
       ${
         isActive
-          ? "bg-[#2A3142] border-[#4B5563] text-[#0dddcc] font-medium shadow-md"
-          : "text-gray-300 font-medium hover:shadow-lg hover:shadow-purple-500/20"
+          ? "bg-primary text-primary-content font-semibold shadow-lg"
+  : "text-base-content/70 font-medium hover:bg-base-200 hover:text-primary"
       }
     `;
 
@@ -30,11 +30,11 @@ const DashboardLayout = () => {
 }
 
   return (
-    <div className="drawer md:drawer-open bg-[#0F172A] text-white min-h-screen">
+    <div className="drawer md:drawer-open bg-base-200 text-base-content min-h-screen">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-    <nav className="navbar sticky top-0 z-50 w-full bg-[#111827]/80 backdrop-blur-xl border-b border-white/10 px-4 md:px-6">
+    <nav className="navbar sticky top-0 z-50 w-full bg-base-200/80 backdrop-blur-xl border-b border-base-300 px-4 md:px-6">
 
   <div className="flex items-center gap-4">
 
@@ -102,15 +102,15 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className=" flex min-h-full flex-col items-start bg-[#111827] border-r border-white/10 backdrop-blur-xl is-drawer-close:w-14 is-drawer-open:w-72 transition-all duration-300 is-drawer-close:w-14 is-drawer-open:w-64">
+        <div className=" flex min-h-full flex-col items-start bg-base-100 border-r border-base-300 backdrop-blur-xl is-drawer-close:w-14 is-drawer-open:w-72 transition-all duration-300 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full grow p-4 space-y-2">
             <li className="hidden md:block  ">
               <NavLink to="/" className={navLinkClass}>
                 {/* Home icon */}
                 <img src={logoimg} alt="Logo" className="h-8 w-auto  object-contain" />
-                <span className="text-xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
-                  LifeLessons ✨
+                <span className="text-xl font-bold bg-primary bg-clip-text text-transparent">
+                  ShopSphere
                 </span>
               </NavLink>
             </li>

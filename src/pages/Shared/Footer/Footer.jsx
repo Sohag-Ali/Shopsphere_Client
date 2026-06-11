@@ -2,11 +2,8 @@ const Footer = () => {
  return (
   <footer
     className="
-      bg-gradient-to-br
-      from-[#0F172A]
-      to-[#111827]
-      border-t
-      border-white/10
+      bg-base-100
+      border-base-300
       mt-16
     "
   >

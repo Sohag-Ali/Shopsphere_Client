@@ -1,176 +1,143 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-
+import OrdersTable from "../../../../coponents/Table/OrdersTable";
+import OrderCard from "../../../../coponents/Card/OrderCard";
 
 const MyOrders = () => {
 
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
-  const axiosSecure =
-    useAxiosSecure();
-
-  const [orders, setOrders] =
-    useState([]);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
     if (user?.email) {
 
       axiosSecure
-        .get(
-          `/my-orders/${user.email}`
-        )
+        .get(`/my-orders/${user.email}`)
         .then((res) => {
-
-          setOrders(
-            res.data
-          );
-
+          setOrders(res.data);
+        })
+        .finally(() => {
+          setLoading(false);
         });
 
     }
 
-  }, [
-    user,
-    axiosSecure
-  ]);
+  }, [user, axiosSecure]);
+
+  const totalSpent = orders.reduce(
+    (sum, order) =>
+      sum +
+      (order.totalPrice ||
+        order.price * order.quantity),
+    0
+  );
 
   return (
+
     <div>
 
-      <h2
-        className="
-          text-3xl
-          font-bold
-          mb-8
-        "
-      >
-        My Orders
-      </h2>
+      {/* Header */}
 
-      <div className="overflow-x-auto">
+      <div className="mb-8">
 
-        <table
-          className="
-            table
-            table-zebra
-          "
-        >
+        <h1 className="text-4xl font-bold">
+          My Orders
+        </h1>
 
-          <thead>
+        <p className="text-base-content/60 mt-2">
+          Track and manage your purchases
+        </p>
 
-            <tr>
+      </div>
 
-              <th>
-                Product
-              </th>
+      {/* Stats */}
 
-              <th>
-                Price
-              </th>
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
 
-              <th>
-                Date
-              </th>
+        <div className="card bg-base-100 shadow-xl">
 
-              <th>
-                Status
-              </th>
+          <div className="card-body">
 
-            </tr>
+            <h3 className="text-lg font-semibold">
+              Total Orders
+            </h3>
 
-          </thead>
+            <p className="text-4xl font-bold text-primary">
+              {orders.length}
+            </p>
 
-          <tbody>
+          </div>
 
-            {
-              orders.map(
-                (order) => (
+        </div>
 
-                  <tr
-                    key={
-                      order._id
-                    }
-                  >
+        <div className="card bg-base-100 shadow-xl">
 
-                    <td>
+          <div className="card-body">
 
-                      <div
-                        className="
-                          flex
-                          items-center
-                          gap-3
-                        "
-                      >
+            <h3 className="text-lg font-semibold">
+              Total Spending
+            </h3>
 
-                        <img
-                          src={
-                            order.productImage
-                          }
-                          alt=""
-                          className="
-                            w-12
-                            h-12
-                            rounded-lg
-                            object-cover
-                          "
-                        />
+            <p className="text-4xl font-bold text-success">
+              ৳ {totalSpent}
+            </p>
 
-                        <span>
-                          {
-                            order.productTitle
-                          }
-                        </span>
+          </div>
 
-                      </div>
+        </div>
 
-                    </td>
+      </div>
 
-                    <td>
-                      ৳
-                      {
-                        order.price
-                      }
-                    </td>
+      {/* Desktop Table */}
 
-                    <td>
-                      {
-                        order.orderDate
-                      }
-                    </td>
+      <div className="hidden lg:block">
 
-                    <td>
+        <OrdersTable
+          orders={orders}
+          loading={loading}
+        />
 
-                      <span
-                        className="
-                          badge
-                          badge-success
-                        "
-                      >
+      </div>
 
-                        {
-                          order.status
-                        }
+      {/* Mobile Cards */}
 
-                      </span>
+      <div className="grid gap-5 lg:hidden">
 
-                    </td>
+        {loading ? (
 
-                  </tr>
+          [...Array(5)].map((_, index) => (
 
-                )
-              )
-            }
+            <div
+              key={index}
+              className="skeleton h-40 w-full rounded-2xl"
+            ></div>
 
-          </tbody>
+          ))
 
-        </table>
+        ) : (
+
+          orders.map((order) => (
+
+            <OrderCard
+              key={order._id}
+              order={order}
+            />
+
+          ))
+
+        )}
 
       </div>
 
     </div>
+
   );
+
 };
 
 export default MyOrders;

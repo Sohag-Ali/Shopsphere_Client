@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CategoryCard from "../../../coponents/Card/CategoryCard";
+import CategoryCardSkeleton from "../../../coponents/Skeleton/CategoryCardSkeleton";
 
 
 const Categories = () => {
@@ -23,20 +24,33 @@ const Categories = () => {
       });
   }, [axiosSecure]);
 
-  if (loading) {
-    return (
-      <section className="max-w-7xl mx-auto py-20 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, index) => (
-            <div
-              key={index}
-              className="skeleton h-64 w-full rounded-xl"
-            ></div>
-          ))}
-        </div>
-      </section>
-    );
-  }
+ if (loading) {
+  return (
+    <section className="max-w-7xl mx-auto py-20 px-4">
+
+      <div className="text-center mb-12">
+
+        <div className="skeleton h-10 w-72 mx-auto mb-4"></div>
+
+        <div className="skeleton h-4 w-52 mx-auto"></div>
+
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        {[...Array(6)].map((_, index) => (
+
+          <CategoryCardSkeleton
+            key={index}
+          />
+
+        ))}
+
+      </div>
+
+    </section>
+  );
+}
 
   return (
     <section className="max-w-7xl mx-auto py-20 px-4">

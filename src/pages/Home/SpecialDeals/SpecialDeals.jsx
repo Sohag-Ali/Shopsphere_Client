@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import ProductCard from "../../../coponents/Card/ProductCard ";
+import ProductSkeleton from "../../../coponents/Skeleton/ProductSkeleton";
 
 const SpecialDeals = () => {
   const axiosSecure = useAxiosSecure();
@@ -24,20 +25,34 @@ const SpecialDeals = () => {
   }, [axiosSecure]);
 
   if (loading) {
-    return (
-      <section className="max-w-7xl mx-auto py-20 px-4">
-        <div className="text-center mb-10">
-          <h2 className="text-4xl font-bold">Special Deals</h2>
-        </div>
+  return (
+    <section className="max-w-7xl mx-auto py-20 px-4">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[...Array(4)].map((_, index) => (
-            <div key={index} className="skeleton h-80 w-full rounded-xl"></div>
-          ))}
-        </div>
-      </section>
-    );
-  }
+      <div className="text-center mb-10">
+
+        <div className="skeleton h-10 w-72 mx-auto mb-4"></div>
+
+        <div className="skeleton h-4 w-56 mx-auto"></div>
+
+      </div>
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          lg:grid-cols-4
+          gap-6
+        "
+      >
+        {[...Array(4)].map((_, index) => (
+          <ProductSkeleton key={index} />
+        ))}
+      </div>
+
+    </section>
+  );
+}
 
   return (
     <section className="max-w-7xl mx-auto py-20 px-4">

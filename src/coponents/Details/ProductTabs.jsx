@@ -57,7 +57,9 @@ const ProductTabs = ({ product }) => {
          
           <ProductReviews
           productId={product._id}
-          productTitle={product.title}/>
+          productTitle={product.title}
+          productImage={product.images?.[0]}
+          />
 
         </div>
 
