@@ -31,7 +31,7 @@ const OrderRow = ({
           </h3>
 
           <p className="text-xs text-gray-500">
-            {order.customerEmail}
+            {order.userEmail}
           </p>
 
         </div>

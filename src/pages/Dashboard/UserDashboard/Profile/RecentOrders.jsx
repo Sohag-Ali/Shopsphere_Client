@@ -1,80 +1,60 @@
+import OrdersTable from "../../../../coponents/Table/OrdersTable";
+
+
 const RecentOrders = ({
-  orders
+  orders,
 }) => {
 
   return (
 
     <div
       className="
-      bg-base-100
-      rounded-2xl
-      shadow
-      p-6
-    "
+        bg-base-100
+        rounded-3xl
+        shadow-xl
+        p-6
+      "
     >
 
-      <h2
+      <div
         className="
-        text-2xl
-        font-bold
-        mb-5
-      "
+          flex
+          justify-between
+          items-center
+          mb-6
+        "
       >
-        Recent Orders
-      </h2>
 
-      <div className="space-y-4">
+        <h2
+          className="
+            text-2xl
+            font-bold
+          "
+        >
+          Recent Orders
+        </h2>
 
-        {orders?.map(
-          (order) => (
-
-            <div
-              key={order._id}
-              className="
-              flex
-              justify-between
-              items-center
-              border-b
-              pb-3
-            "
-            >
-
-              <div>
-
-                <h3>
-                  {order.productTitle}
-                </h3>
-
-                <p>
-                  Qty:
-                  {order.quantity}
-                </p>
-
-              </div>
-
-              <div>
-
-                <p>
-                  ৳
-                  {order.totalPrice}
-                </p>
-
-                <span className="badge badge-success">
-                  {order.status}
-                </span>
-
-              </div>
-
-            </div>
-
-          )
-        )}
+        <span
+          className="
+            badge
+            badge-primary
+            badge-lg
+          "
+        >
+          {orders?.length} Orders
+        </span>
 
       </div>
+
+      <OrdersTable
+        orders={orders || []}
+        loading={false}
+      />
 
     </div>
 
   );
+
 };
 
 export default RecentOrders;

@@ -65,9 +65,7 @@ const DashboardLayout = () => {
         md:hidden
         text-lg
         font-black
-        bg-gradient-to-r
-        from-violet-300
-        to-indigo-400
+        bg-primary
         bg-clip-text
         text-transparent
         flex
@@ -76,10 +74,10 @@ const DashboardLayout = () => {
       "
     >
       <img src={logoimg} alt="Logo" className="h-10 w-auto md:h-14 object-contain" />
-      <span>LifeLessons ✨</span>
+      <span>ShopSphere</span>
     </NavLink>
 
-    <div className="hidden md:block text-lg md:text-xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
+    <div className="hidden md:block text-lg md:text-xl font-bold bg-primary bg-clip-text text-transparent">
       Dashboard
     </div>
 

@@ -42,6 +42,8 @@ import Cart from "../pages/Cart/Cart";
 import PaymentSuccess from "../coponents/Payment/PaymentSucces";
 import PaymentCancel from "../coponents/Payment/PaymentCancel";
 import Settings from "../pages/Dashboard/UserDashboard/Setting/Settings";
+import Blogs from "../pages/Blogs/Blogs";
+import Contract from "../pages/Contract/Contract";
 
 
 export const router = createBrowserRouter([
@@ -76,6 +78,14 @@ export const router = createBrowserRouter([
       {
         path: "payment-cancel",
         Component: PaymentCancel,
+      },
+      {
+        path: "/blogs",
+        Component: Blogs,
+      },
+      {
+        path: "/contract",
+        Component: Contract,
       },
      
       

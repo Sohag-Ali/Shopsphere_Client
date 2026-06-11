@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import OrderRow from "../../../../coponents/Table/OrderRow";
+import ManageOrdersTable from "./ManageOrderTable";
 
 
 
@@ -42,17 +42,12 @@ const ManageOrders = () => {
   }, []);
 
   const handleStatusChange =
-    async (
-      id,
-      status
-    ) => {
+    async (id, status) => {
 
       const res =
         await axiosSecure.patch(
           `/orders/${id}`,
-          {
-            status
-          }
+          { status }
         );
 
       if (
@@ -61,17 +56,10 @@ const ManageOrders = () => {
 
         Swal.fire({
 
-          icon:
-            "success",
-
-          title:
-            "Status Updated",
-
-          timer:
-            1000,
-
-          showConfirmButton:
-            false,
+          icon: "success",
+          title: "Status Updated",
+          timer: 1200,
+          showConfirmButton: false,
 
         });
 
@@ -100,8 +88,7 @@ const ManageOrders = () => {
 
       if (
         !result.isConfirmed
-      )
-        return;
+      ) return;
 
       const res =
         await axiosSecure.delete(
@@ -112,11 +99,14 @@ const ManageOrders = () => {
         res.data.deletedCount
       ) {
 
-        Swal.fire(
-          "Deleted!",
-          "",
-          "success"
-        );
+        Swal.fire({
+
+          icon: "success",
+          title: "Order Deleted",
+          timer: 1200,
+          showConfirmButton: false,
+
+        });
 
         loadOrders();
 
@@ -124,144 +114,47 @@ const ManageOrders = () => {
 
     };
 
-  if (loading) {
-
-    return (
-      <div
-        className="
-          flex
-          justify-center
-          py-20
-        "
-      >
-
-        <span
-          className="
-            loading
-            loading-spinner
-            loading-lg
-          "
-        ></span>
-
-      </div>
-    );
-
-  }
-
   return (
+
     <div>
 
-      <div
-        className="
-          flex
-          justify-between
-          items-center
-          mb-8
-        "
-      >
+      <div className="mb-8">
 
-        <div>
-
-          <h2
-            className="
-              text-3xl
-              font-bold
-            "
-          >
-            Manage Orders
-          </h2>
-
-          <p
-            className="
-              text-gray-500
-              mt-1
-            "
-          >
-            Total Orders:
-            {orders.length}
-          </p>
-
-        </div>
-
-      </div>
-
-      <div
-        className="
-          bg-base-100
-          rounded-2xl
-          shadow-lg
-          overflow-x-auto
-        "
-      >
-
-        <table
+        <h1
           className="
-            table
-            table-zebra
+            text-4xl
+            font-bold
           "
         >
+          Manage Orders
+        </h1>
 
-          <thead>
-
-            <tr>
-
-              <th>
-                Product
-              </th>
-
-              <th>
-                Customer
-              </th>
-
-              <th>
-                Product Name
-              </th>
-
-              <th>
-                Price
-              </th>
-
-              <th>
-                Status
-              </th>
-
-              <th>
-                Action
-              </th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            {orders.map(
-              (order) => (
-
-                <OrderRow
-                  key={
-                    order._id
-                  }
-                  order={order}
-                  handleStatusChange={
-                    handleStatusChange
-                  }
-                  handleDelete={
-                    handleDelete
-                  }
-                />
-
-              )
-            )}
-
-          </tbody>
-
-        </table>
+        <p
+          className="
+            text-base-content/60
+            mt-2
+          "
+        >
+          Total Orders:
+          {" "}
+          {orders.length}
+        </p>
 
       </div>
 
+      <ManageOrdersTable
+        orders={orders}
+        loading={loading}
+        handleDelete={handleDelete}
+        handleStatusChange={
+          handleStatusChange
+        }
+      />
+
     </div>
+
   );
+
 };
 
 export default ManageOrders;

@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import RecentOrdersTable from "../../../../coponents/Table/RecentOrdersTable";
 
 const AdminOverview = () => {
 
@@ -173,74 +174,30 @@ const AdminOverview = () => {
       {/* Recent Orders */}
 
       <div
-        className="
-          bg-base-100
-          rounded-2xl
-          shadow-lg
-          p-6
-          mt-10
-        "
-      >
+  className="
+    bg-base-100
+    rounded-2xl
+    shadow-lg
+    p-6
+    mt-10
+  "
+>
 
-        <h2 className="text-2xl font-bold mb-6">
-          Recent Orders
-        </h2>
+  <h2
+    className="
+      text-2xl
+      font-bold
+      mb-6
+    "
+  >
+    Recent Orders
+  </h2>
 
-        <div className="overflow-x-auto">
+  <RecentOrdersTable
+    orders={data.recentOrders}
+  />
 
-          <table className="table">
-
-            <thead>
-
-              <tr>
-
-                <th>Product</th>
-
-                <th>Price</th>
-
-                <th>Status</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {data.recentOrders.map(
-                (order) => (
-
-                  <tr key={order._id}>
-
-                    <td>
-                      {order.productTitle}
-                    </td>
-
-                    <td>
-                      ৳ {order.price}
-                    </td>
-
-                    <td>
-
-                      <span className="badge badge-success">
-
-                        {order.status}
-
-                      </span>
-
-                    </td>
-
-                  </tr>
-
-                )
-              )}
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
+</div>
 
     </div>
   );

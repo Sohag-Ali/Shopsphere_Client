@@ -54,6 +54,7 @@ const ProductInfo = ({ product }) => {
     const paymentData = {
 
       email: user.email,
+      userName : user.displayName,
 
       productId: product._id,
 

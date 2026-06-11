@@ -127,144 +127,283 @@ const AddProduct = () => {
 
   };
 
-  return (
-    <div
-      className="
-        max-w-6xl
-        mx-auto
-        bg-base-100
-        rounded-2xl
-        shadow-lg
-        p-8
-      "
-    >
+ return (
+
+  <div
+    className="
+      max-w-6xl
+      mx-auto
+      bg-base-100
+      rounded-3xl
+      shadow-xl
+      border
+      border-base-300
+      p-8
+    "
+  >
+
+    {/* Header */}
+
+    <div className="mb-10">
 
       <h2
         className="
           text-3xl
           font-bold
-          mb-8
         "
       >
         Add Product
       </h2>
 
-      <form
-        onSubmit={handleSubmit(
-          onSubmit
-        )}
+      <p
         className="
-          grid
-          md:grid-cols-2
-          gap-6
+          text-base-content/60
+          mt-2
         "
       >
+        Create a new product for your store
+      </p>
 
-        {/* Product Title */}
+    </div>
+
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="
+        grid
+        md:grid-cols-2
+        gap-6
+      "
+    >
+
+      {/* Basic Information */}
+
+      <div className="md:col-span-2">
+
+        <h3
+          className="
+            text-xl
+            font-bold
+            border-b
+            border-base-300
+            pb-3
+            mb-2
+          "
+        >
+          Basic Information
+        </h3>
+
+      </div>
+
+      <div>
+
+        <label className="label">
+          <span className="font-semibold">
+            Product Title
+          </span>
+        </label>
 
         <input
           {...register("title", {
             required: true,
           })}
-          placeholder="Product Title"
+          placeholder="Enter product title"
           className="input input-bordered w-full"
         />
 
-        {/* Brand */}
+      </div>
+
+      <div>
+
+        <label className="label">
+          <span className="font-semibold">
+            Brand
+          </span>
+        </label>
 
         <input
           {...register("brand")}
-          placeholder="Brand"
+          placeholder="Enter brand"
           className="input input-bordered w-full"
         />
 
-        {/* Category */}
+      </div>
+
+      <div>
+
+        <label className="label">
+          <span className="font-semibold">
+            Category
+          </span>
+        </label>
 
         <select
           {...register("category")}
           className="select select-bordered w-full"
         >
-          <option>Electronics</option>
-          <option>Fashion</option>
-          <option>Sports</option>
-          <option>Beauty</option>
-          <option>Books</option>
-          <option>Home & Living</option>
+
+          <option>
+            Electronics
+          </option>
+
+          <option>
+            Fashion
+          </option>
+
+          <option>
+            Sports
+          </option>
+
+          <option>
+            Beauty
+          </option>
+
+          <option>
+            Books
+          </option>
+
+          <option>
+            Home & Living
+          </option>
+
         </select>
 
-        {/* Location */}
+      </div>
+
+      <div>
+
+        <label className="label">
+          <span className="font-semibold">
+            Location
+          </span>
+        </label>
 
         <input
           {...register("location")}
-          placeholder="Location"
+          placeholder="Enter location"
           className="input input-bordered w-full"
         />
 
-        {/* Price */}
+      </div>
+
+      {/* Pricing */}
+
+      <div className="md:col-span-2 mt-4">
+
+        <h3
+          className="
+            text-xl
+            font-bold
+            border-b
+            border-base-300
+            pb-3
+            mb-2
+          "
+        >
+          Pricing & Inventory
+        </h3>
+
+      </div>
+
+      <div>
+
+        <label className="label">
+          <span className="font-semibold">
+            Price
+          </span>
+        </label>
 
         <input
           type="number"
           {...register("price")}
-          placeholder="Price"
+          placeholder="0.00"
           className="input input-bordered w-full"
         />
 
-        {/* Stock */}
+      </div>
+
+      <div>
+
+        <label className="label">
+          <span className="font-semibold">
+            Stock
+          </span>
+        </label>
 
         <input
           type="number"
           {...register("stock")}
-          placeholder="Stock"
+          placeholder="Available quantity"
           className="input input-bordered w-full"
         />
 
-        {/* Rating */}
+      </div>
+
+      <div>
+
+        <label className="label">
+          <span className="font-semibold">
+            Rating
+          </span>
+        </label>
 
         <input
           type="number"
           step="0.1"
           {...register("rating")}
-          placeholder="Rating"
+          placeholder="4.5"
           className="input input-bordered w-full"
         />
 
-        {/* Special Deal */}
+      </div>
 
-        <div
+      <div
+        className="
+          flex
+          items-center
+          justify-between
+          bg-base-200
+          rounded-xl
+          px-4
+          py-3
+        "
+      >
+
+        <span className="font-medium">
+          Special Deal Product
+        </span>
+
+        <input
+          type="checkbox"
           className="
-            flex
-            items-center
-            gap-3
+            toggle
+            toggle-primary
           "
-        >
+          checked={isDeal}
+          onChange={(e) =>
+            setIsDeal(
+              e.target.checked
+            )
+          }
+        />
 
-          <input
-            type="checkbox"
-            className="checkbox"
-            checked={isDeal}
-            onChange={(e) =>
-              setIsDeal(
-                e.target.checked
-              )
-            }
-          />
+      </div>
 
-          <span>
-            Special Deal Product
-          </span>
+      {isDeal && (
 
-        </div>
+        <div>
 
-        {/* Discount Price */}
-
-        {isDeal && (
+          <label className="label">
+            <span className="font-semibold">
+              Discount Price
+            </span>
+          </label>
 
           <input
             type="number"
             {...register(
               "discountPrice"
             )}
-            placeholder="Discount Price"
+            placeholder="Discount price"
             className="
               input
               input-bordered
@@ -272,61 +411,154 @@ const AddProduct = () => {
             "
           />
 
-        )}
+        </div>
 
-        {/* Images */}
+      )}
+
+      {/* Images */}
+
+      <div className="md:col-span-2 mt-4">
+
+        <h3
+          className="
+            text-xl
+            font-bold
+            border-b
+            border-base-300
+            pb-3
+            mb-2
+          "
+        >
+          Product Images
+        </h3>
+
+      </div>
+
+      <div>
+
+        <label className="label">
+          Image URL 1
+        </label>
 
         <input
           {...register("image1")}
-          placeholder="Image URL 1"
-          className="input input-bordered"
+          placeholder="https://..."
+          className="input input-bordered w-full"
         />
+
+      </div>
+
+      <div>
+
+        <label className="label">
+          Image URL 2
+        </label>
 
         <input
           {...register("image2")}
-          placeholder="Image URL 2"
-          className="input input-bordered"
+          placeholder="https://..."
+          className="input input-bordered w-full"
         />
+
+      </div>
+
+      <div className="md:col-span-2">
+
+        <label className="label">
+          Image URL 3
+        </label>
 
         <input
           {...register("image3")}
-          placeholder="Image URL 3"
-          className="
-            input
-            input-bordered
-            md:col-span-2
-          "
+          placeholder="https://..."
+          className="input input-bordered w-full"
         />
 
-        {/* Short Description */}
+      </div>
+
+      {/* Descriptions */}
+
+      <div className="md:col-span-2 mt-4">
+
+        <h3
+          className="
+            text-xl
+            font-bold
+            border-b
+            border-base-300
+            pb-3
+            mb-2
+          "
+        >
+          Product Description
+        </h3>
+
+      </div>
+
+      <div className="md:col-span-2">
+
+        <label className="label">
+          Short Description
+        </label>
 
         <textarea
           {...register(
             "shortDescription"
           )}
-          placeholder="Short Description"
           className="
             textarea
             textarea-bordered
-            md:col-span-2
+            w-full
+            h-24
           "
         />
 
-        {/* Full Description */}
+      </div>
+
+      <div className="md:col-span-2">
+
+        <label className="label">
+          Full Description
+        </label>
 
         <textarea
           {...register(
             "description"
           )}
-          placeholder="Full Description"
           className="
             textarea
             textarea-bordered
-            md:col-span-2
+            w-full
+            h-36
           "
         />
 
-        {/* Dynamic Specifications */}
+      </div>
+
+      {/* Specifications */}
+
+      <div className="md:col-span-2 mt-4">
+
+        <h3
+          className="
+            text-xl
+            font-bold
+            border-b
+            border-base-300
+            pb-3
+            mb-2
+          "
+        >
+          Specifications
+        </h3>
+
+      </div>
+
+      <div className="md:col-span-2">
+
+        <label className="label">
+          JSON Specifications
+        </label>
 
         <textarea
           {...register(
@@ -334,35 +566,38 @@ const AddProduct = () => {
           )}
           placeholder={`{
   "Display":"AMOLED",
-  "Battery":"7 Days",
-  "Waterproof":"Yes",
+  "Battery":"5000mAh",
   "Warranty":"1 Year"
 }`}
           className="
             textarea
             textarea-bordered
-            md:col-span-2
-            h-40
+            w-full
+            h-48
           "
         />
 
-        {/* Submit */}
+      </div>
 
-        <button
-          type="submit"
-          className="
-            btn
-            btn-primary
-            md:col-span-2
-          "
-        >
-          Add Product
-        </button>
+      <button
+        type="submit"
+        className="
+          btn
+          btn-primary
+          md:col-span-2
+          h-14
+          text-lg
+          font-semibold
+        "
+      >
+        Add Product
+      </button>
 
-      </form>
+    </form>
 
-    </div>
-  );
+  </div>
+
+);
 };
 
 export default AddProduct;
