@@ -1,11 +1,40 @@
+import { useState } from "react";
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 const Contact = () => {
+  const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [subject, setSubject] = useState("");
+const [message, setMessage] = useState("");
+const handleSubmit = (e) => {
+  e.preventDefault();
 
+  const whatsappMessage = `
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+  `;
+
+  const whatsappUrl =
+    `https://wa.me/8801728918054?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
+  window.open(
+    whatsappUrl,
+    "_blank"
+  );
+
+  setName("");
+  setEmail("");
+  setSubject("");
+  setMessage("");
+};
   return (
-
-    <div className="max-w-7xl mx-auto px-4 py-12">
-
+    <div className="max-w-7xl mx-auto px-4 py-6">
       {/* Hero */}
 
       <div
@@ -13,14 +42,11 @@ const Contact = () => {
           bg-base-200
           rounded-3xl
           text-center
-          py-16
+          py-6
           mb-12
         "
       >
-
-        <h1 className="text-5xl font-bold">
-          Contact Us
-        </h1>
+        <h1 className="text-5xl font-bold">Contact Us</h1>
 
         <p
           className="
@@ -28,10 +54,8 @@ const Contact = () => {
             text-base-content/70
           "
         >
-          We'd love to hear from you.
-          Get in touch with our team.
+          We'd love to hear from you. Get in touch with our team.
         </p>
-
       </div>
 
       {/* Contact Info */}
@@ -44,94 +68,103 @@ const Contact = () => {
           mb-12
         "
       >
-
-        <div
+        <a
+          href="https://wa.me/8801728918054?text=Hello%20Sohag,%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+          target="_blank"
+          rel="noopener noreferrer"
           className="
-            bg-base-100
-            shadow-lg
-            rounded-2xl
-            p-6
-            text-center
-          "
+    block
+    bg-base-100
+    shadow-lg
+    rounded-2xl
+    p-6
+    text-center
+    hover:shadow-2xl
+    hover:-translate-y-1
+    transition-all
+    duration-300
+    cursor-pointer
+  "
         >
-
           <FaPhoneAlt
             className="
-              text-primary
-              text-3xl
-              mx-auto
-              mb-4
-            "
+      text-primary
+      text-3xl
+      mx-auto
+      mb-4
+    "
           />
 
-          <h3 className="font-bold text-xl">
-            Phone
-          </h3>
+          <h3 className="font-bold text-xl">WhatsApp</h3>
 
-          <p className="mt-2">
-            +880 1712-345678
-          </p>
+          <p className="mt-2">+880 1728918054</p>
+        </a>
 
-        </div>
-
-        <div
+        <a
+          href="mailto:sohag2879@gmail.com?subject=Contact%20from%20ShopSphere&body=Hello%20Sohag,"
           className="
-            bg-base-100
-            shadow-lg
-            rounded-2xl
-            p-6
-            text-center
-          "
+    block
+    bg-base-100
+    shadow-lg
+    rounded-2xl
+    p-6
+    text-center
+    hover:shadow-2xl
+    hover:-translate-y-1
+    transition-all
+    duration-300
+    cursor-pointer
+  "
         >
-
           <FaEnvelope
             className="
-              text-primary
-              text-3xl
-              mx-auto
-              mb-4
-            "
+      text-primary
+      text-3xl
+      mx-auto
+      mb-4
+    "
           />
 
-          <h3 className="font-bold text-xl">
-            Email
-          </h3>
+          <h3 className="font-bold text-xl">Email</h3>
 
-          <p className="mt-2">
-            support@yourshop.com
-          </p>
+          <p className="mt-2">sohag2879@gmail.com</p>
+        </a>
 
-        </div>
+        <a
+  href="https://www.google.com/maps/place/Uttara+Sector-12+Society/@23.872198,90.3807587,17.75z/data=!4m6!3m5!1s0x3755c40ed3c3c18b:0x9521b4915bd8ee05!8m2!3d23.873372!4d90.3796786!16s%2Fg%2F11c6sq_dyf?entry=ttu&g_ep=EgoyMDI2MDYwMy4xIKXMDSoASAFQAw%3D%3Dhttps://www.google.com/maps/search/?api=1&query=Uttara+Sector+12+Road+6B+Dhaka+Bangladesh"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    block
+    bg-base-100
+    shadow-lg
+    rounded-2xl
+    p-6
+    text-center
+    hover:shadow-2xl
+    hover:-translate-y-1
+    transition-all
+    duration-300
+    cursor-pointer
+  "
+>
+  <FaMapMarkerAlt
+    className="
+      text-primary
+      text-3xl
+      mx-auto
+      mb-4
+    "
+  />
 
-        <div
-          className="
-            bg-base-100
-            shadow-lg
-            rounded-2xl
-            p-6
-            text-center
-          "
-        >
+  <h3 className="font-bold text-xl">
+    Address
+  </h3>
 
-          <FaMapMarkerAlt
-            className="
-              text-primary
-              text-3xl
-              mx-auto
-              mb-4
-            "
-          />
-
-          <h3 className="font-bold text-xl">
-            Address
-          </h3>
-
-          <p className="mt-2">
-            Dhaka, Bangladesh
-          </p>
-
-        </div>
-
+  <p className="mt-2">
+    Dhaka, Bangladesh
+  </p>
+</a>
       </div>
 
       {/* Form + Map */}
@@ -143,7 +176,6 @@ const Contact = () => {
           gap-8
         "
       >
-
         {/* Contact Form */}
 
         <div
@@ -154,7 +186,6 @@ const Contact = () => {
             p-8
           "
         >
-
           <h2
             className="
               text-3xl
@@ -165,60 +196,60 @@ const Contact = () => {
             Send Message
           </h2>
 
-          <form className="space-y-4">
+          <form
+  onSubmit={handleSubmit}
+  className="space-y-4"
+>
+  <input
+    type="text"
+    placeholder="Your Name"
+    value={name}
+    onChange={(e) =>
+      setName(e.target.value)
+    }
+    className="input input-bordered w-full"
+    required
+  />
 
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="
-                input
-                input-bordered
-                w-full
-              "
-            />
+  <input
+    type="email"
+    placeholder="Your Email"
+    value={email}
+    onChange={(e) =>
+      setEmail(e.target.value)
+    }
+    className="input input-bordered w-full"
+    required
+  />
 
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="
-                input
-                input-bordered
-                w-full
-              "
-            />
+  <input
+    type="text"
+    placeholder="Subject"
+    value={subject}
+    onChange={(e) =>
+      setSubject(e.target.value)
+    }
+    className="input input-bordered w-full"
+    required
+  />
 
-            <input
-              type="text"
-              placeholder="Subject"
-              className="
-                input
-                input-bordered
-                w-full
-              "
-            />
+  <textarea
+    placeholder="Message"
+    value={message}
+    onChange={(e) =>
+      setMessage(e.target.value)
+    }
+    className="textarea textarea-bordered w-full h-40"
+    required
+  />
 
-            <textarea
-              placeholder="Message"
-              className="
-                textarea
-                textarea-bordered
-                w-full
-                h-40
-              "
-            ></textarea>
-
-            <button
-              className="
-                btn
-                btn-primary
-                w-full
-              "
-            >
-              Send Message
-            </button>
-
-          </form>
-
+  <button
+    type="submit"
+    className="btn btn-primary w-full"
+  >
+    Send via WhatsApp
+  </button>
+</form>
         </div>
 
         {/* Map */}
@@ -230,24 +261,20 @@ const Contact = () => {
             shadow-xl
           "
         >
-
           <iframe
             title="map"
-            src="https://www.google.com/maps/embed?pb=!1m18..."
+            src="https://maps.google.com/maps?q=Uttara%20Sector%2012%20Dhaka&t=&z=15&ie=UTF8&iwloc=&output=embed"
             width="100%"
             height="100%"
             className="min-h-[500px]"
             loading="lazy"
           ></iframe>
-
         </div>
-
       </div>
 
       {/* FAQ */}
 
       <div className="mt-16">
-
         <h2
           className="
             text-4xl
@@ -260,7 +287,6 @@ const Contact = () => {
         </h2>
 
         <div className="space-y-4">
-
           <div
             className="
               collapse
@@ -278,7 +304,6 @@ const Contact = () => {
             <div className="collapse-content">
               Delivery usually takes 2-5 business days.
             </div>
-
           </div>
 
           <div
@@ -298,7 +323,6 @@ const Contact = () => {
             <div className="collapse-content">
               Yes, within 7 days of delivery.
             </div>
-
           </div>
 
           <div
@@ -318,17 +342,11 @@ const Contact = () => {
             <div className="collapse-content">
               Yes, Cash On Delivery is available.
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   );
-
 };
 
 export default Contact;

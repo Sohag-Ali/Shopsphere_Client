@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const { user } = useAuth();
@@ -38,19 +39,96 @@ const Cart = () => {
       });
   };
 
-  const handleDelete = (id) => {
-    axiosSecure
-      .delete(`/cart/${id}`)
-      .then(() => {
-        refetch();
-      });
-  };
+ const handleDelete = async (id) => {
+
+  const result = await Swal.fire({
+    title: "Remove Product?",
+    text: "This item will be removed from your cart.",
+    icon: "warning",
+
+    showCancelButton: true,
+
+    confirmButtonColor: "#ef4444",
+
+    cancelButtonColor: "#6b7280",
+
+    confirmButtonText: "Yes, Remove",
+
+    cancelButtonText: "Cancel",
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+
+    await axiosSecure.delete(
+      `/cart/${id}`
+    );
+
+    refetch();
+
+    Swal.fire({
+      icon: "success",
+
+      title: "Removed Successfully 🗑️",
+
+      text: "Product has been removed from your cart.",
+
+      confirmButtonColor: "#8B5CF6",
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    Swal.fire({
+      icon: "error",
+
+      title: "Oops...",
+
+      text: "Something went wrong!",
+    });
+
+  }
+
+};
+
+
 
   const totalPrice = cartItems.reduce(
     (total, item) =>
       total + item.price * item.quantity,
     0
   );
+
+  const handleCartCheckout = async () => {
+  try {
+
+    const paymentData = {
+      email: user.email,
+      userName: user.displayName,
+
+      cartItems,
+
+      totalPrice,
+    };
+
+    const res =
+      await axiosSecure.post(
+        "/create-checkout-session",
+        paymentData
+      );
+
+    window.location.replace(
+      res.data.url
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+};
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
@@ -166,6 +244,8 @@ const Cart = () => {
         </h2>
 
         <button
+        disabled={cartItems.length === 0}
+        onClick={handleCartCheckout}
           className="
             btn
             btn-primary

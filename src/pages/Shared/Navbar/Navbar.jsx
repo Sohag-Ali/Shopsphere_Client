@@ -6,6 +6,7 @@ import { CgLogOut } from "react-icons/cg";
 import { FaShoppingCart } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+
 // import logoimg from "../../../assets/logof.png";
 
 
@@ -26,9 +27,15 @@ const Navbar = () => {
 
   const axiosSecure = useAxiosSecure();
 
+
+
 const { data: cartItems = [] } = useQuery({
   queryKey: ["cart", user?.email],
   enabled: !!user?.email,
+  staleTime: 0,
+  gcTime: 0,
+  refetchOnMount: true,
+  refetchOnWindowFocus: true,
 
   queryFn: async () => {
     const res = await axiosSecure.get(

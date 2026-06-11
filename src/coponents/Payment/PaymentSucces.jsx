@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router";
 import { useEffect, useRef } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQueryClient } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 
 const PaymentSuccess = () => {
 
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const calledRef = useRef(false);
+   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const searchParams =
     new URLSearchParams(window.location.search);
@@ -18,6 +22,7 @@ useEffect(() => {
 
   if (
     !sessionId ||
+    !user?.email ||
     calledRef.current
   ) return;
 
@@ -25,12 +30,15 @@ useEffect(() => {
 
   axiosSecure
     .post(`/save-order/${sessionId}`)
-    .then((res) => {
+    .then(async(res) => {
 
       console.log(
         "Order Saved",
         res.data
       );
+       
+      queryClient.setQueryData(["cart", user.email], []);
+      
 
     })
     .catch((error) => {
@@ -39,7 +47,7 @@ useEffect(() => {
 
     });
 
-}, [sessionId, axiosSecure]);
+}, [sessionId, axiosSecure, queryClient, user?.email]);
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center px-4">

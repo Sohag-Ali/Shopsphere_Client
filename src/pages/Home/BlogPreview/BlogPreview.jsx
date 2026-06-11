@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import BlogCard from "../../../coponents/Card/BlogCard";
 import { Link } from "react-router";
+import BlogModal from "../../Blogs/BlogModal";
 
 const BlogPreview = () => {
 
   const axiosSecure = useAxiosSecure();
 
   const [blogs, setBlogs] = useState([]);
+  const [selectedBlog, setSelectedBlog] = useState(null);
 
   useEffect(() => {
 
@@ -40,8 +42,17 @@ const BlogPreview = () => {
           <BlogCard
             key={blog._id}
             blog={blog}
+            setSelectedBlog={setSelectedBlog}
           />
         ))}
+        {selectedBlog && (
+  <BlogModal
+    blog={selectedBlog}
+    closeModal={() =>
+      setSelectedBlog(null)
+    }
+  />
+)}
 
       </div>
       <div className="text-center mt-10">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import ReviewCard from "../Card/ReviewCard";
+import Swal from "sweetalert2";
 
 const ProductReviews = ({ productId, productTitle, productImage }) => {
   const axiosSecure = useAxiosSecure();
@@ -68,7 +69,18 @@ const [editRating, setEditRating] =
       });
   };
 
-  const handleDelete = async (id) => {
+const handleDelete = async (id) => {
+
+  const result = await Swal.fire({
+    title: "Delete Review?",
+    text: "You won't be able to recover it.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Delete",
+    cancelButtonText: "Cancel",
+  });
+
+  if (!result.isConfirmed) return;
 
   try {
 
@@ -78,9 +90,23 @@ const [editRating, setEditRating] =
 
     fetchReviews();
 
+    Swal.fire({
+      icon: "success",
+      title: "Deleted",
+      text: "Review deleted successfully",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+
   } catch (error) {
 
     console.log(error);
+
+    Swal.fire({
+      icon: "error",
+      title: "Failed",
+      text: "Could not delete review",
+    });
 
   }
 
@@ -105,23 +131,44 @@ const handleUpdate = async () => {
   try {
 
     await axiosSecure.patch(
-
       `/reviews/${editingReview._id}`,
-
       {
         rating: editRating,
         comment: editComment,
       }
-
     );
 
     setEditingReview(null);
 
     fetchReviews();
 
+    Swal.fire({
+  icon: "success",
+
+  title: "Review Updated Successfully 🎉",
+
+  text: "Your review has been updated and is now visible to other customers.",
+
+  confirmButtonText: "Awesome!",
+
+  confirmButtonColor: "#8B5CF6",
+
+  backdrop: true,
+
+  timer: 2500,
+
+  timerProgressBar: true,
+});
+
   } catch (error) {
 
     console.log(error);
+
+    Swal.fire({
+      icon: "error",
+      title: "Update Failed",
+      text: "Could not update review",
+    });
 
   }
 
