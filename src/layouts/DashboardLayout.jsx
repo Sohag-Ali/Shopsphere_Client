@@ -4,7 +4,7 @@ import Container from "../coponents/Container/Container";
 
 import LoadingDash from "../coponents/LoadingPage/LoadingDash";
 import { Suspense } from "react";
-import logoimg from "../assets/logof.png";
+import logoimg from "../assets/home/slogo (2).png";
 
 const navLinkClass = ({ isActive }) =>
   `

@@ -89,10 +89,7 @@ export const router = createBrowserRouter([
       },
      
       
-      {
-        path: "/banned",
-        Component: BannedPage,
-      },
+      
     ],
   },
 
@@ -235,4 +232,9 @@ export const router = createBrowserRouter([
         path: "unauthorized",
         element: <Unauthorized></Unauthorized>
       },
+      {
+        path: "/banned",
+        Component: BannedPage,
+      },
 ]);
+

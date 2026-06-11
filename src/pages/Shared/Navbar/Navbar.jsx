@@ -6,8 +6,8 @@ import { CgLogOut } from "react-icons/cg";
 import { FaShoppingCart } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import logoimg from "../../../assets/home/slogo (2).png";
 
-// import logoimg from "../../../assets/logof.png";
 
 
 
@@ -131,11 +131,11 @@ const { data: cartItems = [] } = useQuery({
           </ul>
         </div>
         <Link className="flex items-center text-lg md:text-2xl font-bold  text-primary  bg-clip-text text-transparent">
-          {/* <img
+          <img
             className="hidden md:block h-10 w-auto md:h-14 object-contain"
             src={logoimg}
             alt="Logo"
-          /> */}
+          />
           <span>ShopSphere</span>
         </Link>
       </div>
@@ -218,7 +218,7 @@ const { data: cartItems = [] } = useQuery({
                 <Link
                   to={
                     userData?.role === "admin"
-                      ? "/dashboard/admin/admin-profile"
+                      ? "/dashboard/admin/profile"
                       : "/dashboard/profile"
                   }
                   className="hover:bg-white/10 rounded-xl transition-all duration-300"

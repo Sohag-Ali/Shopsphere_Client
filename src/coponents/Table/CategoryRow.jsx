@@ -43,7 +43,7 @@ const CategoryRow = ({
           "
         >
           {category.productCount}
-          Products
+          <span> Products</span>
         </span>
 
       </td>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const MyReviews = () => {
 
@@ -34,28 +35,66 @@ const MyReviews = () => {
 
   }, [user, axiosSecure]);
 
-  const handleDelete = async (id) => {
+ const handleDelete = async (id) => {
 
-    try {
+  const result = await Swal.fire({
+    title: "Delete Review?",
+    text: "This review will be permanently deleted.",
+    icon: "warning",
 
-      await axiosSecure.delete(
-        `/reviews/${id}`
-      );
+    showCancelButton: true,
 
-      setReviews(
-        reviews.filter(
-          review =>
-            review._id !== id
-        )
-      );
+    confirmButtonColor: "#ef4444",
 
-    } catch (error) {
+    cancelButtonColor: "#6b7280",
 
-      console.log(error);
+    confirmButtonText: "Yes, Delete",
 
-    }
+    cancelButtonText: "Cancel",
+  });
 
-  };
+  if (!result.isConfirmed) return;
+
+  try {
+
+    await axiosSecure.delete(
+      `/reviews/${id}`
+    );
+
+    setReviews(
+      reviews.filter(
+        review =>
+          review._id !== id
+      )
+    );
+
+    Swal.fire({
+      icon: "success",
+
+      title: "Review Deleted 🗑️",
+
+      text: "Your review has been removed successfully.",
+
+      confirmButtonColor: "#8B5CF6",
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    Swal.fire({
+      icon: "error",
+
+      title: "Delete Failed",
+
+      text: "Something went wrong. Please try again.",
+
+      confirmButtonColor: "#ef4444",
+    });
+
+  }
+
+};
 
   const averageRating =
     reviews.length > 0

@@ -43,192 +43,329 @@ const ManageUsers = () => {
   // Make Admin
 
   const handleMakeAdmin =
-    async (id) => {
+  async (id) => {
 
-      try {
+    const result =
+      await Swal.fire({
 
-        const res =
-          await axiosSecure.patch(
-            `/users/admin/${id}`
-          );
+        title:
+          "Make Admin?",
 
-        if (
-          res.data.modifiedCount
-        ) {
+        text:
+          "This user will get administrator privileges.",
 
-          setUsers(
+        icon:
+          "question",
 
-            users.map(
-              (user) =>
+        showCancelButton:
+          true,
 
-                user._id === id
+        confirmButtonColor:
+          "#8B5CF6",
 
-                  ? {
-                      ...user,
-                      role:
-                        "admin",
-                    }
+        cancelButtonColor:
+          "#6b7280",
 
-                  : user
-            )
+        confirmButtonText:
+          "Yes, Make Admin",
 
-          );
+      });
 
-          Swal.fire({
+    if (
+      !result.isConfirmed
+    )
+      return;
 
-            icon:
-              "success",
+    try {
 
-            title:
-              "User promoted to Admin",
+      const res =
+        await axiosSecure.patch(
+          `/users/admin/${id}`
+        );
 
-            timer:
-              1500,
+      if (
+        res.data.modifiedCount
+      ) {
 
-            showConfirmButton:
-              false,
+        setUsers(
 
-          });
+          users.map(
+            (user) =>
 
-        }
+              user._id === id
 
-      } catch (error) {
+                ? {
+                    ...user,
+                    role:
+                      "admin",
+                  }
 
-        console.log(error);
+                : user
+          )
+
+        );
+
+        Swal.fire({
+
+          icon:
+            "success",
+
+          title:
+            "Admin Access Granted 👑",
+
+          text:
+            "The user has been promoted to administrator.",
+
+          confirmButtonColor:
+            "#8B5CF6",
+
+        });
 
       }
 
-    };
+    } catch (error) {
+
+      console.log(error);
+
+      Swal.fire({
+
+        icon:
+          "error",
+
+        title:
+          "Failed",
+
+        text:
+          "Could not promote user to admin.",
+
+      });
+
+    }
+
+  };
 
   // Ban / Unban
 
-  const handleBanUser =
-    async (id) => {
+const handleBanUser = async (id) => {
 
-      try {
+  const selectedUser =
+    users.find(
+      (user) => user._id === id
+    );
 
-        const res =
-          await axiosSecure.patch(
-            `/users/ban/${id}`
-          );
+  const isCurrentlyBanned =
+    selectedUser?.status === "banned";
 
-        if (
-          res.data.modifiedCount
-        ) {
+  const result =
+    await Swal.fire({
 
-          setUsers(
+      title: isCurrentlyBanned
+        ? "Unban User?"
+        : "Ban User?",
 
-            users.map(
-              (user) =>
+      text: isCurrentlyBanned
+        ? "This user will regain access to the platform."
+        : "This user will no longer be able to access the platform.",
 
-                user._id === id
+      icon: "warning",
 
-                  ? {
-                      ...user,
+      showCancelButton: true,
 
-                      status:
-                        user.status ===
-                        "banned"
+      confirmButtonColor:
+        isCurrentlyBanned
+          ? "#10b981"
+          : "#ef4444",
 
-                          ? "active"
+      cancelButtonColor:
+        "#6b7280",
 
-                          : "banned",
-                    }
+      confirmButtonText:
+        isCurrentlyBanned
+          ? "Yes, Unban"
+          : "Yes, Ban",
 
-                  : user
-            )
+      cancelButtonText:
+        "Cancel",
+    });
 
-          );
+  if (!result.isConfirmed)
+    return;
 
-        }
+  try {
 
-      } catch (error) {
+    const res =
+      await axiosSecure.patch(
+        `/users/ban/${id}`
+      );
 
-        console.log(error);
+    if (
+      res.data.modifiedCount
+    ) {
 
-      }
+      setUsers(
 
-    };
+        users.map(
+          (user) =>
+
+            user._id === id
+
+              ? {
+                  ...user,
+
+                  status:
+                    user.status ===
+                    "banned"
+
+                      ? "active"
+
+                      : "banned",
+                }
+
+              : user
+        )
+
+      );
+
+      Swal.fire({
+
+        icon:
+          isCurrentlyBanned
+            ? "success"
+            : "warning",
+
+        title:
+          isCurrentlyBanned
+            ? "User Unbanned ✅"
+            : "User Banned 🚫",
+
+        text:
+          isCurrentlyBanned
+            ? "The user can now access the platform."
+            : "The user has been restricted from accessing the platform.",
+
+        confirmButtonColor:
+          "#8B5CF6",
+      });
+
+    }
+
+  } catch (error) {
+
+    console.log(error);
+
+    Swal.fire({
+
+      icon: "error",
+
+      title:
+        "Something Went Wrong",
+
+      text:
+        "Failed to update user status.",
+
+    });
+
+  }
+
+};
 
   // Delete User
 
   const handleDeleteUser =
-    async (id) => {
+  async (id) => {
 
-      const result =
-        await Swal.fire({
+    const result =
+      await Swal.fire({
 
-          title:
-            "Delete User?",
+        title:
+          "Delete User?",
 
-          text:
-            "This action cannot be undone",
+        text:
+          "This action cannot be undone.",
+
+        icon:
+          "warning",
+
+        showCancelButton:
+          true,
+
+        confirmButtonColor:
+          "#ef4444",
+
+        cancelButtonColor:
+          "#6b7280",
+
+        confirmButtonText:
+          "Yes, Delete",
+
+        cancelButtonText:
+          "Cancel",
+
+      });
+
+    if (
+      !result.isConfirmed
+    )
+      return;
+
+    try {
+
+      const res =
+        await axiosSecure.delete(
+          `/users/${id}`
+        );
+
+      if (
+        res.data.deletedCount
+      ) {
+
+        setUsers(
+
+          users.filter(
+            (user) =>
+              user._id !== id
+          )
+
+        );
+
+        Swal.fire({
 
           icon:
-            "warning",
+            "success",
 
-          showCancelButton:
-            true,
+          title:
+            "User Deleted Successfully 🗑️",
+
+          text:
+            "The user account has been permanently removed.",
 
           confirmButtonColor:
-            "#d33",
-
-          confirmButtonText:
-            "Delete",
+            "#8B5CF6",
 
         });
 
-      if (
-        result.isConfirmed
-      ) {
-
-        try {
-
-          const res =
-            await axiosSecure.delete(
-              `/users/${id}`
-            );
-
-          if (
-            res.data.deletedCount
-          ) {
-
-            setUsers(
-
-              users.filter(
-                (user) =>
-                  user._id !== id
-              )
-
-            );
-
-            Swal.fire({
-
-              icon:
-                "success",
-
-              title:
-                "User Deleted",
-
-              timer:
-                1500,
-
-              showConfirmButton:
-                false,
-
-            });
-
-          }
-
-        } catch (error) {
-
-          console.log(error);
-
-        }
-
       }
 
-    };
+    } catch (error) {
+
+      console.log(error);
+
+      Swal.fire({
+
+        icon:
+          "error",
+
+        title:
+          "Delete Failed",
+
+        text:
+          "Unable to delete this user.",
+
+      });
+
+    }
+
+  };
 
   return (
 

@@ -272,7 +272,7 @@ const ManageCategories = () => {
 
           <p
             className="
-              text-gray-500
+              text-base-content/70
               mt-2
             "
           >

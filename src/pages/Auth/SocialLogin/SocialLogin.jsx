@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import useAxiox from "../../../hooks/useAxiox";
 
 const SocialLogin = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle,logoutUser} = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   // const axiosSecure = useAxiosSecure();
@@ -41,8 +41,17 @@ const SocialLogin = () => {
 
   // banned user
   if(checkUser.data?.isBanned){
+    await logoutUser();
+    localStorage.removeItem(
+    "access-token"
+  );
+  Swal.fire({
+    icon: "error",
+    title: "Account Restricted",
+    text: "Your account has been suspended."
+  });
 
-    return navigate('/banned');
+    return navigate('/banned',{ replace: true });
   }
         const userInfo = {
           name: user.displayName,
