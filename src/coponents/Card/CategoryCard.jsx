@@ -28,7 +28,7 @@ const CategoryCard = ({ category }) => {
           {category.name}
         </h2>
 
-        <p className="text-gray-500">
+        <p className="text-base-content/70">
           {category.productCount} Products
         </p>
 

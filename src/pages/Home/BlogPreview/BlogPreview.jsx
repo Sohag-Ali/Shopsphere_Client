@@ -27,7 +27,7 @@ const BlogPreview = () => {
           Latest Blogs
         </h2>
 
-        <p className="mt-3 text-gray-500">
+        <p className="mt-3 text-base-content/70">
           Shopping tips, fashion trends and tech updates
         </p>
 

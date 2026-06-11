@@ -44,7 +44,7 @@ const SpecialDeals = () => {
       <div className="text-center mb-10">
         <h2 className="text-4xl font-bold">Special Deals</h2>
 
-        <p className="mt-2 text-gray-500">Grab today's best discounts</p>
+        <p className="mt-2 text-base-content/70">Grab today's best discounts</p>
       </div>
 
       <div

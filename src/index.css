@@ -3,6 +3,63 @@
 
 
 
+@plugin "daisyui/theme" {
+  name: "shopsphere";
+  default: true;
+
+  --color-primary: #C9B59C;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #D8D0C8;
+  --color-secondary-content: #2C2C2C;
+
+  --color-accent: #E4DFDA;
+  --color-accent-content: #2C2C2C;
+
+  --color-neutral: #2C2C2C;
+  --color-neutral-content: #ffffff;
+
+  --color-base-100: #FFFFFF;
+  --color-base-200: #F4F4F4;
+  --color-base-300: #EAE7E3;
+
+  --color-base-content: #2C2C2C;
+
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+}
+
+/* DARK THEME */
+
+@plugin "daisyui/theme" {
+  name: "shopsphere-dark";
+
+  --color-primary: #C9B59C;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #374151;
+  --color-secondary-content: #F3F4F6;
+
+  --color-accent: #D8D0C8;
+  --color-accent-content: #F3F4F6;
+
+  --color-neutral: #F3F4F6;
+  --color-neutral-content: #111827;
+
+  --color-base-100: #1F2937;
+  --color-base-200: #111827;
+  --color-base-300: #374151;
+
+  --color-base-content: #F3F4F6;
+
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+}
+
+
+
 .swiper-wrapper {
   transition-timing-function: linear !important;
 }

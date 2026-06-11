@@ -27,7 +27,7 @@ const CustomerReviews = () => {
           Customer Reviews
         </h2>
 
-        <p className="mt-3 text-gray-500">
+        <p className="mt-3 text-base-content/70">
           What our customers say about us
         </p>
 

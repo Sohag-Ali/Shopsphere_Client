@@ -47,7 +47,7 @@ const ReviewCard = ({ review }) => {
 
         </div>
 
-        <p className="mt-4 text-gray-500">
+        <p className="mt-4 text-base-content/70">
           "{comment}"
         </p>
 

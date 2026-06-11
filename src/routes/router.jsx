@@ -41,6 +41,7 @@ import Categories from "../pages/Categories/Categories";
 import Cart from "../pages/Cart/Cart";
 import PaymentSuccess from "../coponents/Payment/PaymentSucces";
 import PaymentCancel from "../coponents/Payment/PaymentCancel";
+import Settings from "../pages/Dashboard/UserDashboard/Setting/Settings";
 
 
 export const router = createBrowserRouter([
@@ -76,6 +77,7 @@ export const router = createBrowserRouter([
         path: "payment-cancel",
         Component: PaymentCancel,
       },
+     
       
       {
         path: "/banned",
@@ -126,6 +128,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/my-reviews",
         element: <MyReviews></MyReviews>,
+      },
+      {
+        path: "/dashboard/settings",
+        element: <Settings></Settings>,
       },
       
       

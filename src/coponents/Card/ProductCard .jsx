@@ -24,7 +24,17 @@ const ProductCard = ({
       : 0;
 
   return (
-    <div className="card bg-base-100 shadow-lg rounded-xl h-full">
+    <div className="card
+  bg-base-100
+  border
+  border-base-300
+  shadow-md
+  hover:shadow-xl
+  hover:scale-[1.02]
+  transition-all
+  duration-300
+  rounded-2xl
+  h-full">
 
       <figure className="relative h-52">
 
@@ -35,7 +45,7 @@ const ProductCard = ({
         />
 
         {showDiscount && discountPrice && (
-          <div className="badge badge-error absolute top-3 right-3 text-white">
+          <div className="badge badge-error absolute top-3 right-3 text-base-content">
             {discountPercent}% OFF
           </div>
         )}
@@ -48,7 +58,7 @@ const ProductCard = ({
           {title}
         </h2>
 
-        <p className="text-sm text-gray-500 line-clamp-2 min-h-[40px]">
+        <p className="text-sm text-base-content/70 line-clamp-2 min-h-[40px]">
           {shortDescription}
         </p>
 
@@ -57,7 +67,7 @@ const ProductCard = ({
           {showDiscount && discountPrice ? (
             <div className="flex gap-2 items-center">
 
-              <span className="line-through text-gray-400">
+              <span className="line-through text-base-content/60">
                 ৳ {price}
               </span>
 
@@ -67,7 +77,7 @@ const ProductCard = ({
 
             </div>
           ) : (
-            <span className="font-bold text-[#C9B59C]">
+            <span className="font-bold text-primary">
               ৳ {price}
             </span>
           )}
@@ -87,11 +97,12 @@ const ProductCard = ({
             to={`/product/${_id}`}
             className="
               btn
+              btn-primary
               w-full
               mt-4
-              bg-[#C9B59C]
-              text-white
-              hover:bg-[#B79D7F]
+              hover:bg-brand-light
+              text-base-content
+              font-semibold
             "
           >
             View Details

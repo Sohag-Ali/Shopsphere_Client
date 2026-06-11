@@ -43,7 +43,7 @@ const Categories = () => {
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold">Shop By Category</h2>
 
-        <p className="mt-3 text-gray-500">
+        <p className="mt-3 text-base-content/70">
           Browse products by category
         </p>
       </div>

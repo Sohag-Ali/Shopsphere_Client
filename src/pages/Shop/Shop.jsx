@@ -12,6 +12,7 @@ const Shop = () => {
 
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
 
   const [search, setSearch] = useState("");
@@ -20,7 +21,7 @@ const Shop = () => {
 
   const [page, setPage] = useState(1);
 
-  const limit = 8;
+  const limit = 9;
 
   useEffect(() => {
 
@@ -36,6 +37,9 @@ const Shop = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
 
   }, [
@@ -82,59 +86,151 @@ const Shop = () => {
 
           {/* Search */}
 
-          <div className="mb-6">
+        <div className="mb-8">
 
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="
-                input
-                input-bordered
-                w-full
-              "
-              onChange={(e) =>
-                setSearch(
-                  e.target.value
-                )
-              }
-            />
+  <div
+    className="
+      flex
+      items-center
+      bg-base-100
+      rounded-2xl
+      shadow-lg
+      border
+      border-base-300
+      overflow-hidden
 
-          </div>
+      hover:shadow-xl
+      focus-within:border-primary
+
+      transition-all
+      duration-300
+    "
+  >
+
+    <div
+      className="
+        px-5
+        text-2xl
+        text-primary
+      "
+    >
+      🔍
+    </div>
+
+    <input
+      type="text"
+      placeholder="Search products, brands, categories..."
+      className="
+        flex-1
+        h-16
+        bg-transparent
+        border-none
+        outline-none
+        focus:outline-none
+        focus:ring-0
+
+        text-base-content
+        placeholder:text-base-content/50
+      "
+      onChange={(e) =>
+        setSearch(e.target.value)
+      }
+    />
+
+    <button
+      className="
+        h-12
+        mr-2
+        px-8
+
+        rounded-xl
+
+        bg-primary
+        text-primary-content
+
+        hover:scale-105
+        hover:shadow-lg
+
+        transition-all
+        duration-300
+      "
+    >
+      Search
+    </button>
+
+  </div>
+
+</div>
 
           {/* Product Count */}
 
-          <div className="mb-6">
+         <div className="mb-6">
 
-            <h2 className="text-lg font-semibold">
+  <h2 className="text-lg font-semibold text-base-content">
 
-              Showing {count} Products
+    {loading
+      ? "Loading Products..."
+      : `Showing ${count} Products`
+    }
 
-            </h2>
+  </h2>
 
-          </div>
+</div>
 
           {/* Product Grid */}
 
           <div
+  className="
+    grid
+    grid-cols-1
+    md:grid-cols-2
+    lg:grid-cols-3
+    gap-6
+  "
+>
+
+  {loading
+    ? Array(6)
+        .fill()
+        .map((_, index) => (
+
+          <div
+            key={index}
             className="
-              grid
-              grid-cols-1
-              md:grid-cols-2
-              xl:grid-cols-3
-              gap-6
+              card
+              bg-base-100
+              shadow-lg
             "
           >
 
-            {products.map((product) => (
+            <div className="skeleton h-52 w-full"></div>
 
-              <ProductCard
-                key={product._id}
-                product={product}
-              />
+            <div className="card-body">
 
-            ))}
+              <div className="skeleton h-6 w-3/4"></div>
+
+              <div className="skeleton h-4 w-full"></div>
+
+              <div className="skeleton h-4 w-2/3"></div>
+
+              <div className="skeleton h-10 w-full mt-4"></div>
+
+            </div>
 
           </div>
+
+        ))
+    : products.map((product) => (
+
+        <ProductCard
+          key={product._id}
+          product={product}
+        />
+
+      ))
+  }
+
+</div>
 
           {/* Pagination */}
 

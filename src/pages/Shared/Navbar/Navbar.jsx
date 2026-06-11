@@ -14,8 +14,8 @@ const navLinkClass = ({ isActive }) =>
   `
       pb-1 border-b-2 transition-all duration-300 ${
         isActive
-          ? "bg-gradient-to-r from-fuchsia-500 via-purple-600 to-indigo-600 bg-clip-text text-transparent font-extrabold "
-          : "text-gray-200 font-semibold border-transparent hover:text-violet-300 hover:border-violet-300"
+          ? "text-primary font-bold border-primary "
+          : "text-base-content border-transparent hover:text-primary hover:border-primary"
       }
     `;
 
@@ -96,7 +96,7 @@ const { data: cartItems = [] } = useQuery({
   );
 
   return (
-    <div className="navbar ">
+    <div className="navbar bg-base-100 text-base-content shadow-sm ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -123,7 +123,7 @@ const { data: cartItems = [] } = useQuery({
             {links}
           </ul>
         </div>
-        <Link className="flex items-center text-lg md:text-2xl font-bold bg-gradient-to-r from-violet-300 to-indigo-400 bg-clip-text text-transparent">
+        <Link className="flex items-center text-lg md:text-2xl font-bold  text-primary  bg-clip-text text-transparent">
           {/* <img
             className="hidden md:block h-10 w-auto md:h-14 object-contain"
             src={logoimg}
@@ -158,8 +158,8 @@ const { data: cartItems = [] } = useQuery({
           absolute
           -top-1
           -right-1
-          bg-red-500
-          text-white
+          badge
+          badge-error
           text-xs
           rounded-full
           h-5
@@ -181,7 +181,7 @@ const { data: cartItems = [] } = useQuery({
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full ring-2 ring-violet-400/40 hover:ring-violet-400 transition">
+              <div className="w-10 rounded-full ring-2 ring-primary hover:ring-violet-400 transition">
                 <img
                   src={
                     user?.photoURL
@@ -197,11 +197,11 @@ const { data: cartItems = [] } = useQuery({
             {/* Dropdown */}
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-4 z-[999] p-3 shadow-[0_20px_60px_rgba(0,0,0,0.35)] bg-[#1E1B4B]/90 backdrop-blur-xl border border-white/10 rounded-2xl w-60 text-white"
+              className="menu menu-sm dropdown-content mt-4 z-[999] p-3 shadow-[0_20px_60px_rgba(0,0,0,0.35)] bg-base-100 backdrop-blur-xl border border-base-300 rounded-2xl w-60 text-base-content"
             >
               <li className="mb-2 border-b border-white/10 pb-3">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-[16px] text-violet-300">
+                  <span className="font-semibold text-[16px] text-primary">
                     {user.displayName || "User"}
                   </span>
                 </div>
@@ -259,13 +259,13 @@ const { data: cartItems = [] } = useQuery({
           <div className="flex gap-2">
             <Link
               to="/login"
-              className="btn btn-outline px-5 py-2 rounded-xl border border-white/20 bg-white/5 text-white hover:bg-white/10 transition backdrop-blur-md"
+              className="btn btn-outline px-5 py-2 rounded-xl btn-primary text-base-content hover:bg-white/10 transition backdrop-blur-md"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="btn btn-primary px-5 py-2 rounded-xl bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#4F46E5] text-white hover:scale-[1.03] transition-all duration-300 shadow-[0_10px_30px_rgba(124,58,237,0.35)]"
+              className="btn btn-primary px-5 py-2 rounded-xl  text-base-content hover:scale-[1.03] transition-all duration-300 shadow-[0_10px_30px_rgba(124,58,237,0.35)]"
             >
               Signup
             </Link>

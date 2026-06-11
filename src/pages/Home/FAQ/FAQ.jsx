@@ -42,7 +42,7 @@ const FAQ = () => {
           Frequently Asked Questions
         </h2>
 
-        <p className="mt-3 text-gray-500">
+        <p className="text-base-content/70">
           Find answers to common questions about shopping and orders.
         </p>
 

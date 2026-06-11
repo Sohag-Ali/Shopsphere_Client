@@ -51,7 +51,7 @@ const HeroBanner = () => {
                 <div className="max-w-3xl text-left">
 
                   {/* Heading */}
-                  <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                  <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight">
                     {slide.title}
                   </h1>
 
@@ -67,10 +67,11 @@ const HeroBanner = () => {
                       className="
                         px-8 py-3
                         rounded-xl
-                        bg-[#C9B59C]
-                        text-white
+                        bg-primary
+                        text-base-content
                         font-semibold
-                        hover:bg-[#B79D7F]
+                        hover:scale-105
+                        hover:shadow-xl
                         transition-all
                         duration-300
                       "
@@ -84,11 +85,11 @@ const HeroBanner = () => {
                         px-8 py-3
                         rounded-xl
                         border-2
-                        border-white
-                        text-white
+                        border-primary
+                        text-primary
                         font-semibold
-                        hover:bg-white
-                        hover:text-black
+                        hover:bg-primary/10
+                        hover:text-base-content
                         transition-all
                         duration-300
                       "

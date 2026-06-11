@@ -18,7 +18,7 @@ const StatisticCard = ({ value, title, icon }) => {
         {icon}
       </div>
 
-      <h3 className="text-4xl font-bold text-primary">
+      <h3 className="text-4xl font-bold text-secondary">
         {value}
       </h3>
 

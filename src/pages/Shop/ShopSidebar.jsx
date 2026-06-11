@@ -127,8 +127,11 @@ const ShopSidebar = ({
         }}
         className="
           btn
-          btn-outline
+          btn-primary
           w-full
+          hover:scale-[1.02]
+          transition-all
+          duration-300
         "
       >
         Reset Filters
