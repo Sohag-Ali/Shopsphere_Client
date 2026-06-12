@@ -128,140 +128,325 @@ const ProductInfo = ({ product }) => {
     }
   };
 
-  return (
-    <div className="space-y-5">
-      {/* Title */}
+ return (
+  <div
+    className="
+      space-y-4
+      sm:space-y-5
+      lg:space-y-6
+    "
+  >
+    {/* Title */}
 
-      <h1 className="text-4xl font-bold">{product.title}</h1>
+    <h1
+      className="
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+        font-bold
+        leading-tight
+      "
+    >
+      {product.title}
+    </h1>
 
-      {/* Rating */}
+    {/* Rating */}
 
-      <div className="flex items-center gap-2">
-        <span className="text-lg">⭐ {product.rating}</span>
+    <div
+      className="
+        flex
+        flex-wrap
+        items-center
+        gap-2
+        text-sm
+        sm:text-base
+      "
+    >
+      <span className="font-medium">
+        ⭐ {product.rating}
+      </span>
 
-        <span className="text-gray-500">Product Rating</span>
-      </div>
+      <span className="text-base-content/60">
+        Product Rating
+      </span>
+    </div>
 
-      {/* Brand */}
+    {/* Brand */}
 
-      <p className="text-lg">
-        <span className="font-semibold">Brand:</span> {product.brand}
-      </p>
+    <p
+      className="
+        text-sm
+        sm:text-base
+        lg:text-lg
+      "
+    >
+      <span className="font-semibold">
+        Brand:
+      </span>{" "}
+      {product.brand}
+    </p>
 
-      {/* Category */}
+    {/* Category */}
 
-      <p className="text-lg">
-        <span className="font-semibold">Category:</span> {product.category}
-      </p>
+    <p
+      className="
+        text-sm
+        sm:text-base
+        lg:text-lg
+      "
+    >
+      <span className="font-semibold">
+        Category:
+      </span>{" "}
+      {product.category}
+    </p>
 
-      {/* Location */}
+    {/* Location */}
 
-      <p className="text-lg">📍 {product.location}</p>
+    <p
+      className="
+        text-sm
+        sm:text-base
+        lg:text-lg
+      "
+    >
+      📍 {product.location}
+    </p>
 
-      {/* Price */}
+    {/* Price */}
 
-      <div className="py-4 border-y">
-        {product.discountPrice ? (
-          <div className="flex items-center gap-3">
-            <span className="text-gray-400 line-through text-xl">
-              ৳ {product.price}
-            </span>
-
-            <span className="text-3xl font-bold text-error">
-              ৳ {product.discountPrice}
-            </span>
-          </div>
-        ) : (
-          <span className="text-3xl font-bold text-[#C9B59C]">
+    <div
+      className="
+        py-4
+        border-y
+      "
+    >
+      {product.discountPrice ? (
+        <div
+          className="
+            flex
+            flex-wrap
+            items-center
+            gap-2
+            sm:gap-3
+          "
+        >
+          <span
+            className="
+              text-base
+              sm:text-xl
+              text-gray-400
+              line-through
+            "
+          >
             ৳ {product.price}
           </span>
-        )}
-      </div>
 
-      {/* Stock Status */}
-
-      <div className="mt-4">
-        {product.stock > 0 ? (
-          <p className="text-green-600 font-semibold">
-            ✅ In Stock ({product.stock} available)
-          </p>
-        ) : (
-          <p className="text-red-500 font-semibold">❌ Product Not Available</p>
-        )}
-      </div>
-
-      {/* Quantity */}
-
-      {product.stock > 0 && (
-        <div className="mt-5">
-          <h3 className="font-semibold mb-3">Quantity</h3>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
-              className="btn btn-sm"
-            >
-              -
-            </button>
-
-            <span className="text-xl font-bold">{quantity}</span>
-
-            <button
-              onClick={() =>
-                setQuantity(quantity < product.stock ? quantity + 1 : quantity)
-              }
-              className="btn btn-sm"
-            >
-              +
-            </button>
-          </div>
+          <span
+            className="
+              text-2xl
+              sm:text-3xl
+              font-bold
+              text-error
+            "
+          >
+            ৳ {product.discountPrice}
+          </span>
         </div>
-      )}
-
-      {/* Description */}
-
-      <div>
-        <h3 className="font-semibold text-lg mb-2">Short Description</h3>
-
-        <p className="text-gray-600 leading-relaxed">
-          {product.shortDescription}
-        </p>
-      </div>
-
-      {/* Buttons */}
-
-      <div className="space-y-3 mt-6">
-        <button
-          disabled={product.stock === 0}
-          onClick={handleAddToCart}
+      ) : (
+        <span
           className="
-      btn
-      w-full
-      bg-[#C9B59C]
-      hover:bg-[#B79D7F]
-      text-white
-      border-none
-    "
+            text-2xl
+            sm:text-3xl
+            font-bold
+            text-[#C9B59C]
+          "
         >
-          🛒 Add To Cart
-        </button>
+          ৳ {product.price}
+        </span>
+      )}
+    </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <button onClick={handleWishlist} className="btn btn-outline">
-            ❤️ Wishlist
+    {/* Stock */}
+
+    <div>
+      {product.stock > 0 ? (
+        <p
+          className="
+            text-green-600
+            font-semibold
+            text-sm
+            sm:text-base
+          "
+        >
+          ✅ In Stock ({product.stock} available)
+        </p>
+      ) : (
+        <p
+          className="
+            text-red-500
+            font-semibold
+            text-sm
+            sm:text-base
+          "
+        >
+          ❌ Product Not Available
+        </p>
+      )}
+    </div>
+
+    {/* Quantity */}
+
+    {product.stock > 0 && (
+      <div>
+        <h3
+          className="
+            font-semibold
+            mb-3
+            text-sm
+            sm:text-base
+          "
+        >
+          Quantity
+        </h3>
+
+        <div
+          className="
+            flex
+            items-center
+            gap-3
+          "
+        >
+          <button
+            onClick={() =>
+              setQuantity(
+                quantity > 1
+                  ? quantity - 1
+                  : 1
+              )
+            }
+            className="
+              btn
+              btn-sm
+            "
+          >
+            -
           </button>
+
+          <span
+            className="
+              text-lg
+              sm:text-xl
+              font-bold
+              min-w-[40px]
+              text-center
+            "
+          >
+            {quantity}
+          </span>
 
           <button
-            disabled={product.stock === 0}
-            onClick={handleBuyNow}
-            className="btn btn-primary"
+            onClick={() =>
+              setQuantity(
+                quantity < product.stock
+                  ? quantity + 1
+                  : quantity
+              )
+            }
+            className="
+              btn
+              btn-sm
+            "
           >
-            ⚡ Buy Now
+            +
           </button>
         </div>
       </div>
+    )}
+
+    {/* Description */}
+
+    <div>
+      <h3
+        className="
+          font-semibold
+          text-base
+          sm:text-lg
+          mb-2
+        "
+      >
+        Short Description
+      </h3>
+
+      <p
+        className="
+          text-sm
+          sm:text-base
+          text-base-content/70
+          leading-relaxed
+        "
+      >
+        {product.shortDescription}
+      </p>
     </div>
-  );
+
+    {/* Buttons */}
+
+    <div
+      className="
+        space-y-3
+        pt-2
+      "
+    >
+      <button
+        disabled={product.stock === 0}
+        onClick={handleAddToCart}
+        className="
+          btn
+          w-full
+          bg-[#C9B59C]
+          hover:bg-[#B79D7F]
+          text-white
+          border-none
+        "
+      >
+        🛒 Add To Cart
+      </button>
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          sm:grid-cols-2
+          gap-3
+        "
+      >
+        <button
+          onClick={handleWishlist}
+          className="
+            btn
+            btn-outline
+            w-full
+          "
+        >
+          ❤️ Wishlist
+        </button>
+
+        <button
+          disabled={product.stock === 0}
+          onClick={handleBuyNow}
+          className="
+            btn
+            btn-primary
+            w-full
+          "
+        >
+          ⚡ Buy Now
+        </button>
+      </div>
+    </div>
+  </div>
+);
 };
 
 export default ProductInfo;

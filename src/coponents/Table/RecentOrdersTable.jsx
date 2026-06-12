@@ -1,138 +1,305 @@
 const RecentOrdersTable = ({
   orders,
 }) => {
-
   return (
+    <>
+      {/* Desktop Table */}
 
-    <div
-      className="
-        bg-base-100
-        rounded-3xl
-        shadow-xl
-        overflow-hidden
-      "
-    >
+      <div
+        className="
+          hidden
+          lg:block
 
-      <div className="overflow-x-auto">
+          bg-base-100
+          rounded-3xl
+          shadow-xl
+          overflow-hidden
+        "
+      >
+        <div className="overflow-x-auto">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Customer</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
 
-        <table className="table">
+            <tbody>
+              {orders?.map(
+                (order) => (
+                  <tr
+                    key={order._id}
+                  >
+                    <td>
+                      <div
+                        className="
+                          flex
+                          items-center
+                          gap-3
+                        "
+                      >
+                        <img
+                          src={
+                            order.productImage
+                          }
+                          alt={
+                            order.productTitle
+                          }
+                          className="
+                            w-12
+                            h-12
+                            rounded-xl
+                            object-cover
+                          "
+                        />
 
-          <thead>
+                        <span
+                          className="
+                            font-medium
+                            line-clamp-2
+                          "
+                        >
+                          {
+                            order.productTitle
+                          }
+                        </span>
+                      </div>
+                    </td>
 
-            <tr>
+                    <td>
+                      <span className="break-all">
+                        {
+                          order.userEmail
+                        }
+                      </span>
+                    </td>
 
-              <th>Product</th>
+                    <td>
+                      ৳ {order.price}
+                    </td>
 
-              <th>Customer</th>
-              <th>Price</th>
+                    <td>
+                      <span
+                        className="
+                          badge
+                          badge-primary
+                        "
+                      >
+                        {
+                          order.quantity
+                        }
+                      </span>
+                    </td>
 
-              <th>Qty</th>
+                    <td>
+                      ৳{" "}
+                      {order.totalPrice ||
+                        order.price *
+                          order.quantity}
+                    </td>
 
-              <th>Total</th>
+                    <td>
+                      <span
+                        className={`
+                          badge
+                          ${
+                            order.status ===
+                            "Delivered"
+                              ? "badge-success"
+                              : order.status ===
+                                "Cancelled"
+                              ? "badge-error"
+                              : "badge-warning"
+                          }
+                        `}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-              <th>Status</th>
+      {/* Mobile + Tablet Cards */}
 
-            </tr>
+      <div
+        className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          gap-4
+          lg:hidden
+        "
+      >
+        {orders?.map(
+          (order) => (
+            <div
+              key={order._id}
+              className="
+                bg-base-100
+                rounded-3xl
+                shadow-xl
+                p-4
+              "
+            >
+              {/* Product */}
 
-          </thead>
+              <div
+                className="
+                  flex
+                  gap-3
+                  items-center
+                "
+              >
+                <img
+                  src={
+                    order.productImage
+                  }
+                  alt={
+                    order.productTitle
+                  }
+                  className="
+                    w-16
+                    h-16
+                    rounded-xl
+                    object-cover
+                  "
+                />
 
-          <tbody>
-
-            {orders?.map((order) => (
-
-              <tr key={order._id}>
-
-                <td>
-
-                  <div
+                <div className="min-w-0">
+                  <h3
                     className="
-                      flex
-                      items-center
-                      gap-3
+                      font-bold
+                      line-clamp-2
                     "
                   >
+                    {
+                      order.productTitle
+                    }
+                  </h3>
 
-                    <img
-                      src={order.productImage}
-                      alt={order.productTitle}
-                      className="
-                        w-12
-                        h-12
-                        rounded-xl
-                        object-cover
-                      "
-                    />
+                  <p
+                    className="
+                      text-xs
+                      text-base-content/60
+                      break-all
+                    "
+                  >
+                    {
+                      order.userEmail
+                    }
+                  </p>
+                </div>
+              </div>
 
-                    <span className="font-medium">
-                      {order.productTitle}
-                    </span>
+              {/* Details */}
 
-                  </div>
+              <div
+                className="
+                  grid
+                  grid-cols-2
+                  gap-3
+                  mt-4
+                "
+              >
+                <div>
+                  <p
+                    className="
+                      text-xs
+                      text-base-content/60
+                    "
+                  >
+                    Price
+                  </p>
 
-                </td>
+                  <p>
+                    ৳ {order.price}
+                  </p>
+                </div>
 
-                <td>
-                  {order.userEmail}
-                </td>
+                <div>
+                  <p
+                    className="
+                      text-xs
+                      text-base-content/60
+                    "
+                  >
+                    Quantity
+                  </p>
 
-                <td>
-                 ৳ {order.price}
-                </td>
-
-                <td>
-
-                  <span className="badge badge-primary">
-                    {order.quantity}
+                  <span
+                    className="
+                      badge
+                      badge-primary
+                    "
+                  >
+                    {
+                      order.quantity
+                    }
                   </span>
+                </div>
 
-                </td>
+                <div>
+                  <p
+                    className="
+                      text-xs
+                      text-base-content/60
+                    "
+                  >
+                    Total
+                  </p>
 
-                <td>
+                  <p>
+                    ৳{" "}
+                    {order.totalPrice ||
+                      order.price *
+                        order.quantity}
+                  </p>
+                </div>
 
-                  ৳ {
-                    order.totalPrice ||
-                    order.price *
-                    order.quantity
-                  }
-
-                </td>
-
-                <td>
+                <div>
+                  <p
+                    className="
+                      text-xs
+                      text-base-content/60
+                    "
+                  >
+                    Status
+                  </p>
 
                   <span
                     className={`
                       badge
-
                       ${
-                        order.status === "Delivered"
+                        order.status ===
+                        "Delivered"
                           ? "badge-success"
-                          : order.status === "Cancelled"
+                          : order.status ===
+                            "Cancelled"
                           ? "badge-error"
                           : "badge-warning"
                       }
                     `}
                   >
-
                     {order.status}
-
                   </span>
-
-                </td>
-
-              </tr>
-
-            ))}
-
-          </tbody>
-
-        </table>
-
+                </div>
+              </div>
+            </div>
+          )
+        )}
       </div>
-
-    </div>
-
+    </>
   );
-
 };
 
 export default RecentOrdersTable;

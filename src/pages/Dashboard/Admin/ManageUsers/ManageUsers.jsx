@@ -369,147 +369,209 @@ const handleBanUser = async (id) => {
 
   return (
 
-    <div>
+    <div className="
+    
+    mx-auto
+
+    px-4
+    sm:px-6
+    lg:px-8
+
+    space-y-6
+    sm:space-y-8
+    lg:space-y-10
+  ">
 
       {/* Page Header */}
 
-      <div className="mb-8">
+    <div
+  className="
+    mb-6
+    sm:mb-8
+  "
+>
+  <h1
+    className="
+      text-2xl
+      sm:text-3xl
+      lg:text-4xl
 
-        <h1
-          className="
-            text-4xl
-            font-bold
-          "
-        >
-          Manage Users
-        </h1>
+      font-bold
 
-        <p
-          className="
-            text-base-content/60
-            mt-2
-          "
-        >
-          Manage user roles,
-          account status
-          and permissions
-        </p>
+      leading-tight
+    "
+  >
+    Manage Users
+  </h1>
 
-      </div>
+  <p
+    className="
+      text-sm
+      sm:text-base
+
+      text-base-content/60
+
+      mt-2
+
+      max-w-2xl
+    "
+  >
+    Manage user roles,
+    account status
+    and permissions
+  </p>
+</div>
 
       {/* Stats */}
 
-      <div
-        className="
-          grid
-          md:grid-cols-3
-          gap-6
-          mb-8
-        "
-      >
+     <div
+  className="
+    grid
 
-        <div
-          className="
-            bg-base-100
-            rounded-2xl
-            shadow-lg
-            p-6
-          "
-        >
+    grid-cols-1
+    sm:grid-cols-2
+    lg:grid-cols-3
 
-          <h3
-            className="
-              text-base-content/60
-            "
-          >
-            Total Users
-          </h3>
+    gap-4
+    sm:gap-5
+    lg:gap-6
 
-          <p
-            className="
-              text-4xl
-              font-bold
-              mt-2
-            "
-          >
-            {users.length}
-          </p>
+    mb-6
+    sm:mb-8
+  "
+>
+  {/* Total Users */}
 
-        </div>
+  <div
+    className="
+      bg-base-100
+      rounded-2xl
+      shadow-lg
 
-        <div
-          className="
-            bg-base-100
-            rounded-2xl
-            shadow-lg
-            p-6
-          "
-        >
+      p-4
+      sm:p-5
+      lg:p-6
+    "
+  >
+    <h3
+      className="
+        text-xs
+        sm:text-sm
 
-          <h3
-            className="
-              text-base-content/60
-            "
-          >
-            Admins
-          </h3>
+        text-base-content/60
+      "
+    >
+      Total Users
+    </h3>
 
-          <p
-            className="
-              text-4xl
-              font-bold
-              text-success
-              mt-2
-            "
-          >
-            {
-              users.filter(
-                (user) =>
-                  user.role ===
-                  "admin"
-              ).length
-            }
-          </p>
+    <p
+      className="
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
 
-        </div>
+        font-bold
 
-        <div
-          className="
-            bg-base-100
-            rounded-2xl
-            shadow-lg
-            p-6
-          "
-        >
+        mt-2
+      "
+    >
+      {users.length}
+    </p>
+  </div>
 
-          <h3
-            className="
-              text-base-content/60
-            "
-          >
-            Banned Users
-          </h3>
+  {/* Admins */}
 
-          <p
-            className="
-              text-4xl
-              font-bold
-              text-error
-              mt-2
-            "
-          >
-            {
-              users.filter(
-                (user) =>
-                  user.status ===
-                  "banned"
-              ).length
-            }
-          </p>
+  <div
+    className="
+      bg-base-100
+      rounded-2xl
+      shadow-lg
 
-        </div>
+      p-4
+      sm:p-5
+      lg:p-6
+    "
+  >
+    <h3
+      className="
+        text-xs
+        sm:text-sm
 
-      </div>
+        text-base-content/60
+      "
+    >
+      Admins
+    </h3>
+
+    <p
+      className="
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+
+        font-bold
+        text-success
+
+        mt-2
+      "
+    >
+      {
+        users.filter(
+          (user) =>
+            user.role === "admin"
+        ).length
+      }
+    </p>
+  </div>
+
+  {/* Banned Users */}
+
+  <div
+    className="
+      bg-base-100
+      rounded-2xl
+      shadow-lg
+
+      p-4
+      sm:p-5
+      lg:p-6
+
+      sm:col-span-2
+      lg:col-span-1
+    "
+  >
+    <h3
+      className="
+        text-xs
+        sm:text-sm
+
+        text-base-content/60
+      "
+    >
+      Banned Users
+    </h3>
+
+    <p
+      className="
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+
+        font-bold
+        text-error
+
+        mt-2
+      "
+    >
+      {
+        users.filter(
+          (user) =>
+            user.status === "banned"
+        ).length
+      }
+    </p>
+  </div>
+</div>
 
       {/* Loading */}
 

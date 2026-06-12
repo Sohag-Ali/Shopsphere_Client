@@ -248,124 +248,223 @@ const ManageCategories = () => {
     };
 
   return (
-    <div>
+    <div className="mx-auto
 
-      <div
-        className="
-          flex
-          justify-between
-          items-center
-          mb-8
-        "
-      >
+    px-4
+    sm:px-6
+    lg:px-8
 
-        <div>
+    space-y-6
+    sm:space-y-8
+    lg:space-y-10">
 
-          <h2
+   <div
+  className="
+    flex
+    flex-col
+    sm:flex-row
+
+    sm:items-center
+    justify-between
+
+    gap-4
+
+    mb-6
+    sm:mb-8
+  "
+>
+  <div>
+    <h2
+      className="
+        text-2xl
+        sm:text-3xl
+        lg:text-4xl
+
+        font-bold
+      "
+    >
+      Manage Categories
+    </h2>
+
+    <p
+      className="
+        text-sm
+        sm:text-base
+
+        text-base-content/70
+
+        mt-1
+        sm:mt-2
+      "
+    >
+      Total: {categories.length}
+    </p>
+  </div>
+
+  <button
+    onClick={handleAdd}
+    className="
+      btn
+      btn-primary
+
+      w-full
+      sm:w-auto
+
+      btn-sm
+      sm:btn-md
+    "
+  >
+    Add Category
+  </button>
+</div>
+
+    {/* Desktop Table */}
+
+<div
+  className="
+    hidden
+    lg:block
+
+    bg-base-100
+    rounded-2xl
+    shadow-lg
+    overflow-hidden
+  "
+>
+  <div className="overflow-x-auto">
+    <table
+      className="
+        table
+        table-zebra
+      "
+    >
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Category</th>
+          <th>Products</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {categories.map(
+          (category) => (
+            <CategoryRow
+              key={category._id}
+              category={category}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          )
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/* Mobile + Tablet Cards */}
+
+<div
+  className="
+    grid
+    grid-cols-1
+    md:grid-cols-2
+    gap-4
+
+    lg:hidden
+  "
+>
+  {categories.map((category) => (
+    <div
+      key={category._id}
+      className="
+        bg-base-100
+        rounded-2xl
+        shadow-lg
+        p-4
+        border
+        border-base-300
+      "
+    >
+      {/* Category Info */}
+
+      <div className="flex gap-4">
+        <img
+          src={category.image}
+          alt={category.name}
+          className="
+            w-20
+            h-20
+            rounded-2xl
+            object-cover
+            flex-shrink-0
+          "
+        />
+
+        <div className="flex-1">
+          <h3
             className="
-              text-3xl
+              text-lg
               font-bold
             "
           >
-            Manage Categories
-          </h2>
+            {category.name}
+          </h3>
 
           <p
             className="
-              text-base-content/70
-              mt-2
+              text-sm
+              text-base-content/60
+              mt-1
             "
           >
-            Total:
-            {categories.length}
+            Products: {category.productCount || 0}
           </p>
-
         </div>
-
-        <button
-          onClick={
-            handleAdd
-          }
-          className="
-            btn
-            btn-primary
-          "
-        >
-          Add Category
-        </button>
-
       </div>
+
+      {/* Actions */}
 
       <div
         className="
-          bg-base-100
-          rounded-2xl
-          shadow-lg
-          overflow-x-auto
+          grid
+          grid-cols-2
+          gap-2
+          mt-5
         "
       >
-
-        <table
+        <button
+          onClick={() =>
+            handleEdit(category)
+          }
           className="
-            table
-            table-zebra
+            btn
+            btn-info
+            btn-sm
           "
         >
+          Edit
+        </button>
 
-          <thead>
-
-            <tr>
-
-              <th>
-                Image
-              </th>
-
-              <th>
-                Category
-              </th>
-
-              <th>
-                Products
-              </th>
-
-              <th>
-                Actions
-              </th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            {
-              categories.map(
-                (category) => (
-
-                  <CategoryRow
-                    key={
-                      category._id
-                    }
-                    category={
-                      category
-                    }
-                    handleEdit={
-                      handleEdit
-                    }
-                    handleDelete={
-                      handleDelete
-                    }
-                  />
-
-                )
-              )
-            }
-
-          </tbody>
-
-        </table>
-
+        <button
+          onClick={() =>
+            handleDelete(
+              category._id
+            )
+          }
+          className="
+            btn
+            btn-error
+            btn-sm
+          "
+        >
+          Delete
+        </button>
       </div>
+    </div>
+  ))}
+</div>
 
     </div>
   );

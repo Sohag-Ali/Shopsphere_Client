@@ -59,102 +59,242 @@ const AdminOverview = () => {
   ];
 
   return (
-    <div>
+  <div className="mx-auto
 
-      {/* Header */}
+    px-4
+    sm:px-6
+    lg:px-8
 
-      <div className="mb-10">
+    space-y-6
+    sm:space-y-8
+    lg:space-y-10">
+    {/* Header */}
 
-        <h1 className="text-4xl font-bold">
-          Welcome Back Admin 👋
-        </h1>
-
-        <p className="text-base-content/70 mt-2">
-          Manage your store efficiently
-        </p>
-
-      </div>
-
-      {/* Stats Cards */}
-
-      <div
+    <div className="mb-6 sm:mb-8">
+      <h1
         className="
-          grid
-          grid-cols-1
-          md:grid-cols-2
-          xl:grid-cols-4
-          gap-6
+          text-2xl
+          sm:text-3xl
+          lg:text-4xl
+          font-bold
         "
       >
+        Welcome Back Admin 👋
+      </h1>
 
-        <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-base-content/70">
-            Total Products
-          </h3>
+      <p
+        className="
+          text-sm
+          sm:text-base
+          text-base-content/70
+          mt-2
+        "
+      >
+        Manage your store efficiently
+      </p>
+    </div>
 
-          <p className="text-4xl font-bold mt-2">
-            {data.totalProducts}
-          </p>
-        </div>
+    {/* Stats Cards */}
 
-        <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-base-content/70">
-            Total Users
-          </h3>
+    <div
+      className="
+        grid
 
-          <p className="text-4xl font-bold mt-2">
-            {data.totalUsers}
-          </p>
-        </div>
+        grid-cols-2
+        lg:grid-cols-4
 
-        <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-base-content/70">
-            Total Orders
-          </h3>
+        gap-3
+        sm:gap-4
+        lg:gap-6
+      "
+    >
+      <div
+        className="
+          bg-base-100
+          rounded-2xl
+          shadow-lg
 
-          <p className="text-4xl font-bold mt-2">
-            {data.totalOrders}
-          </p>
-        </div>
+          p-4
+          sm:p-5
+          lg:p-6
+        "
+      >
+        <h3
+          className="
+            text-xs
+            sm:text-sm
+            text-base-content/70
+          "
+        >
+          Total Products
+        </h3>
 
-        <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-base-content/70">
-            Categories
-          </h3>
-
-          <p className="text-4xl font-bold mt-2">
-            {data.totalCategories}
-          </p>
-        </div>
-
+        <p
+          className="
+            text-2xl
+            sm:text-3xl
+            lg:text-4xl
+            font-bold
+            mt-2
+          "
+        >
+          {data.totalProducts}
+        </p>
       </div>
-
-      {/* Chart */}
 
       <div
         className="
           bg-base-100
           rounded-2xl
           shadow-lg
-          p-6
-          mt-10
+
+          p-4
+          sm:p-5
+          lg:p-6
         "
       >
+        <h3
+          className="
+            text-xs
+            sm:text-sm
+            text-base-content/70
+          "
+        >
+          Total Users
+        </h3>
 
-        <h2 className="text-2xl font-bold mb-6">
-          Store Analytics
-        </h2>
+        <p
+          className="
+            text-2xl
+            sm:text-3xl
+            lg:text-4xl
+            font-bold
+            mt-2
+          "
+        >
+          {data.totalUsers}
+        </p>
+      </div>
 
+      <div
+        className="
+          bg-base-100
+          rounded-2xl
+          shadow-lg
+
+          p-4
+          sm:p-5
+          lg:p-6
+        "
+      >
+        <h3
+          className="
+            text-xs
+            sm:text-sm
+            text-base-content/70
+          "
+        >
+          Total Orders
+        </h3>
+
+        <p
+          className="
+            text-2xl
+            sm:text-3xl
+            lg:text-4xl
+            font-bold
+            mt-2
+          "
+        >
+          {data.totalOrders}
+        </p>
+      </div>
+
+      <div
+        className="
+          bg-base-100
+          rounded-2xl
+          shadow-lg
+
+          p-4
+          sm:p-5
+          lg:p-6
+        "
+      >
+        <h3
+          className="
+            text-xs
+            sm:text-sm
+            text-base-content/70
+          "
+        >
+          Categories
+        </h3>
+
+        <p
+          className="
+            text-2xl
+            sm:text-3xl
+            lg:text-4xl
+            font-bold
+            mt-2
+          "
+        >
+          {data.totalCategories}
+        </p>
+      </div>
+    </div>
+
+    {/* Chart */}
+
+    <div
+      className="
+        bg-base-100
+        rounded-2xl
+        shadow-lg
+
+        p-4
+        sm:p-6
+
+        mt-6
+        sm:mt-8
+        lg:mt-10
+      "
+    >
+      <h2
+        className="
+          text-xl
+          sm:text-2xl
+          font-bold
+          mb-4
+          sm:mb-6
+        "
+      >
+        Store Analytics
+      </h2>
+
+      <div
+        className="
+          w-full
+
+          h-[260px]
+          sm:h-[320px]
+          lg:h-[350px]
+        "
+      >
         <ResponsiveContainer
           width="100%"
-          height={350}
+          height="100%"
         >
-
           <BarChart
             data={chartData}
           >
-
-            <XAxis dataKey="name" />
+            <XAxis
+              dataKey="name"
+              tick={{
+                fontSize: 12,
+              }}
+            />
 
             <YAxis />
 
@@ -164,43 +304,72 @@ const AdminOverview = () => {
               dataKey="value"
               radius={[8, 8, 0, 0]}
             />
-
           </BarChart>
-
         </ResponsiveContainer>
+      </div>
+    </div>
 
+    {/* Recent Orders */}
+
+    <div
+      className="
+        bg-base-100
+        rounded-2xl
+        shadow-lg
+
+        p-4
+        sm:p-6
+
+        mt-6
+        sm:mt-8
+        lg:mt-10
+      "
+    >
+      <div
+        className="
+          flex
+          flex-col
+          sm:flex-row
+
+          sm:items-center
+          justify-between
+
+          gap-3
+
+          mb-4
+          sm:mb-6
+        "
+      >
+        <h2
+          className="
+            text-xl
+            sm:text-2xl
+            font-bold
+          "
+        >
+          Recent Orders
+        </h2>
+
+        <span
+          className="
+            badge
+            badge-primary
+
+            badge-md
+            sm:badge-lg
+          "
+        >
+          {data.recentOrders?.length || 0}
+          Orders
+        </span>
       </div>
 
-      {/* Recent Orders */}
-
-      <div
-  className="
-    bg-base-100
-    rounded-2xl
-    shadow-lg
-    p-6
-    mt-10
-  "
->
-
-  <h2
-    className="
-      text-2xl
-      font-bold
-      mb-6
-    "
-  >
-    Recent Orders
-  </h2>
-
-  <RecentOrdersTable
-    orders={data.recentOrders}
-  />
-
-</div>
-
+      <RecentOrdersTable
+        orders={data.recentOrders}
+      />
     </div>
-  );
+  </div>
+);
 };
 
 export default AdminOverview;

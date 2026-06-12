@@ -6,53 +6,62 @@ const ProductRow = ({
   handleMakeDeal,
   handleRemoveDeal,
 }) => {
-
   return (
     <tr>
+      {/* Image */}
 
       <td>
-
         <img
-          src={
-            product.images[0]
-          }
+          src={product.images[0]}
           alt=""
           className="
-            w-16
-            h-16
+            w-12
+            h-12
+            lg:w-16
+            lg:h-16
+
             rounded-xl
             object-cover
           "
         />
-
       </td>
 
-      <td>
+      {/* Title */}
 
+      <td>
         <h3
           className="
             font-semibold
+
+            max-w-[200px]
+            lg:max-w-[250px]
+
+            line-clamp-2
+            break-words
           "
         >
           {product.title}
         </h3>
-
       </td>
 
+      {/* Category */}
+
       <td>
-        {product.category}
+        <span className="whitespace-nowrap">
+          {product.category}
+        </span>
       </td>
 
-      <td>
+      {/* Price */}
 
+      <td>
         {product.isDeal ? (
-
-          <div>
-
+          <div className="min-w-[90px]">
             <span
               className="
                 line-through
                 text-gray-400
+                text-sm
               "
             >
               ৳ {product.price}
@@ -71,23 +80,31 @@ const ProductRow = ({
                 product.discountPrice
               }
             </span>
-
           </div>
-
         ) : (
-          <>৳ {product.price}</>
+          <span className="font-medium">
+            ৳ {product.price}
+          </span>
         )}
-
       </td>
 
+      {/* Stock */}
+
       <td>
-        {product.stock}
+        <span
+          className="
+            badge
+            badge-primary
+          "
+        >
+          {product.stock}
+        </span>
       </td>
 
-      <td>
+      {/* Deal Status */}
 
+      <td>
         {product.isDeal ? (
-
           <span
             className="
               badge
@@ -96,9 +113,7 @@ const ProductRow = ({
           >
             Deal
           </span>
-
         ) : (
-
           <span
             className="
               badge
@@ -107,22 +122,24 @@ const ProductRow = ({
           >
             Normal
           </span>
-
         )}
-
       </td>
 
-      <td>
+      {/* Actions */}
 
+      <td>
         <div
           className="
             flex
+            flex-col
+            xl:flex-row
+
             gap-2
+
+            min-w-[160px]
           "
         >
-
           {!product.isDeal ? (
-
             <button
               onClick={() =>
                 handleMakeDeal(
@@ -132,14 +149,13 @@ const ProductRow = ({
               className="
                 btn
                 btn-success
-                btn-sm
+                btn-xs
+                lg:btn-sm
               "
             >
               Make Deal
             </button>
-
           ) : (
-
             <button
               onClick={() =>
                 handleRemoveDeal(
@@ -149,12 +165,12 @@ const ProductRow = ({
               className="
                 btn
                 btn-warning
-                btn-sm
+                btn-xs
+                lg:btn-sm
               "
             >
               Remove Deal
             </button>
-
           )}
 
           <Link
@@ -162,7 +178,8 @@ const ProductRow = ({
             className="
               btn
               btn-info
-              btn-sm
+              btn-xs
+              lg:btn-sm
             "
           >
             Edit
@@ -177,16 +194,14 @@ const ProductRow = ({
             className="
               btn
               btn-error
-              btn-sm
+              btn-xs
+              lg:btn-sm
             "
           >
             Delete
           </button>
-
         </div>
-
       </td>
-
     </tr>
   );
 };

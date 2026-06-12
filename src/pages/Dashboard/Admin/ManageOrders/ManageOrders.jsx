@@ -115,14 +115,39 @@ const ManageOrders = () => {
     };
 
   return (
+  <div
+    className="mx-auto
 
-    <div>
+    px-4
+    sm:px-6
+    lg:px-8
 
-      <div className="mb-8">
+    space-y-6
+    sm:space-y-8
+    lg:space-y-10"
+  >
+    <div
+      className="
+        mb-6
+        sm:mb-8
 
+        flex
+        flex-col
+        sm:flex-row
+
+        sm:items-center
+        justify-between
+
+        gap-4
+      "
+    >
+      <div>
         <h1
           className="
-            text-4xl
+            text-2xl
+            sm:text-3xl
+            lg:text-4xl
+
             font-bold
           "
         >
@@ -131,29 +156,53 @@ const ManageOrders = () => {
 
         <p
           className="
+            text-sm
+            sm:text-base
+
             text-base-content/60
+
             mt-2
           "
         >
-          Total Orders:
-          {" "}
-          {orders.length}
+          Total Orders:{" "}
+          <span className="font-semibold">
+            {orders.length}
+          </span>
         </p>
-
       </div>
 
-      <ManageOrdersTable
-        orders={orders}
-        loading={loading}
-        handleDelete={handleDelete}
-        handleStatusChange={
-          handleStatusChange
-        }
-      />
+      {/* Mobile + Desktop Badge */}
 
+      <div
+        className="
+          self-start
+          sm:self-auto
+        "
+      >
+        <span
+          className="
+            badge
+            badge-primary
+
+            badge-md
+            sm:badge-lg
+          "
+        >
+          {orders.length} Orders
+        </span>
+      </div>
     </div>
 
-  );
+    <ManageOrdersTable
+      orders={orders}
+      loading={loading}
+      handleDelete={handleDelete}
+      handleStatusChange={
+        handleStatusChange
+      }
+    />
+  </div>
+);
 
 };
 

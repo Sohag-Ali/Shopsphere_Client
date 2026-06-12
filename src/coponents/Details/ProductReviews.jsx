@@ -181,32 +181,46 @@ const handleUpdate = async () => {
 <div
   className="
     bg-base-100
-    rounded-3xl
+    rounded-2xl
+    sm:rounded-3xl
+
     border
     border-base-300
+
     shadow-lg
-    p-6
-    mb-8
+
+    p-4
+    sm:p-6
+    lg:p-8
+
+    mb-6
+    sm:mb-8
   "
 >
+  {/* Header */}
 
   <div
     className="
       flex
       flex-col
-      md:flex-row
-      md:items-center
-      md:justify-between
-      gap-3
-      mb-8
+      sm:flex-row
+
+      sm:items-center
+      sm:justify-between
+
+      gap-4
+
+      mb-6
+      sm:mb-8
     "
   >
-
     <div>
-
       <h3
         className="
-          text-2xl
+          text-xl
+          sm:text-2xl
+          lg:text-3xl
+
           font-bold
         "
       >
@@ -215,281 +229,466 @@ const handleUpdate = async () => {
 
       <p
         className="
-          text-sm
+          text-xs
+          sm:text-sm
+
           text-base-content/60
+
           mt-1
         "
       >
         Share your experience with this product
       </p>
-
     </div>
 
     <div
       className="
         badge
         badge-primary
-        badge-lg
+
+        badge-md
+        sm:badge-lg
+
+        self-start
+        sm:self-auto
       "
     >
       {reviews.length} Reviews
     </div>
-
   </div>
 
-  <form
-  onSubmit={handleSubmit}
-  className="space-y-5"
->
+  {/* Form */}
 
-  <div
+  <form
+    onSubmit={handleSubmit}
     className="
-      grid
-      grid-cols-1
-      lg:grid-cols-4
-      gap-8
+      space-y-5
+      sm:space-y-6
     "
   >
+    <div
+      className="
+        grid
+
+        grid-cols-1
+        lg:grid-cols-4
+
+        gap-5
+        sm:gap-6
+        lg:gap-8
+      "
+    >
+      {/* Rating */}
+
+      <div>
+        <label
+          className="
+            font-medium
+            block
+            mb-3
+          "
+        >
+          Rating
+        </label>
+
+        <div
+          className="
+            rating
+
+            rating-sm
+            sm:rating-md
+            lg:rating-lg
+
+            flex
+            flex-wrap
+            gap-1
+          "
+        >
+          {[1, 2, 3, 4, 5].map((star) => (
+            <input
+              key={star}
+              type="radio"
+              name="rating"
+              className="mask mask-star-2 bg-warning"
+              checked={rating === star}
+              onChange={() => setRating(star)}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Comment */}
+
+      <div className="lg:col-span-3">
+        <label
+          className="
+            font-semibold
+            block
+            mb-3
+          "
+        >
+          Your Review
+        </label>
+
+        <textarea
+          value={comment}
+          onChange={(e) =>
+            setComment(
+              e.target.value
+            )
+          }
+          placeholder="Share your experience with this product..."
+          className="
+            textarea
+            textarea-bordered
+
+            w-full
+
+            h-32
+            sm:h-40
+
+            text-sm
+            sm:text-base
+          "
+          required
+        />
+      </div>
+    </div>
+
+    {/* Submit Button */}
+
+    <div
+      className="
+        flex
+        justify-stretch
+        sm:justify-end
+      "
+    >
+      <button
+        type="submit"
+        className="
+          btn
+          btn-primary
+
+          w-full
+          sm:w-auto
+
+          px-6
+          sm:px-8
+
+          rounded-xl
+        "
+      >
+        Submit Review
+      </button>
+    </div>
+  </form>
+</div>
+
+      {/* Review List */}
+
+   <div
+  className="
+    space-y-4
+    sm:space-y-5
+    lg:space-y-6
+  "
+>
+  {reviews.length === 0 ? (
+
+    <div
+      className="
+        bg-base-100
+        rounded-2xl
+        sm:rounded-3xl
+
+        border
+        border-base-300
+
+        shadow-lg
+
+        py-10
+        sm:py-14
+        lg:py-20
+
+        px-4
+        sm:px-6
+
+        text-center
+      "
+    >
+      <div
+        className="
+          text-4xl
+          sm:text-5xl
+          lg:text-6xl
+
+          mb-3
+          sm:mb-4
+        "
+      >
+        ⭐
+      </div>
+
+      <h3
+        className="
+          text-xl
+          sm:text-2xl
+          lg:text-3xl
+
+          font-bold
+        "
+      >
+        No Reviews Yet
+      </h3>
+
+      <p
+        className="
+          text-sm
+          sm:text-base
+
+          text-base-content/60
+
+          mt-2
+        "
+      >
+        Be the first customer to review this product.
+      </p>
+    </div>
+
+  ) : (
+
+    <div
+      className="
+        grid
+
+        grid-cols-1
+
+        gap-4
+        sm:gap-5
+        lg:gap-6
+      "
+    >
+      {reviews.map((review) => (
+        <ReviewCard
+          key={review._id}
+          review={review}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleUpdate={handleUpdate}
+        />
+      ))}
+    </div>
+
+  )}
+</div>
+
+      {
+  editingReview && (
+
+  <dialog
+  className="
+    modal
+    modal-open
+  "
+>
+  <div
+    className="
+      modal-box
+
+      w-[95%]
+      max-w-md
+      sm:max-w-lg
+      lg:max-w-xl
+
+      rounded-2xl
+      sm:rounded-3xl
+
+      p-4
+      sm:p-6
+      lg:p-8
+    "
+  >
+    {/* Header */}
+
+    <div
+      className="
+        flex
+        items-center
+        justify-between
+
+        mb-4
+        sm:mb-6
+      "
+    >
+      <h3
+        className="
+          text-lg
+          sm:text-xl
+          lg:text-2xl
+
+          font-bold
+        "
+      >
+        Edit Review
+      </h3>
+
+      <button
+        onClick={() =>
+          setEditingReview(null)
+        }
+        className="
+          btn
+          btn-circle
+          btn-sm
+        "
+      >
+        ✕
+      </button>
+    </div>
 
     {/* Rating */}
 
-   {/* Rating */}
-
-    <div>
-
+    <div className="mb-4">
       <label
         className="
-          font-medium
           block
+          font-medium
           mb-2
+          text-sm
+          sm:text-base
         "
       >
         Rating
       </label>
 
-      <div className="rating rating-lg">
+      <select
+        value={editRating}
+        onChange={(e) =>
+          setEditRating(
+            Number(
+              e.target.value
+            )
+          )
+        }
+        className="
+          select
+          select-bordered
 
-        {[1,2,3,4,5].map((star) => (
+          w-full
 
-          <input
-            key={star}
-            type="radio"
-            name="rating"
-            className="mask mask-star-2 bg-warning"
-            checked={rating === star}
-            onChange={() =>
-              setRating(star)
-            }
-          />
+          text-sm
+          sm:text-base
+        "
+      >
+        <option value="5">
+          ⭐⭐⭐⭐⭐
+        </option>
 
-        ))}
+        <option value="4">
+          ⭐⭐⭐⭐
+        </option>
 
-      </div>
+        <option value="3">
+          ⭐⭐⭐
+        </option>
 
+        <option value="2">
+          ⭐⭐
+        </option>
+
+        <option value="1">
+          ⭐
+        </option>
+      </select>
     </div>
 
     {/* Comment */}
 
-    <div
-      className="
-        lg:col-span-3
-      "
-    >
-
+    <div>
       <label
         className="
-          font-semibold
           block
-          mb-3
+          font-medium
+          mb-2
+          text-sm
+          sm:text-base
         "
       >
-        Your Review
+        Review Comment
       </label>
 
       <textarea
-        value={comment}
+        value={editComment}
         onChange={(e) =>
-          setComment(
+          setEditComment(
             e.target.value
           )
         }
-        placeholder="
-          Share your experience with this product...
-        "
         className="
           textarea
           textarea-bordered
-          w-full
-          h-40
-        "
-        required
-      />
 
+          w-full
+
+          h-28
+          sm:h-32
+          lg:h-36
+
+          text-sm
+          sm:text-base
+        "
+        placeholder="Update your review..."
+      />
     </div>
 
-  </div>
+    {/* Footer */}
 
-  <div
-    className="
-      flex
-      justify-end
-    "
-  >
-
-    <button
-      type="submit"
+    <div
       className="
-        btn
-        btn-primary
-        px-8
-        rounded-xl
+        flex
+
+        flex-col-reverse
+        sm:flex-row
+
+        gap-3
+
+        sm:justify-end
+
+        mt-6
+        sm:mt-8
       "
     >
-      Submit Review
-    </button>
-
-  </div>
-
-</form>
-
-</div>
-
-      {/* Review List */}
-
-      <div className="space-y-4">
-
-        {reviews.length === 0 ? (
-          <p className="text-center text-gray-500">
-            No Reviews Yet
-          </p>
-        ) : (
-          reviews.map((review) => (
-            <ReviewCard
-              key={review._id}
-              review={review}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-              handleUpdate={handleUpdate}
-            />
-          ))
-        )}
-
-      </div>
-
-      {
-  editingReview && (
-
-    <dialog
-      className="
-        modal
-        modal-open
-      "
-    >
-
-      <div
+      <button
+        onClick={() =>
+          setEditingReview(null)
+        }
         className="
-          modal-box
+          btn
+          btn-outline
+
+          w-full
+          sm:w-auto
         "
       >
+        Cancel
+      </button>
 
-        <h3
-          className="
-            text-xl
-            font-bold
-            mb-4
-          "
-        >
-          Edit Review
-        </h3>
+      <button
+        onClick={handleUpdate}
+        className="
+          btn
+          btn-primary
 
-        <select
-          value={editRating}
-          onChange={(e) =>
-            setEditRating(
-              Number(
-                e.target.value
-              )
-            )
-          }
-          className="
-            select
-            select-bordered
-            w-full
-            mb-4
-          "
-        >
-
-          <option value="5">
-            ⭐⭐⭐⭐⭐
-          </option>
-
-          <option value="4">
-            ⭐⭐⭐⭐
-          </option>
-
-          <option value="3">
-            ⭐⭐⭐
-          </option>
-
-          <option value="2">
-            ⭐⭐
-          </option>
-
-          <option value="1">
-            ⭐
-          </option>
-
-        </select>
-
-        <textarea
-          value={editComment}
-          onChange={(e) =>
-            setEditComment(
-              e.target.value
-            )
-          }
-          className="
-            textarea
-            textarea-bordered
-            w-full
-            h-32
-          "
-        />
-
-        <div
-          className="
-            modal-action
-          "
-        >
-
-          <button
-            onClick={() =>
-              setEditingReview(
-                null
-              )
-            }
-            className="btn"
-          >
-            Cancel
-          </button>
-
-          <button
-            onClick={
-              handleUpdate
-            }
-            className="
-              btn
-              btn-primary
-            "
-          >
-            Update
-          </button>
-
-        </div>
-
-      </div>
-
-    </dialog>
+          w-full
+          sm:w-auto
+        "
+      >
+        Update Review
+      </button>
+    </div>
+  </div>
+</dialog>
 
   )
 }

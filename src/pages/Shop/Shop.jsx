@@ -65,11 +65,7 @@ const deal = searchParams.get("deal") || "";
       <ShopHeader />
 
       <div
-        className="
-          grid
-          lg:grid-cols-4
-          gap-8
-        "
+        className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8"
       >
 
         {/* Sidebar */}
@@ -92,31 +88,25 @@ const deal = searchParams.get("deal") || "";
           {/* Search */}
 
         <div className="mb-8">
-
   <div
     className="
-      flex
-      items-center
+      flex flex-col sm:flex-row
+      items-stretch sm:items-center
       bg-base-100
       rounded-2xl
       shadow-lg
-      border
-      border-base-300
+      border border-base-300
       overflow-hidden
-
       hover:shadow-xl
       focus-within:border-primary
-
-      transition-all
-      duration-300
+      transition-all duration-300
     "
   >
-
     <div
       className="
         px-5
-        text-2xl
-        text-primary
+        flex items-center justify-center
+        text-2xl text-primary
       "
     >
       🔍
@@ -124,47 +114,35 @@ const deal = searchParams.get("deal") || "";
 
     <input
       type="text"
-      placeholder="Search products, brands, categories..."
+      placeholder="Search products..."
       className="
         flex-1
-        h-16
+        h-14 sm:h-16
+        px-4
         bg-transparent
         border-none
         outline-none
-        focus:outline-none
-        focus:ring-0
-
-        text-base-content
-        placeholder:text-base-content/50
       "
-      onChange={(e) =>
-        setSearch(e.target.value)
-      }
+      onChange={(e) => setSearch(e.target.value)}
     />
 
     <button
       className="
+        m-2
+        sm:mr-2
         h-12
-        mr-2
-        px-8
-
+        px-6
+        sm:px-8
         rounded-xl
-
         bg-primary
         text-primary-content
-
         hover:scale-105
-        hover:shadow-lg
-
         transition-all
-        duration-300
       "
     >
       Search
     </button>
-
   </div>
-
 </div>
 
           {/* Product Count */}
@@ -188,9 +166,9 @@ const deal = searchParams.get("deal") || "";
   className="
     grid
     grid-cols-1
-    md:grid-cols-2
-    lg:grid-cols-3
-    gap-6
+    sm:grid-cols-2
+    xl:grid-cols-3
+    gap-4 sm:gap-6
   "
 >
 

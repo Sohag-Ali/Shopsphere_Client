@@ -3,60 +3,83 @@ const CategoryRow = ({
   handleEdit,
   handleDelete,
 }) => {
-
   return (
     <tr>
+      {/* Image */}
 
       <td>
-
         <img
           src={category.image}
           alt={category.name}
           className="
-            w-16
-            h-16
+            w-12
+            h-12
+            sm:w-14
+            sm:h-14
+            lg:w-16
+            lg:h-16
+
             rounded-xl
             object-cover
           "
         />
-
       </td>
 
-      <td>
+      {/* Category Name */}
 
+      <td>
         <h3
           className="
             font-semibold
+
+            text-sm
+            sm:text-base
+
+            max-w-[120px]
+            sm:max-w-[180px]
+            lg:max-w-[250px]
+
+            break-words
+            line-clamp-2
           "
         >
           {category.name}
         </h3>
-
       </td>
 
-      <td>
+      {/* Product Count */}
 
+      <td>
         <span
           className="
             badge
             badge-primary
+
+            badge-sm
+            sm:badge-md
           "
         >
           {category.productCount}
-          <span> Products</span>
+          <span className="hidden sm:inline">
+            {" "}Products
+          </span>
         </span>
-
       </td>
 
-      <td>
+      {/* Actions */}
 
+      <td>
         <div
           className="
             flex
+            flex-col
+            xl:flex-row
+
             gap-2
+
+            min-w-[120px]
           "
         >
-
           <button
             onClick={() =>
               handleEdit(category)
@@ -64,7 +87,9 @@ const CategoryRow = ({
             className="
               btn
               btn-info
-              btn-sm
+
+              btn-xs
+              sm:btn-sm
             "
           >
             Edit
@@ -79,16 +104,15 @@ const CategoryRow = ({
             className="
               btn
               btn-error
-              btn-sm
+
+              btn-xs
+              sm:btn-sm
             "
           >
             Delete
           </button>
-
         </div>
-
       </td>
-
     </tr>
   );
 };

@@ -3,49 +3,65 @@ const OrderRow = ({
   handleDelete,
   handleStatusChange,
 }) => {
-
   return (
-
     <tr>
+      {/* Product */}
 
       <td>
-
         <div
           className="
             flex
             items-center
             gap-3
+
+            min-w-[220px]
           "
         >
-
           <img
             src={order.productImage}
             alt=""
             className="
-              w-14
-              h-14
+              w-12
+              h-12
+              lg:w-14
+              lg:h-14
+
               rounded-xl
               object-cover
+
+              flex-shrink-0
             "
           />
 
-          <div>
+          <div className="min-w-0">
+            <h3
+              className="
+                font-semibold
 
-            <h3 className="font-semibold">
+                line-clamp-2
+                break-words
+              "
+            >
               {order.productTitle}
             </h3>
-
           </div>
-
         </div>
-
       </td>
 
+      {/* Customer */}
+
       <td>
-
-        <div>
-
-          <p className="font-medium">
+        <div
+          className="
+            min-w-[180px]
+          "
+        >
+          <p
+            className="
+              font-medium
+              break-words
+            "
+          >
             {order.userName}
           </p>
 
@@ -53,68 +69,91 @@ const OrderRow = ({
             className="
               text-xs
               text-base-content/60
+
+              break-all
             "
           >
             {order.userEmail}
           </p>
-
         </div>
-
       </td>
 
+      {/* Price */}
+
       <td>
-        ৳ {order.price}
+        <span className="font-medium">
+          ৳ {order.price}
+        </span>
       </td>
 
-      <td>
+      {/* Quantity */}
 
-        <span className="badge badge-primary">
+      <td>
+        <span
+          className="
+            badge
+            badge-primary
+          "
+        >
           {order.quantity}
         </span>
-
       </td>
 
+      {/* Total */}
+
       <td>
-
-        ৳ {
-          order.totalPrice ||
-          order.price *
-          order.quantity
-        }
-
+        <span className="font-semibold">
+          ৳{" "}
+          {order.totalPrice ||
+            order.price *
+              order.quantity}
+        </span>
       </td>
 
-      <td>
+      {/* Status */}
 
+      <td>
         <span
           className={`
             badge
 
             ${
-              order.status === "Delivered"
+              order.status ===
+              "Delivered"
                 ? "badge-success"
-                : order.status === "Cancelled"
+                : order.status ===
+                  "Cancelled"
                 ? "badge-error"
                 : "badge-warning"
             }
           `}
         >
-
           {order.status}
-
         </span>
-
       </td>
 
+      {/* Actions */}
+
       <td>
+        <div
+          className="
+            flex
+            flex-col
+            xl:flex-row
 
-        <div className="flex gap-2">
+            gap-2
 
+            min-w-[180px]
+          "
+        >
           <select
             className="
               select
               select-bordered
               select-sm
+
+              w-full
+              xl:w-auto
             "
             defaultValue={
               order.status
@@ -126,7 +165,6 @@ const OrderRow = ({
               )
             }
           >
-
             <option>
               Pending
             </option>
@@ -146,7 +184,6 @@ const OrderRow = ({
             <option>
               Cancelled
             </option>
-
           </select>
 
           <button
@@ -159,19 +196,17 @@ const OrderRow = ({
               btn
               btn-error
               btn-sm
+
+              w-full
+              xl:w-auto
             "
           >
             Delete
           </button>
-
         </div>
-
       </td>
-
     </tr>
-
   );
-
 };
 
 export default OrderRow;
