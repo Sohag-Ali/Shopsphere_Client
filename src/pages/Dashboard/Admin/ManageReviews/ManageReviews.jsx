@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useTitle from "../../../../hooks/useTitle";
 
 const ManageReviews = () => {
+    useTitle("Manage Reviews");
 
   const axiosSecure = useAxiosSecure();
 

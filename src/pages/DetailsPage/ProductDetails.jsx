@@ -5,8 +5,10 @@ import ProductGallery from "../../coponents/Details/ProductGallery";
 import ProductInfo from "../../coponents/Details/ProductInfo";
 import ProductTabs from "../../coponents/Details/ProductTabs";
 import RelatedProducts from "../../coponents/Details/RelatedProducts";
+import useTitle from "../../hooks/useTitle";
 
 const ProductDetails = () => {
+    useTitle("Product Details");
   const { id } = useParams();
 
   const axiosSecure =

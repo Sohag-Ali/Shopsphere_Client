@@ -3,8 +3,10 @@ import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import WishlistCard from "../../../../coponents/Card/WishlistCard";
 import Swal from "sweetalert2";
+import useTitle from "../../../../hooks/useTitle";
 
 const Wishlist = () => {
+    useTitle("Wishlist");
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

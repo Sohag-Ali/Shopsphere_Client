@@ -5,8 +5,10 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileStats from "./ProfileStats";
 import RecentOrders from "./RecentOrders";
 import ProfileForm from "./ProfileForm";
+import useTitle from "../../../../hooks/useTitle";
 
 const Profile = () => {
+    useTitle("Profile");
   const { user } = useAuth();
 
   const axiosSecure = useAxiosSecure();

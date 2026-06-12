@@ -3,9 +3,11 @@ import Swal from "sweetalert2";
 
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import UserTable from "./UserTable";
+import useTitle from "../../../../hooks/useTitle";
 
 
 const ManageUsers = () => {
+    useTitle("Manage Users");
 
   const axiosSecure =
     useAxiosSecure();

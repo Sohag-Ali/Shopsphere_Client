@@ -5,8 +5,10 @@ import CategorySearch from "./CategorySearch";
 import CategorySidebar from "./CategorySidebar";
 import CategoryGrid from "./CategoryGrid";
 import Pagination from "./Pagination";
+import useTitle from "../../hooks/useTitle";
 
 const Categories = () => {
+    useTitle("Categories");
   const axiosSecure = useAxiosSecure();
 
   const [selectedCategory, setSelectedCategory] = useState("All");

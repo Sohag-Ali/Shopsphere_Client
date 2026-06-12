@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useTitle from "../../hooks/useTitle";
 
 const Cart = () => {
+    useTitle("Cart");
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

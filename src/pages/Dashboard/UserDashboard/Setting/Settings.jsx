@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useTitle from "../../../../hooks/useTitle";
 
 const Settings = () => {
+    useTitle("Settings");
 
   const { user, logoutUser, changePassword , forgotPassword } = useAuth();
 

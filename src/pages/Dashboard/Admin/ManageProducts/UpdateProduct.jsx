@@ -4,8 +4,10 @@ import { useParams, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useTitle from "../../../../hooks/useTitle";
 
 const UpdateProduct = () => {
+  useTitle("Update Product");
 
   const { id } = useParams();
 

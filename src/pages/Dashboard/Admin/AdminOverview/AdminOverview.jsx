@@ -11,8 +11,10 @@ import {
 } from "recharts";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import RecentOrdersTable from "../../../../coponents/Table/RecentOrdersTable";
+import useTitle from "../../../../hooks/useTitle";
 
 const AdminOverview = () => {
+    useTitle("Admin Overview");
 
   const axiosSecure = useAxiosSecure();
 

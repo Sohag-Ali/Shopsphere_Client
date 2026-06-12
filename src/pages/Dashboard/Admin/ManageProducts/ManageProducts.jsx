@@ -3,9 +3,11 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import ProductRow from "../../../../coponents/Table/ProductRow";
 import { Link } from "react-router";
+import useTitle from "../../../../hooks/useTitle";
 
 
 const ManageProducts = () => {
+    useTitle("Manage Products");
 
   const axiosSecure = useAxiosSecure();
 

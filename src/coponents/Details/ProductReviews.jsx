@@ -3,10 +3,14 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import ReviewCard from "../Card/ReviewCard";
 import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router";
 
 const ProductReviews = ({ productId, productTitle, productImage }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+const location = useLocation();
 
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
@@ -178,7 +182,28 @@ const handleUpdate = async () => {
     <div>
 
       {/* Review Form */}
-<div
+{/* Review Form */}
+
+{user ? (
+
+  <div
+    className="
+      bg-base-100
+      rounded-2xl
+      sm:rounded-3xl
+      border
+      border-base-300
+      shadow-lg
+      p-4
+      sm:p-6
+      lg:p-8
+      mb-6
+      sm:mb-8
+    "
+  >
+
+    {/* Tomar existing review form ekhane thakbe */}
+    <div
   className="
     bg-base-100
     rounded-2xl
@@ -384,6 +409,50 @@ const handleUpdate = async () => {
     </div>
   </form>
 </div>
+  </div>
+
+) : (
+
+  <div
+    className="
+      bg-base-100
+      rounded-2xl
+      shadow-lg
+      p-8
+      text-center
+      mb-8
+    "
+  >
+
+    <h3 className="text-2xl font-bold">
+      Login Required
+    </h3>
+
+    <p className="mt-3 text-base-content/60">
+      Please login first to write a review.
+    </p>
+
+    <button
+      onClick={() =>
+        navigate("/login", {
+          state: {
+            from:
+              location.pathname,
+          },
+        })
+      }
+      className="
+        btn
+        btn-primary
+        mt-5
+      "
+    >
+      Login To Review
+    </button>
+
+  </div>
+
+)}
 
       {/* Review List */}
 

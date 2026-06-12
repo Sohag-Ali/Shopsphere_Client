@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import CategoryRow from "../../../../coponents/Table/CategoryRow";
+import useTitle from "../../../../hooks/useTitle";
 
 
 
 const ManageCategories = () => {
+    useTitle("Manage Categories");
 
   const axiosSecure =
     useAxiosSecure();

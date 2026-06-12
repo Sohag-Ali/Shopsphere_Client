@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useTitle from "../../../../hooks/useTitle";
 
 const MyReviews = () => {
+  useTitle("My Reviews");
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

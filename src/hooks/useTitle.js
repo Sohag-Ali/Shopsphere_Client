@@ -3,7 +3,7 @@ import {  useEffect } from "react";
 
 const useTitle = (title) => {
     useEffect(() => {
-        document.title = `${title} | Life Spark`;
+        document.title = `${title} | ShopSphere`;
     }, [title]);
 };
 

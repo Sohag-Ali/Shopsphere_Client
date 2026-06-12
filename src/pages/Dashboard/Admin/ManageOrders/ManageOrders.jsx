@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import ManageOrdersTable from "./ManageOrderTable";
+import useTitle from "../../../../hooks/useTitle";
 
 
 
 const ManageOrders = () => {
+    useTitle("Manage Orders");
 
   const axiosSecure =
     useAxiosSecure();

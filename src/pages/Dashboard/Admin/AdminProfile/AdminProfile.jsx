@@ -6,8 +6,10 @@ import { FaEdit } from "react-icons/fa";
 import { HiX } from "react-icons/hi";
 import { HiLink, HiUser } from "react-icons/hi2";
 import Swal from "sweetalert2";
+import useTitle from "../../../../hooks/useTitle";
 
 const AdminProfile = () => {
+    useTitle("Admin Profile");
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

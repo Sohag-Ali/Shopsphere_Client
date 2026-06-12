@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+import useTitle from "../../hooks/useTitle";
 
 const Contact = () => {
+    useTitle("Contact Us");
   const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [subject, setSubject] = useState("");

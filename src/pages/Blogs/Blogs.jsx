@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import BlogModal from "./BlogModal";
 import BlogCard from "../../coponents/Card/BlogCard";
+import useTitle from "../../hooks/useTitle";
 
 
 const Blogs = () => {
+  useTitle("Blogs");
+
 
   const axiosSecure =
     useAxiosSecure();
@@ -41,6 +44,7 @@ const Blogs = () => {
   if (loading) {
 
     return (
+      
 
       <div
         className="

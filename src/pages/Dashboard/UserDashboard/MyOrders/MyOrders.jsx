@@ -3,8 +3,10 @@ import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import OrdersTable from "../../../../coponents/Table/OrdersTable";
 import OrderCard from "../../../../coponents/Card/OrderCard";
+import useTitle from "../../../../hooks/useTitle";
 
 const MyOrders = () => {
+    useTitle("My Orders");
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

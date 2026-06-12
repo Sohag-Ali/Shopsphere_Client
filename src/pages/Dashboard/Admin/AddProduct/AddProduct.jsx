@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useTitle from "../../../../hooks/useTitle";
 
 const AddProduct = () => {
+    useTitle("Add Product");
 
   const axiosSecure = useAxiosSecure();
 
