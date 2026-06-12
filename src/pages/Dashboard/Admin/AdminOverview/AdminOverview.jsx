@@ -88,7 +88,7 @@ const AdminOverview = () => {
       >
 
         <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-gray-500">
+          <h3 className="text-sm text-base-content/70">
             Total Products
           </h3>
 
@@ -98,7 +98,7 @@ const AdminOverview = () => {
         </div>
 
         <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-gray-500">
+          <h3 className="text-sm text-base-content/70">
             Total Users
           </h3>
 
@@ -108,7 +108,7 @@ const AdminOverview = () => {
         </div>
 
         <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-gray-500">
+          <h3 className="text-sm text-base-content/70">
             Total Orders
           </h3>
 
@@ -118,7 +118,7 @@ const AdminOverview = () => {
         </div>
 
         <div className="bg-base-100 rounded-2xl shadow-lg p-6">
-          <h3 className="text-sm text-gray-500">
+          <h3 className="text-sm text-base-content/70">
             Categories
           </h3>
 

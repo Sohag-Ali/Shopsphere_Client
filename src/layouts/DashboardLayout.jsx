@@ -278,6 +278,16 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">👤 Admin Profile</span>
                   </NavLink>
                 </li>
+
+                <li>
+                  <NavLink
+                    to="/dashboard/settings"
+                    className={navLinkClass}
+                    data-tip="Favorites"
+                  >
+                    <span className="is-drawer-close:hidden">⚙️ Settings</span>
+                  </NavLink>
+                </li>
               </>
             )}
           </ul>

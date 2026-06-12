@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Settings = () => {
 
-  const { user } = useAuth();
+  const { user, logoutUser  } = useAuth();
 
   const [theme, setTheme] =
     useState(
@@ -34,6 +35,44 @@ const Settings = () => {
     );
 
   };
+
+  const handleLogout = () => {
+
+  logoutUser()
+    .then(() => {
+
+      localStorage.removeItem(
+        "access-token"
+      );
+
+      Swal.fire({
+
+        icon: "success",
+
+        title: "Logged Out Successfully",
+
+        showConfirmButton: false,
+
+        timer: 1500,
+
+      });
+
+    })
+    .catch((error) => {
+
+      console.log(error);
+
+      Swal.fire({
+
+        icon: "error",
+
+        title: "Logout Failed",
+
+      });
+
+    });
+
+};
 
   return (
 
@@ -256,9 +295,11 @@ const Settings = () => {
           </h3>
 
           <button
+          onClick={handleLogout}
             className="
               btn
               btn-error
+              rounded-2xl
             "
           >
             Logout
