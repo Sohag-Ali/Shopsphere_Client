@@ -3,17 +3,47 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router";
 
 const ProductInfo = ({ product }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [quantity, setQuantity] = useState(1);
   const queryClient = useQueryClient();
 
+  const requireLogin = () => {
+
+  Swal.fire({
+    icon: "warning",
+    title: "Login Required",
+    text: "Please login to continue.",
+    confirmButtonText: "Login",
+    confirmButtonColor: "#8B5CF6",
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      navigate("/login", {
+        state: {
+          from: location.pathname,
+        },
+      });
+
+    }
+
+  });
+
+  return false;
+};
+
  const handleWishlist = () => {
 
-  if (!user) return;
+  if (!user) {
+  return requireLogin();
+}
 
   const wishlistData = {
     userEmail: user.email,
@@ -58,6 +88,9 @@ const ProductInfo = ({ product }) => {
 };
 
   const handleAddToCart = async () => {
+     if (!user) {
+    return requireLogin();
+  }
     try {
       const cartData = {
         userEmail: user.email,
@@ -101,6 +134,9 @@ const ProductInfo = ({ product }) => {
   };
 
   const handleBuyNow = async () => {
+    if (!user) {
+    return requireLogin();
+  }
     try {
       const paymentData = {
         email: user.email,
@@ -404,9 +440,9 @@ const ProductInfo = ({ product }) => {
         className="
           btn
           w-full
-          bg-[#C9B59C]
-          hover:bg-[#B79D7F]
-          text-white
+          bg-primary
+          hover:bg-accent
+          text-base-content
           border-none
         "
       >
@@ -426,6 +462,9 @@ const ProductInfo = ({ product }) => {
           className="
             btn
             btn-outline
+            border-primary
+            text-base-content
+            hover:bg-primary
             w-full
           "
         >
@@ -438,6 +477,9 @@ const ProductInfo = ({ product }) => {
           className="
             btn
             btn-primary
+            bg-primary
+            text-base-content
+            hover:bg-accent
             w-full
           "
         >

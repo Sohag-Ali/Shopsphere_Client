@@ -16,6 +16,7 @@ const Login = () => {
   } = useForm();
   const { loginUser } = useAuth();
   const location = useLocation();
+  const from = location.state?.from || "/";
   const navigate = useNavigate();
   // const axiosSecure = useAxiosSecure();
   const axiosInstance = useAxiox();
@@ -70,7 +71,8 @@ const Login = () => {
             htmlContainer: "text-gray-300",
           },
         });
-        navigate(location?.state || "/"); // Redirect to the page they were trying to access or the home page
+        navigate(from, {replace: true,});// Redirect to the page they were trying to access or the home page
+        
       })
       .catch((error) => {
         console.error(error);

@@ -20,6 +20,7 @@ const Register = () => {
   const { registerUser, updateUserProfile } = useAuth();
 
   const location = useLocation();
+  const from = location.state?.from || "/";
   const navigate = useNavigate();
   // const axiosSecure = useAxiosSecure();
   const axiosInstance = useAxiox();
@@ -61,7 +62,7 @@ const Register = () => {
                 console.error("Error saving user info to database:", error);
               });
 
-            navigate(location?.state || "/");
+            navigate(from, {replace: true,});
             window.location.reload(); // Redirect to the page they were trying to access or the home page
           })
           .catch((error) => {
