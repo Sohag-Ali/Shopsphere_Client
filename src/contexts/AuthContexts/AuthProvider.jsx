@@ -1,10 +1,14 @@
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  reauthenticateWithCredential,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updatePassword,
   updateProfile,
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
@@ -36,6 +40,40 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const changePassword = async (
+  currentPassword,
+  newPassword
+) => {
+
+  const credential =
+    EmailAuthProvider.credential(
+
+      auth.currentUser.email,
+
+      currentPassword
+    );
+
+  await reauthenticateWithCredential(
+    auth.currentUser,
+    credential
+  );
+
+  return updatePassword(
+    auth.currentUser,
+    newPassword
+  );
+};
+
+const forgotPassword = (
+  email
+) => {
+
+  return sendPasswordResetEmail(
+    auth,
+    email
+  );
+};
+
   const updateUserProfile = (name, photoUrl) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
@@ -66,6 +104,8 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     logoutUser,
     updateUserProfile,
+    changePassword,
+    forgotPassword,
   };
   return <AuthContext value={authInfo}>{children}</AuthContext>;
 };
