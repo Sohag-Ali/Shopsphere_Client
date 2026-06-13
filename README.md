@@ -129,7 +129,7 @@ FB_SERVICE_KEY=
 
 Email: [admin@example.com](mailto:admin@example.com)
 
-Password: admin123
+Password: Admin123
 
 ---
 
@@ -139,7 +139,7 @@ Password: admin123
 
 Email: [user@example.com](mailto:user@example.com)
 
-Password: user123
+Password: User123
 
 ---
 
