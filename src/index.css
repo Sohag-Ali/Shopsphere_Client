@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "daisyui/daisyui.css";
+/* @plugin "daisyui"; */
 
 @source "./src";
 
@@ -69,4 +70,20 @@
   background: #8B5CF6 !important;
 
   height: 4px !important;
+}
+
+
+[data-theme="shopsphere"] {
+  --color-primary: #C9B59C !important;
+  --color-primary-content: #ffffff !important;
+  --color-secondary: #D8D0C8 !important;
+  --color-secondary-content: #2C2C2C !important;
+  --color-accent: #E4DFDA !important;
+  --color-accent-content: #2C2C2C !important;
+  --color-neutral: #2C2C2C !important;
+  --color-neutral-content: #ffffff !important;
+  --color-base-100: #FFFFFF !important;
+  --color-base-200: #F4F4F4 !important;
+  --color-base-300: #EAE7E3 !important;
+  --color-base-content: #2C2C2C !important;
 }
