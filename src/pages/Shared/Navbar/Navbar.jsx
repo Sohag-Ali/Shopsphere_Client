@@ -6,7 +6,7 @@ import { CgLogOut } from "react-icons/cg";
 import { FaShoppingCart } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import logoimg from "../../../assets/home/slogo (2).png";
+import logoimg from "../../../assets/home/slogo.png";
 
 
 

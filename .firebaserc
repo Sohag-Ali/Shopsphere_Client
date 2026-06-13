@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "life-spark-1b54e"
-  }
+    "default": "shopsphere-project"
+  },
+  "targets": {},
+  "etags": {}
 }
