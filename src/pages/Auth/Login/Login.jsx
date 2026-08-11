@@ -1,78 +1,67 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import Swal from "sweetalert2";
-import loginImg from "../../../assets/loginImage.jpeg";
-// import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import loginBanner from "../../../assets/loginBanner.png";
+import logoImg from "../../../assets/home/slogo.png";
 import useAxiox from "../../../hooks/useAxiox";
+import { Mail, Lock, Eye, EyeOff, ShoppingBag, Sparkles, ShieldCheck, Tag, Star, UserCheck, User } from "lucide-react";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
   const { loginUser } = useAuth();
   const location = useLocation();
   const from = location.state?.from || "/";
   const navigate = useNavigate();
-  // const axiosSecure = useAxiosSecure();
   const axiosInstance = useAxiox();
 
   // Handle Login
   const handleLogin = (data) => {
-    console.log(data);
-      console.log("FORM DATA:", data);
+    console.log("FORM DATA:", data);
     loginUser(data.email, data.password)
-      .then(async(result) => {
+      .then(async (result) => {
+        const user = result.user;
 
-  const user = result.user;
+        // firebase token
+        const token = await user.getIdToken();
+        localStorage.setItem("access-token", token);
 
-   // firebase token
-  const token =
-  await user.getIdToken();
+        console.log(user);
 
-  localStorage.setItem(
+        // check banned user
+        const res = await axiosInstance.get(`/users/email/${user.email}`);
 
-     'access-token',
-
-     token
-  );
-
-  console.log(user);
-
-  // check banned user
-  const res =
-  await axiosInstance.get(
-
-    `/users/email/${user.email}`
-  );
-
-  // banned check
-  if(res.data?.isBanned){
-
-    return navigate('/banned');
-  }
+        // banned check
+        if (res.data?.isBanned) {
+          return navigate("/banned");
+        }
 
         Swal.fire({
-          title: "Login successful!",
+          title: "Welcome Back! ✨",
+          text: "Login successful!",
           icon: "success",
-          background: "rgba(255,255,255,0.08)",
-          backdrop: `rgba(0,0,0,0.4)`,
+          background: "#1F2937",
+          color: "#ffffff",
+          backdrop: `rgba(0,0,0,0.5) blur(8px)`,
           showConfirmButton: false,
           timer: 1500,
           timerProgressBar: true,
           customClass: {
             popup:
-              "rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl",
-            title: "text-white",
-            htmlContainer: "text-gray-300",
+              "rounded-3xl border border-[#C9B59C]/20 backdrop-blur-xl shadow-2xl",
+            title: "!text-white font-bold",
+            htmlContainer: "!text-gray-300",
           },
         });
-        navigate(from, {replace: true,});// Redirect to the page they were trying to access or the home page
-        
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
@@ -80,165 +69,250 @@ const Login = () => {
           title: "Login Failed!",
           text: "Please check your email and password.",
           icon: "error",
-
-          background: "rgba(15, 23, 42, 0.75)",
+          background: "#1F2937",
           color: "#ffffff",
-
-          backdrop: `
-    rgba(0,0,0,0.5)
-    blur(10px)
-  `,
-
+          backdrop: `rgba(0,0,0,0.5) blur(8px)`,
           showConfirmButton: true,
           confirmButtonText: "Try Again",
-          confirmButtonColor: "#7C3AED",
-
+          confirmButtonColor: "#C9B59C",
           customClass: {
             popup:
-              "rounded-3xl border border-white/10 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.45)]",
+              "rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl",
             title: "!text-white",
             htmlContainer: "!text-gray-300",
-            confirmButton: "rounded-xl px-6 py-3 font-semibold",
+            confirmButton: "rounded-xl px-6 py-3 font-semibold !text-neutral",
           },
         });
       });
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0F172A] via-[#312E81] to-[#7C3AED] flex items-center justify-center px-4 py-10">
-      {/* Main Container */}
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-3xl shadow-2xl bg-white/10 backdrop-blur-lg border border-white/20">
-        {/* LEFT SIDE - LOGIN FORM */}
-        <div className="bg-white/10 backdrop-blur-xl border-r border-white/10 p-8 md:p-14 flex flex-col justify-center">
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold text-white/70">
-              Sign In To Your Journey ✨
-            </h2>
+  // Quick Demo Login Helper
+  const handleDemoLogin = (role) => {
+    if (role === "admin") {
+      const demoEmail = "admin@example.com";
+      const demoPassword = "Admin123";
+      setValue("email", demoEmail, { shouldValidate: true });
+      setValue("password", demoPassword, { shouldValidate: true });
+      handleLogin({ email: demoEmail, password: demoPassword });
+    } else if (role === "user") {
+      const demoEmail = "user@example.com";
+      const demoPassword = "User123";
+      setValue("email", demoEmail, { shouldValidate: true });
+      setValue("password", demoPassword, { shouldValidate: true });
+      handleLogin({ email: demoEmail, password: demoPassword });
+    }
+  };
 
-            {/* <p className="text-gray-200 mt-3">
-              Continue your journey of wisdom, growth and life lessons.
-            </p> */}
+  return (
+    <div className="min-h-screen bg-[#121214] text-white flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      {/* Dynamic Animated Ambient Background Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#C9B59C]/15 blur-[130px] pointer-events-none animate-glow-pulse"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[550px] h-[550px] rounded-full bg-[#C9B59C]/10 blur-[150px] pointer-events-none animate-glow-pulse"></div>
+
+      {/* Main Glass Card Container with Entrance Animation */}
+      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-3xl bg-[#1A1A1E]/85 backdrop-blur-2xl border border-[#C9B59C]/30 shadow-[0_25px_70px_rgba(0,0,0,0.75)] relative z-10 animate-fade-up">
+        
+        {/* LEFT SIDE - LOGIN FORM */}
+        <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center">
+          
+          {/* Brand Logo & Heading */}
+          <div className="mb-6">
+            <Link to="/" className="inline-flex items-center gap-3 mb-4 group">
+              <div className="p-1.5 rounded-2xl bg-[#C9B59C]/10 border border-[#C9B59C]/30 transition-transform duration-300 group-hover:scale-105">
+                <img
+                  src={logoImg}
+                  alt="ShopSphere Logo"
+                  className="h-9 w-auto object-contain"
+                />
+              </div>
+              <span className="text-2xl font-bold tracking-tight text-[#C9B59C]">
+                ShopSphere
+              </span>
+            </Link>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+              Welcome Back
+            </h1>
+            <p className="text-gray-400 mt-2 text-sm md:text-base">
+              Sign in to access your luxury wishlist, orders, and exclusive member perks.
+            </p>
           </div>
 
-          <form className="space-y-5" onSubmit={handleSubmit(handleLogin)}>
+          <form className="space-y-4" onSubmit={handleSubmit(handleLogin)}>
             {/* Email */}
             <div>
-              <label className="block mb-2 font-medium text-gray-200">
-                Email
+              <label className="block mb-2 text-xs font-semibold uppercase tracking-wider text-gray-300">
+                Email Address
               </label>
-
-              <input
-                type="email"
-                {...register("email", { required: true })}
-                placeholder="Enter your email"
-                className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 text-white placeholder:text-gray-300 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/30 transition backdrop-blur-md"
-              />
-
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#C9B59C] transition-colors duration-300">
+                  <Mail size={18} />
+                </div>
+                <input
+                  type="email"
+                  {...register("email", { required: true })}
+                  placeholder="name@example.com"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-gray-500 outline-none focus:border-[#C9B59C] focus:ring-2 focus:ring-[#C9B59C]/25 transition-all duration-300 backdrop-blur-md text-sm"
+                />
+              </div>
               {errors.email?.type === "required" && (
-                <p className="text-red-500 text-sm mt-1">Email is required</p>
+                <p className="text-red-400 text-xs mt-1.5 font-medium">Email is required</p>
               )}
             </div>
 
             {/* Password */}
             <div>
-              <label className="block mb-2 font-medium text-gray-200">
-                Password
-              </label>
-
-              <input
-                type="password"
-                {...register("password", {
-                  required: true,
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                })}
-                placeholder="Enter your password"
-                className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 text-white placeholder:text-gray-300 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/30 transition backdrop-blur-md"
-              />
-
-              {errors.password?.type === "required" && (
-                <p className="text-red-500 text-sm mt-1">
-                  Password is required
-                </p>
-              )}
-
-              {errors.password?.type === "minLength" && (
-                <p className="text-red-500 text-sm mt-1">
-                  Password must be at least 6 characters
-                </p>
-              )}
-
-              <div className="text-right mt-2">
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-xs font-semibold uppercase tracking-wider text-gray-300">
+                  Password
+                </label>
                 <a
                   href="#"
-                  className="text-sm text-violet-300 hover:text-violet-200 hover:underline"
+                  className="text-xs text-[#C9B59C] hover:text-[#d6c4ad] font-medium transition hover:underline"
                 >
                   Forgot password?
                 </a>
               </div>
+
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#C9B59C] transition-colors duration-300">
+                  <Lock size={18} />
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  {...register("password", {
+                    required: true,
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  placeholder="Enter your password"
+                  className="w-full pl-11 pr-12 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-gray-500 outline-none focus:border-[#C9B59C] focus:ring-2 focus:ring-[#C9B59C]/25 transition-all duration-300 backdrop-blur-md text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-white transition"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+
+              {errors.password?.type === "required" && (
+                <p className="text-red-400 text-xs mt-1.5 font-medium">
+                  Password is required
+                </p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-400 text-xs mt-1.5 font-medium">
+                  Password must be at least 6 characters
+                </p>
+              )}
             </div>
 
-            {/* Login Button */}
-            <button className="w-full py-3 rounded-xl bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#4F46E5] hover:from-[#8B5CF6] hover:via-[#7C3AED] hover:to-[#4338CA] text-white font-semibold hover:scale-[1.02] transition duration-300 shadow-lg">
-              Login
+            {/* Login Button with Subtle Hover Glow */}
+            <button
+              type="submit"
+              className="w-full py-3.5 rounded-2xl bg-[#C9B59C] hover:bg-[#b8a287] text-[#121214] font-bold text-base shadow-[0_10px_30px_rgba(201,181,156,0.3)] hover:shadow-[0_15px_35px_rgba(201,181,156,0.45)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer mt-2"
+            >
+              <ShoppingBag size={18} />
+              <span>Sign In</span>
             </button>
           </form>
 
+          {/* Quick Demo Login Buttons */}
+          <div className="mt-5 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+            <div className="flex items-center justify-between mb-2.5">
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-300 flex items-center gap-1.5">
+                <UserCheck size={15} className="text-[#C9B59C]" />
+                Quick Demo Accounts
+              </span>
+              <span className="text-[11px] text-gray-400">1-Click Auto Login</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onClick={() => handleDemoLogin("admin")}
+                className="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-[#C9B59C]/20 border border-white/10 hover:border-[#C9B59C]/40 text-xs font-medium text-gray-200 hover:text-white flex items-center justify-center gap-2 transition-all duration-200 group cursor-pointer"
+              >
+                <ShieldCheck size={15} className="text-[#C9B59C] group-hover:scale-110 transition-transform" />
+                <span>Admin Demo</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDemoLogin("user")}
+                className="py-2.5 px-3 rounded-xl bg-[#C9B59C]/10 hover:bg-[#C9B59C]/20 border border-[#C9B59C]/30 hover:border-[#C9B59C]/50 text-xs font-medium text-gray-200 hover:text-white flex items-center justify-center gap-2 transition-all duration-200 group cursor-pointer"
+              >
+                <User size={15} className="text-[#C9B59C] group-hover:scale-110 transition-transform" />
+                <span>User Demo</span>
+              </button>
+            </div>
+          </div>
+
           {/* Social Login */}
-          <div className="mt-6">
+          <div className="mt-4">
             <SocialLogin />
           </div>
 
-          {/* Register */}
-          <p className="text-center mt-6 text-gray-200">
+          {/* Register Redirect */}
+          <p className="text-center mt-5 text-gray-400 text-sm">
             Don’t have an account?{" "}
             <Link
               state={location.state}
               to="/register"
-              className="text-violet-300 hover:text-violet-200 font-semibold hover:underline"
+              className="text-[#C9B59C] hover:text-[#d6c4ad] font-bold transition hover:underline ml-1"
             >
-              Register
+              Create an Account
             </Link>
           </p>
         </div>
 
-        {/* RIGHT SIDE - IMAGE SECTION */}
-        <div className="hidden lg:flex relative items-center justify-center overflow-hidden">
-          {/* Background Image */}
+        {/* RIGHT SIDE - E-COMMERCE HIGH END VISUAL HERO */}
+        <div className="hidden lg:col-span-5 lg:flex relative items-center justify-center overflow-hidden border-l border-white/10 min-h-[580px]">
+          {/* Background Generated Luxury Product Banner Image */}
           <img
-            src={loginImg}
-            alt="Login Visual"
-            className="absolute inset-0 w-full h-full object-cover"
+            src={loginBanner}
+            alt="ShopSphere Luxury E-Commerce Visual"
+            className="absolute inset-0 w-full h-full object-cover scale-105 filter brightness-[0.75] transition-transform duration-700 hover:scale-110"
           />
 
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/50"></div>
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#121214] via-[#121214]/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-[#C9B59C]/10 mix-blend-overlay"></div>
 
-          {/* Content */}
-          <div className="relative z-10 text-white px-10 text-center">
-            <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-6">
-              Your Journey <br /> Your Lessons
-            </h1>
+          {/* Content & Floating Floating Badges */}
+          <div className="relative z-10 text-white p-8 text-center flex flex-col items-center">
+            {/* Animated Floating Sparkle Badge */}
+            <div className="w-14 h-14 rounded-2xl bg-[#C9B59C]/25 border border-[#C9B59C]/50 backdrop-blur-md flex items-center justify-center mb-6 text-[#C9B59C] shadow-[0_10px_25px_rgba(201,181,156,0.3)] animate-float">
+              <Sparkles size={28} />
+            </div>
 
-            <p className="text-lg text-gray-200 leading-relaxed">
-              Preserve your memories, reflections and life experiences in one
-              meaningful digital space.
+            <h2 className="text-3xl font-extrabold leading-tight text-white mb-3 tracking-tight">
+              Elevate Your <br /> Shopping Experience
+            </h2>
+
+            <p className="text-sm text-gray-300 leading-relaxed max-w-xs mb-8">
+              Explore thousands of curated luxury products, trending fashion, and exclusive member discounts.
             </p>
 
-            {/* Small Badge */}
-            <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
-              <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-full border border-white/20">
-                📖 12K+ Lessons
+            {/* E-Commerce Floating Badges */}
+            <div className="space-y-3 w-full max-w-xs">
+              <div className="flex items-center gap-3 bg-black/40 backdrop-blur-xl px-4 py-3 rounded-2xl border border-white/15 text-xs text-gray-200 shadow-lg hover:border-[#C9B59C]/40 transition-all duration-300">
+                <ShieldCheck size={18} className="text-[#C9B59C] flex-shrink-0" />
+                <span className="font-medium">100% Authentic Guarantee</span>
               </div>
-
-              <div className="bg-white/10 backdrop-blur-md px-5 py-3 rounded-full border border-white/20">
-                ⭐ Premium Wisdom
+              <div className="flex items-center gap-3 bg-black/40 backdrop-blur-xl px-4 py-3 rounded-2xl border border-white/15 text-xs text-gray-200 shadow-lg hover:border-[#C9B59C]/40 transition-all duration-300">
+                <Star size={18} className="text-[#C9B59C] flex-shrink-0" />
+                <span className="font-medium">Exclusive Member Perks & Deals</span>
+              </div>
+              <div className="flex items-center gap-3 bg-black/40 backdrop-blur-xl px-4 py-3 rounded-2xl border border-white/15 text-xs text-gray-200 shadow-lg hover:border-[#C9B59C]/40 transition-all duration-300">
+                <Tag size={18} className="text-[#C9B59C] flex-shrink-0" />
+                <span className="font-medium">Seasonal Sales & Fast Shipping</span>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
