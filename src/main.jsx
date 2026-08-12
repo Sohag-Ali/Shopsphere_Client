@@ -5,6 +5,7 @@ import './index.css'
 import { RouterProvider } from "react-router/dom";
 import { router } from './routes/router.jsx';
 import AuthProvider from './contexts/AuthContexts/AuthProvider.jsx';
+import { ThemeProvider } from './contexts/ThemeContext/ThemeContext.jsx';
 
 import {
   QueryClient,
@@ -18,9 +19,11 @@ const queryClient = new QueryClient()
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

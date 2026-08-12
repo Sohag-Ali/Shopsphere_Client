@@ -2,21 +2,17 @@ import { useEffect, useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useTitle from "../../../../hooks/useTitle";
+import useTheme from "../../../../hooks/useTheme";
 
 const Settings = () => {
     useTitle("Settings");
 
   const { user, logoutUser, changePassword , forgotPassword } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const isGoogleUser =
     user?.providerData?.[0]?.providerId ===
     "google.com";
-
-  const [theme, setTheme] =
-    useState(
-      localStorage.getItem("theme") ||
-      "shopsphere"
-    );
 
     const [showPasswordModal, setShowPasswordModal] =
   useState(false);
@@ -27,30 +23,6 @@ const [passwordData, setPasswordData] =
     newPassword: "",
     confirmPassword: "",
   });
-
-  useEffect(() => {
-
-    document.documentElement.setAttribute(
-      "data-theme",
-      theme
-    );
-
-    localStorage.setItem(
-      "theme",
-      theme
-    );
-
-  }, [theme]);
-
-  const handleThemeToggle = () => {
-
-    setTheme(
-      theme === "shopsphere"
-        ? "shopsphere-dark"
-        : "shopsphere"
-    );
-
-  };
 
   const handleLogout = () => {
 
@@ -279,7 +251,7 @@ async () => {
           theme === "shopsphere-dark"
         }
         onChange={
-          handleThemeToggle
+          toggleTheme
         }
       />
     </div>

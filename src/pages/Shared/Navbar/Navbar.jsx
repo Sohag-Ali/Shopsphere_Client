@@ -7,6 +7,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import logoimg from "../../../assets/home/slogo.png";
+import ThemeToggle from "../../../coponents/ThemeToggle/ThemeToggle";
 
 
 
@@ -144,7 +145,10 @@ const { data: cartItems = [] } = useQuery({
           {links}
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end flex items-center gap-1 md:gap-2">
+        {/* Theme Toggle */}
+        <ThemeToggle className="mr-1 md:mr-2" />
+
         {/* IF USER LOGGED IN */}
 
         {user && (
