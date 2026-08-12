@@ -131,13 +131,13 @@ const { data: cartItems = [] } = useQuery({
             {links}
           </ul>
         </div>
-        <Link className="flex items-center text-lg md:text-2xl font-bold  text-primary  bg-clip-text text-transparent">
+        <Link to="/" className="flex items-center gap-2 text-lg md:text-2xl font-bold text-primary transition-all duration-300">
           <img
-            className="hidden md:block h-10 w-auto md:h-14 object-contain"
+            className="h-9 md:h-12 w-auto object-contain rounded-full transition-transform duration-300 hover:scale-105"
             src={logoimg}
-            alt="Logo"
+            alt="ShopSphere Logo"
           />
-          <span>ShopSphere</span>
+          <span className="font-extrabold tracking-tight">ShopSphere</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
