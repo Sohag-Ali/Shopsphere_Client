@@ -8,6 +8,7 @@ import loginBanner from "../../../assets/loginBanner.png";
 import logoImg from "../../../assets/home/slogo.png";
 import useAxiox from "../../../hooks/useAxiox";
 import { Mail, Lock, Eye, EyeOff, ShoppingBag, Sparkles, ShieldCheck, Tag, Star, UserCheck, User } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -106,11 +107,24 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-[#121214] text-white flex items-center justify-center px-4 py-12 relative overflow-hidden">
       {/* Dynamic Animated Ambient Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#C9B59C]/15 blur-[130px] pointer-events-none animate-glow-pulse"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[550px] h-[550px] rounded-full bg-[#C9B59C]/10 blur-[150px] pointer-events-none animate-glow-pulse"></div>
+      <motion.div
+        animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.25, 0.15] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#C9B59C]/15 blur-[130px] pointer-events-none"
+      ></motion.div>
+      <motion.div
+        animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        className="absolute bottom-[-10%] right-[-10%] w-[550px] h-[550px] rounded-full bg-[#C9B59C]/10 blur-[150px] pointer-events-none"
+      ></motion.div>
 
       {/* Main Glass Card Container with Entrance Animation */}
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-3xl bg-[#1A1A1E]/85 backdrop-blur-2xl border border-[#C9B59C]/30 shadow-[0_25px_70px_rgba(0,0,0,0.75)] relative z-10 animate-fade-up">
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-3xl bg-[#1A1A1E]/85 backdrop-blur-2xl border border-[#C9B59C]/30 shadow-[0_25px_70px_rgba(0,0,0,0.75)] relative z-10"
+      >
         
         {/* LEFT SIDE - LOGIN FORM */}
         <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center">
@@ -313,7 +327,7 @@ const Login = () => {
           </div>
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node api.js && vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -18,7 +18,9 @@
     "axios": "^1.16.0",
     "daisyui": "^5.5.19",
     "firebase": "^12.12.1",
+    "framer-motion": "^13.1.0",
     "lucide-react": "^1.14.0",
+    "motion": "^13.1.0",
     "nprogress": "^0.2.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

@@ -3,6 +3,9 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import ProductCard from "../../../coponents/Card/ProductCard ";
 import ProductSkeleton from "../../../coponents/Skeleton/ProductSkeleton";
 import { Link } from "react-router";
+import ScrollReveal from "../../../coponents/Motion/ScrollReveal";
+import { StaggerContainer, StaggerItem } from "../../../coponents/Motion/StaggerContainer";
+import { motion } from "framer-motion";
 
 const SpecialDeals = () => {
   const axiosSecure = useAxiosSecure();
@@ -15,7 +18,6 @@ const SpecialDeals = () => {
       .get("/special-deals")
       .then((res) => {
         setDeals(res.data);
-        console.log("Special Deals:", res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -27,22 +29,13 @@ const SpecialDeals = () => {
 
   if (loading) {
     return (
-      <section className="max-w-7xl mx-auto py-10 px-4">
+      <section className="max-w-7xl mx-auto py-12 px-4">
         <div className="text-center mb-10">
           <div className="skeleton h-10 w-72 mx-auto mb-4"></div>
-
           <div className="skeleton h-4 w-56 mx-auto"></div>
         </div>
 
-        <div
-          className="
-          grid
-          grid-cols-1
-          md:grid-cols-2
-          lg:grid-cols-4
-          gap-6
-        "
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(4)].map((_, index) => (
             <ProductSkeleton key={index} />
           ))}
@@ -52,43 +45,30 @@ const SpecialDeals = () => {
   }
 
   return (
-    <section className="max-w-7xl mx-auto py-10 px-4">
-      <div className="text-center mb-10">
-        <h2 className="text-4xl font-bold">Special Deals</h2>
+    <section className="max-w-7xl mx-auto py-12 px-4">
+      <ScrollReveal className="text-center mb-10">
+        <h2 className="text-3xl md:text-4xl font-bold text-base-content">🔥 Special Deals</h2>
+        <p className="mt-2 text-base-content/70">Grab today's best limited-time discounts before they expire</p>
+      </ScrollReveal>
 
-        <p className="mt-2 text-base-content/70">Grab today's best discounts</p>
-      </div>
-
-      <div
-        className="
-        grid
-        grid-cols-1
-        md:grid-cols-2
-        lg:grid-cols-4
-        gap-6
-      "
-      >
+      <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {deals.slice(0, 8).map((product) => (
-          <ProductCard
-            key={product._id}
-            product={product}
-            showDiscount={true}
-          />
+          <StaggerItem key={product._id}>
+            <ProductCard product={product} showDiscount={true} />
+          </StaggerItem>
         ))}
-      </div>
-      <div className="text-center mt-10">
-        <Link
-          to="/shop?deal=true"
-          className="
-      btn
-      btn-primary
-      rounded-full
-      px-8
-    "
-        >
-          View All Deals
-        </Link>
-      </div>
+      </StaggerContainer>
+
+      <ScrollReveal delay={0.2} className="text-center mt-10">
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
+          <Link
+            to="/shop?deal=true"
+            className="btn btn-primary rounded-full px-8 shadow-lg hover:shadow-primary/30 text-base-content font-semibold"
+          >
+            View All Deals
+          </Link>
+        </motion.div>
+      </ScrollReveal>
     </section>
   );
 };
